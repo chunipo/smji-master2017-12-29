@@ -1,0 +1,182 @@
+//
+//  lol.pch
+//  
+//
+//  Created by TGT on 2017/10/13.
+//
+//
+
+#ifndef lol_pch
+#define lol_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#ifdef __OBJC__  //只引用于OC文件上
+
+//5，5s          320x568
+//6，6s,7,7s     375x667
+//6Plus，7Plus       414x736
+//iphone X       375 812。 有安全区域。 Top 44，Bottom 34。  实际高度。734
+
+#define  XScreenWidth    [UIScreen mainScreen].bounds.size.width
+#define  XScreenHeight   [UIScreen mainScreen].bounds.size.height
+//刘海
+#define X_bang (CGSizeEqualToSize(CGSizeMake(375, 812), [[UIScreen mainScreen]bounds].size)?20.0:0.0)
+
+#import "UIImage+Extension.h"
+#import "UIView+Extension.h"
+#import "Masonry.h"
+#import "MBProgressHUD.h"
+#import "MBProgressHUD+Extension.h"
+#import "UIImageView+WebCache.h"
+
+#import "MJExtension.h"
+
+#import "AFNetworking.h"
+
+#import "NetWork.h"
+
+/***  多语言  ***/
+
+#define SetLange(name)  [[NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource: ((NSArray *)[[NSUserDefaults standardUserDefaults] valueForKey:@"AppleLanguages"]).firstObject ofType:@"lproj"]] localizedStringForKey:name value:nil table:@"Localizable"];
+
+//paypal支付
+//商用的client id
+
+//正式
+#define PPEnvironmentProduction @"ATvwjonPL4F_iPY8GEc7l5HR4x4erG17yrZeSznyYk5u9gZMd5WfpSXbmGaTUMFu5cdPLUiW1FigzVOo"
+
+//#define PPEnvironmentProduction @"AVoZGEMFTX_ID1n50O03rtvI-RYdoViPqC79MhuVG0O6YpmI1-7boobQwmXmuBWlSATNQQlE_OSCy8uU"
+
+
+
+//沙盒
+#define PPEnvironmentSandbox @"Ab3mG0x7lN7P8TplJ-0hvoLHYwtY6OZO9j_n4IAkGIHEgO2rpYHMD-O0WW5OWAbxOGptZ1XNvtutAmFx"
+
+//#define PPEnvironmentSandbox @"AYD5FhYrZeCQ3DSkpujI-UpFnR6_uF-tcZWSr2ee65kayodOeikhddRLbu3dPUK7cg5wW6wiPADA_SWk"
+
+#import "PayPalMobile.h"
+
+/*******蓝牙连接接收数据符号******/
+#define END_FLAG @"XVOaVb77FMYHyeTx"
+#define GET_DEVICE_INFO @"CMD_GET_DEVICE_INFO";
+#define GET_PACKAGE_INFO @"CMD_GET_PACKAGE_INFO";
+//支付界面参数
+
+#import "UIImageView+Extension.h"
+#import "UIButton+Extension.h"
+#import "UILabel+Extension.h"
+#import "QLCustomButton.h"
+#define WS(weakself) __weak __typeof(&*self)weakself = self
+
+
+/********** API **********/
+
+
+#define kUSERID @"1"
+
+#define kTOKEN @"394799fbc87b6a8364afa2b09558475a"
+
+
+#define kBaseURL @"http://10.0.0.13:8080/modular/"
+
+//#define kBaseURL @"https://lcf.talkmoney.cn/"
+
+
+#define MY_APP_KEY "da8eadc83396677641a95096"
+
+
+//----------------------颜色类---------------------------
+// rgb颜色转换（16进制->10进制）
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+//带有RGBA的颜色设置
+#define COLOR(R, G, B, A) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]
+
+// 获取RGB颜色
+#define RGBA(r,g,b,a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
+#define RGB(r,g,b) RGBA(r,g,b,1.0f)
+
+//背景色
+#define BACKGROUND_COLOR [UIColor colorWithRed:242.0/255.0 green:236.0/255.0 blue:231.0/255.0 alpha:1.0]
+
+//清除背景色
+#define CLEARCOLOR [UIColor clearColor]
+
+#pragma mark - color functions
+#define RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1]
+#define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]
+// 随机色
+#define RandomCOLOR RGBCOLOR(arc4random_uniform(256),arc4random_uniform(256),arc4random_uniform(256))
+
+
+
+/********** 字体、字号、字色相关 **********/
+#define Title_Font @"Thonburi-Bold"  //标题
+#define UserName_Font @"Arial-BoldMT"   //名字
+#define Common_Font @"common"   //常规
+
+#define Button_Size_Font 20  //按钮
+#define Title_Size_Font 14  //标题 &&名字
+#define Text_Size_Font 12  //文本
+#define Note_Size_Font 9  //注释
+
+#define Text_Color_One UIColorFromRGB(0x303030)  //主要字体颜色
+#define Text_Color_Two UIColorFromRGB(0x635E5E)  //(文本，描述）
+#define Text_Color_Three UIColorFromRGB(0x9A9A9A)  //（输入框文字/辅助性文字）
+#define Text_Color_Four UIColorFromRGB(0xF78830)  //有响应的文本或需要突出信息内容的地方 橘色
+
+
+/********** 颜色 **********/
+/** 主红色 */
+#define Main_Color UIColorFromRGB(0xD91A17)
+/** 浅蓝色 */
+#define LightBlue_Main_Color UIColorFromRGB(0x18C2EF)
+/** 草绿色 在线状态 */
+#define GrassGreen_Color UIColorFromRGB(0xB6DB19)
+/** 教师端主色调 */
+#define TeacherMain_Color UIColorFromRGB(0x79C108)
+/** 黑色 */
+#define Black_Color UIColorFromRGB(0x3B3E40)
+/** 黑色(按钮) */
+#define Black_Button_Color UIColorFromRGB(0x575966)
+/** 红色 */
+#define Red_Color UIColorFromRGB(0xFF0000)
+/** 白色 */
+#define White_Color UIColorFromRGB(0xffffff)
+/** 页面背景 浅白色 */
+#define LightWhite_Color UIColorFromRGB(0xF1F1F1)
+/** 浅蓝 */
+#define LightBlue_Color UIColorFromRGB(0xD0E6EB)
+/** 深蓝 */
+#define Blue_Color UIColorFromRGB(0xACCDD9)
+/** 字体灰色 */
+#define FontGray_Color UIColorFromRGB(0xABABAB)
+/** 浅灰色 */
+#define LightGray_Color UIColorFromRGB(0xE8E8E8)
+/** 线条灰色 */
+#define LineGray_Color UIColorFromRGB(0xEFEFEF)
+/** 按钮深灰 */
+#define DarkGray_Color UIColorFromRGB(0x97948C)
+/** 灰色边框色 */
+#define BorderGray_Color  [[UIColor grayColor]CGColor]
+
+
+//----------------------图片----------------------------
+
+//读取本地图片
+#define LOADIMAGE(file,ext) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:file ofType:ext]]
+
+//定义UIImage对象
+#define IMAGE(A) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:A ofType:nil]]
+
+//定义UIImage对象
+#define ImageNamed(_pointer) [UIImage imageNamed:[UIUtil imageName:_pointer]]
+
+//定义UIImage对象
+#define UIImageName(name) [UIImage imageNamed:name]
+//建议使用前两种宏定义,性能高于后者
+
+
+#endif
+#endif /* lol_pch */

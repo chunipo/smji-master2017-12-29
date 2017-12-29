@@ -1,0 +1,62 @@
+/* 
+  Localizable.strings
+  51tgtwifi
+
+  Created by TGT on 2017/10/24.
+  Copyright © 2017年 weiyuxiang. All rights reserved.
+*/
+//商城标题
+"title" = "流量商城";
+
+
+//tabbar按钮
+"shouye" = "首页";
+"shangcheng" = "商城";
+"shezhi" = "设置";
+
+
+
+
+
+//设置界面
+
+
+// 头标题
+"setTitle" = "设置";
+//列表名
+"jibenshezhi" = "基本设置";
+"devicedName" = "暂无数据";
+"guanbishebeiredian" = "关闭设备热点";
+"xiugaishebeiredian" = "修改设备热点密码";
+"shezhivpn" = "设置APN";
+"lianjieWifi" = "连接Wifi";
+"shezhifanyiyuyan" = "设置翻译语言";
+"shezhitishiyuyan" = "设置提示语言";
+"duoyuyan" = "多语言";
+
+"gaojishezhi" = "高级设置";
+"shezhiredianfangwenmingdan" = "设置热点访问黑名单";
+"shebeizijian" = "设备自检";
+"ruanjianbanbenjiance" = "软件版本检测";
+"lishiliuliangdingdan" = "历史流量订单";
+
+
+
+/* 首页 */
+"shebeissid" = "设备SSID:";
+"Wifimima" = "Wifi密码:";
+"fanyiyuzhong" = "翻译语种:";
+"shengyudianliang" = "剩余电量:";
+"shebeilianjieshu" = "设备连接数:";
+"xinhaoqiangdu" = "信号强度:";
+"shebeibanben"  = "设备版本:";
+
+"fanyidingdan" = "翻译订单";
+"zongliuliang" = "总流量:";
+"shengyuliuliag" = "剩余流量:";
+"shiyongguojia" = "使用国家:";
+"kaishishjian" = "开始时间:";
+"jieshushijian" = "结束时间:";
+
+
+
