@@ -65,11 +65,11 @@
     NSString *str1 = SetLange(@"shouye");
     NSString *str2 = SetLange(@"shangcheng");
     NSString *str3 = SetLange(@"shezhi");
-    NSArray *arr1 = @[@"首页",@"商场",@"设置"];
-    NSArray *arr2 = @[@"HomeVc",@"ShoppingVc",@"SetViewController"];
+    NSArray *arr1 = @[@"首页",@"设置"];
+    NSArray *arr2 = @[@"HomeVc",@"SetViewController"];
     
-    NSArray *arr3 = @[@"ic_home_u.png",@"ic_mall_u.png",@"ic_setting_u.png"];
-    NSArray *arr4 = @[@"ic_home_s.png",@"ic_mall_s.png",@"ic_setting_s.png"];
+    NSArray *arr3 = @[@"ic_home_u.png",@"ic_setting_u.png"];
+    NSArray *arr4 = @[@"ic_home_s.png",@"ic_setting_s.png"];
     //添加视图控制器到tabbar
     [self addVc:arr2 title:arr1 image:arr3 selectedImage:arr4];
     
@@ -110,7 +110,7 @@
 
 #pragma mark - 设置语言后回到设置页面
 -(void)SetLanguage{
-    self.selectedIndex = 2;
+    self.selectedIndex = 1;
 }
 
 - (void)didReceiveMemoryWarning {

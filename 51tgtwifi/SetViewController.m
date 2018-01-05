@@ -15,6 +15,8 @@
 #import "AboutMeViewController.h"
 #import "DeviceConnectWifiViewC.h"
 
+#define Name_Device [UIScreen mainScreen].bounds.size.width<375?14:17
+
 @interface SetViewController ()<UITextViewDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
 {
@@ -240,9 +242,10 @@
     UILabel *TitleText = [UILabel new];
     [_TitleView addSubview:TitleText];
     
-    TitleText.text = SetLange(@"setTitle");
+    //TitleText.text = SetLange(@"setTitle");
+    TitleText.text = @"设 置";
     TitleText.textColor = [UIColor whiteColor];
-    
+    TitleText.font = [UIFont fontWithName:Title_Font size:20];
     [TitleText mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.center.equalTo(_TitleView);
@@ -283,7 +286,7 @@
     
     
     
-     _arr = @[@[@"修改设备热点密码",@"设置APN",@"连接WIFI"],@[@"设置热点访问黑名单",@"软件版本检测"],@[@"关于我们"]];
+     _arr = @[@[@"修改设备热点密码",@"连接WIFI"],@[@"设置热点访问黑名单",@"软件版本检测"],@[@"关于我们"]];
      _arrImg = @[@[@"ic_setting_modify_password.png",@"ic_setting_apn.png",@"ic_connect_wifi.png"],@[@"ic_setting_blacklist.png",@"ic_setting_blacklist.png"],@[@"ic_setting_tip_language.png"]];
     _tableView.tableHeaderView =[self headView] ;
 
@@ -373,7 +376,7 @@
        
     }
     //设备连接wifi
-    else if (indexPath.section==0&&indexPath.row==2){
+    else if (indexPath.section==0&&indexPath.row==1){
         if (_manager.isOpenBluetooth) {
             DeviceConnectWifiViewC *vc = [[DeviceConnectWifiViewC alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
@@ -415,19 +418,19 @@
         AboutMeViewController *aboutVc = [[AboutMeViewController alloc]init];
         [self.navigationController pushViewController:aboutVc animated:YES];
     }
-    //设置APN
-    else if (indexPath.section==0&&indexPath.row==1){
-        if (_manager.isOpenBluetooth) {
-            [self setApn];
-        }else{
-            MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = @"请打开蓝牙开关";
-            hud.removeFromSuperViewOnHide = YES;
-            [hud hideAnimated:YES afterDelay:1];
-        }
-        
-    }
+    //设置APN（摒弃）
+//    else if (indexPath.section==0&&indexPath.row==1){
+//        if (_manager.isOpenBluetooth) {
+//            [self setApn];
+//        }else{
+//            MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//            hud.mode = MBProgressHUDModeText;
+//            hud.label.text = @"请打开蓝牙开关";
+//            hud.removeFromSuperViewOnHide = YES;
+//            [hud hideAnimated:YES afterDelay:1];
+//        }
+//
+//    }
 }
 
 
@@ -441,11 +444,12 @@
     [view addSubview:logo];
     UILabel *ssid = [[UILabel alloc]initWithFrame:CGRectMake(logo.maxX+20, 20, 300, 45)];
     
-    TGTInfoSDK *tgtInfo = [[TGTInfoSDK alloc]init];
+   
     ssid.text = _manager.SSID;
 //    if (!ssid.text) {
 //        ssid.text=SetLange(@"devicedName");
 //    }
+    ssid.font = [UIFont systemFontOfSize:Name_Device];
     ssid.textColor = [UIColor blackColor];
     [view addSubview:ssid];
     
@@ -457,7 +461,7 @@
 /*****************************************************************/
 -(void)changePwdUI{
     //弹窗背景
-    _viewBack1 = [[UIView alloc]initWithFrame:CGRectMake(0, XScreenHeight-49, XScreenWidth, 49)];
+    _viewBack1 = [[UIView alloc]initWithFrame:CGRectMake(0, XScreenHeight-49-X_bottom, XScreenWidth, 49+X_bottom)];
     _viewBack1.backgroundColor = [UIColor blackColor];
     _viewBack1.alpha = 0.3;
     [[UIApplication sharedApplication].keyWindow addSubview:_viewBack1];
@@ -716,7 +720,7 @@ _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 28
 #pragma mark 设置热点访问黑名单
 -(void)SetBadUrl{
     //弹窗背景
-    _viewBack1 = [[UIView alloc]initWithFrame:CGRectMake(0, XScreenHeight-49, XScreenWidth, 49)];
+    _viewBack1 = [[UIView alloc]initWithFrame:CGRectMake(0, XScreenHeight-49-X_bottom, XScreenWidth, 49+X_bottom)];
     _viewBack1.backgroundColor = [UIColor blackColor];
     _viewBack1.alpha = 0.3;
     [[UIApplication sharedApplication].keyWindow addSubview:_viewBack1];
@@ -845,7 +849,7 @@ _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 28
 #pragma mark 设置apn
 -(void)setApn{
     //弹窗背景
-    _viewBack1 = [[UIView alloc]initWithFrame:CGRectMake(0, XScreenHeight-49, XScreenWidth, 49)];
+    _viewBack1 = [[UIView alloc]initWithFrame:CGRectMake(0, XScreenHeight-49-X_bottom, XScreenWidth, 49+X_bottom)];
     _viewBack1.backgroundColor = [UIColor blackColor];
     _viewBack1.alpha = 0.3;
     [[UIApplication sharedApplication].keyWindow addSubview:_viewBack1];

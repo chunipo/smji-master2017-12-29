@@ -179,7 +179,7 @@
     btn1.tag = 201;
     [btn1 addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
     _wifiPwd.rightView = btn1;
-    [_wifiPwd becomeFirstResponder];
+   // [_wifiPwd becomeFirstResponder];
     
     //加入热点
     UIButton *joinBtn = [UIButton new];
@@ -201,7 +201,7 @@
     UILabel *tip = [[UILabel alloc]initWithFrame:CGRectMake(20, view2.maxY+20+joinBtn.height+30, 250, 300)];
     tip.backgroundColor = [UIColor clearColor];
     tip.textColor = [UIColor grayColor];
-    tip.text = @"连接提示:\n1、确保手机已开启热点\n2、确保热点密码正确\n3、建议以字母或数字命名热点";
+    tip.text = @"连接提示:\n1、确保手机已开启热点\n2、确保热点密码正确\n3、建议以字母或数字命名热点\n(注意:如果没有开启手机热点，设备将会连接上一个错误的热点!)";
     [self.view addSubview:tip];
     tip.numberOfLines = 0;
     if (_manager.isConnectWifi == YES) {

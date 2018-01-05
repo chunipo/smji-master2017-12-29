@@ -22,6 +22,7 @@
 #define  XScreenHeight   [UIScreen mainScreen].bounds.size.height
 //刘海
 #define X_bang (CGSizeEqualToSize(CGSizeMake(375, 812), [[UIScreen mainScreen]bounds].size)?20.0:0.0)
+#define X_bottom (CGSizeEqualToSize(CGSizeMake(375, 812), [[UIScreen mainScreen]bounds].size)?34.0:0.0)
 
 #import "UIImage+Extension.h"
 #import "UIView+Extension.h"

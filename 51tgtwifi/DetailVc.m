@@ -61,10 +61,10 @@
 
     
     
-    UIWebView *webV = [[UIWebView alloc]initWithFrame:CGRectMake(0, 20+60+X_bang, XScreenWidth, XScreenHeight-60-20)];
+    UIWebView *webV = [[UIWebView alloc]initWithFrame:CGRectMake(0, 20+60+X_bang, XScreenWidth, XScreenHeight-60-20-X_bang-49)];
     NSURLRequest *request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:url(_DetailUrl)]];
     
-    webV.backgroundColor = [UIColor clearColor];
+    webV.backgroundColor = [UIColor whiteColor];
     
     [webV loadRequest:request];
     
@@ -73,7 +73,8 @@
     webV.delegate = self;
     
 //    禁止拖拽
-    webV.scrollView.bounces = NO;
+    webV.scrollView.bounces = YES;
+    webV.scrollView.alwaysBounceHorizontal = NO;
    
     
     
@@ -141,9 +142,9 @@
     if (btn.tag==101) {
         [self.navigationController popViewControllerAnimated:YES];
     }
-    else if (btn.tag==102){
-            PayViewController *vc = [[PayViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
+    else if (btn.tag==102){//点击购买
+//            PayViewController *vc = [[PayViewController alloc]init];
+//            [self.navigationController pushViewController:vc animated:YES];
     
     }
 }

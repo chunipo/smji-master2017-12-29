@@ -7,20 +7,23 @@
 //
 
 #import "ScanView.h"
-
-
-
+#import "YXManager.h"
 
 #define XCenter self.center.x
 #define SWidth (300)
 
-@interface ScanView() <AVCaptureMetadataOutputObjectsDelegate> {
+
+
+@interface ScanView() <AVCaptureMetadataOutputObjectsDelegate,AVCaptureVideoDataOutputSampleBufferDelegate> {
     
     UIView      *_qrBgView;
     UIImageView *_qrLine;
     NSTimer     *timer;
     int         num;
     BOOL        upOrdown;
+    
+    UIButton    *btn;
+    UILabel     *_Openlabel;
 }
 @property (strong,nonatomic) AVCaptureDevice *device;
 @property (strong,nonatomic) AVCaptureDeviceInput *input;
@@ -39,14 +42,14 @@
         
         [self _initView];
         [self creatScanSession];
+        [self OpenLightBtn];
     }
     return self;
 }
 - (void)_initView {
     
-    _qrBgView = [[UIView alloc] initWithFrame:CGRectMake((XScreenWidth-SWidth)/2,(XScreenHeight-SWidth)/2-100,SWidth,SWidth)];
+    _qrBgView = [[UIView alloc] initWithFrame:CGRectMake((XScreenWidth-SWidth)/2,(XScreenHeight-SWidth)/2,SWidth,SWidth)];
     [self addSubview:_qrBgView];
-    
     for (int i = 0; i < 4; i++) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i % 2 * (SWidth - 16), i / 2 * (SWidth - 16), 16, 16)];
         imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"ScanQR%d",i+1]];
@@ -61,12 +64,20 @@
     
     UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _qrBgView.maxY + 20, XScreenWidth, 30)];
     tipLabel.font = [UIFont systemFontOfSize:16];
-    tipLabel.text = @"请将二维码放置扫描框中";
+    tipLabel.text = @"将二维码/条形码放入框内,即可自动扫描";
     tipLabel.textColor = [UIColor whiteColor];
     tipLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:tipLabel];
+    
+    
 }
+
+
+
 - (void)creatScanSession {
+    AVCaptureVideoDataOutput *lightOutput = [[AVCaptureVideoDataOutput alloc] init];
+    [lightOutput setSampleBufferDelegate:self queue:dispatch_get_main_queue()];
+    
     // Device
     _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     // Input
@@ -83,7 +94,9 @@
     }
     if ([_session canAddOutput:self.output]) {
         [_session addOutput:self.output];
+        [_session addOutput:lightOutput];
     }
+    
     // 条码类型
     _output.metadataObjectTypes =@[AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode128Code, AVMetadataObjectTypeQRCode];
     // Preview
@@ -95,12 +108,47 @@
     [self setOverView];
     // Start
     [self startScanQrCode];
+    
+//    NSError *error;
+//    if (_device.hasTorch) {  // 判断设备是否有闪光灯
+//        BOOL b = [_device lockForConfiguration:&error];
+//        if (!b) {
+//            if (error) {
+//                NSLog(@"lock torch configuration error:%@", error.localizedDescription);
+//            }
+//            return;
+//        }
+//        _device.torchMode = (_device.torchMode == AVCaptureTorchModeOff ? AVCaptureTorchModeOn : AVCaptureTorchModeOff);
+//        [_device unlockForConfiguration];
+//    }
+
+}
+
+#pragma mark 创建手电筒
+-(void)OpenLightBtn{
+    btn = [[UIButton alloc]initWithFrame:CGRectMake(XScreenWidth/2-25/2,_qrBgView.maxY-70, 25, 25)];
+    [btn setImage:[UIImage imageNamed:@"light"] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"click"] forState:UIControlStateSelected];
+    [self addSubview:btn];
+    btn.alpha = 0;
+    [btn addTarget:self action:@selector(clickLightBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _Openlabel = [[UILabel alloc]initWithFrame:CGRectMake(XScreenWidth/2-50/2, btn.maxY+5, 50, 30)];
+    _Openlabel.text = @"轻触照亮";
+    _Openlabel.textColor = [UIColor whiteColor];
+    _Openlabel.backgroundColor = CLEARCOLOR;
+    [self addSubview:_Openlabel];
+    _Openlabel.alpha = btn.alpha;
+    _Openlabel.font = [UIFont systemFontOfSize:12];
+    _Openlabel.textAlignment = NSTextAlignmentCenter;
+    
+    
 }
 - (CGRect)rectOfInterestByScanViewRect:(CGRect)rect {
-    CGFloat width = CGRectGetWidth(self.frame);
-    CGFloat height = CGRectGetHeight(self.frame);
+    CGFloat width = XScreenWidth;
+    CGFloat height = XScreenHeight;
     
-    CGFloat x = ((height - CGRectGetHeight(rect)) / 2 -100) / height;
+    CGFloat x = ((height - CGRectGetHeight(rect)) / 2) / height;
     CGFloat y =  (width - CGRectGetWidth(rect)) / 2 / width;
     
     CGFloat w = CGRectGetHeight(rect) / height;
@@ -168,10 +216,82 @@
         [self stopScanQrCode];
         AVMetadataMachineReadableCodeObject *metadataObject = [metadataObjects objectAtIndex:0];
         // 输出扫描字符串
-        NSLog(@"%@",metadataObject.stringValue);
+        NSLog(@"%@===metadataObjects==%@",metadataObject.stringValue,metadataObjects);
+        //扫描二维码使用的~
+//        NSString *str = metadataObject.stringValue;
+//        str = [str stringByReplacingOccurrencesOfString:@"sn=" withString:@"***"];
+//        str = [str stringByReplacingOccurrencesOfString:@"&mac" withString:@"###"];
+//        NSRange star = [str rangeOfString:@"***"];//匹配得到的下标
+//        NSRange end = [str rangeOfString:@"###"];//匹配得到的下标
+//        str = [str substringWithRange:NSMakeRange(star.location+3, end.location-star.location-3)];//截取范围内的字符串
+        
         if (self.delegate != nil && [self.delegate respondsToSelector:@selector(getResponse:)]) {
             [self.delegate getResponse:metadataObject.stringValue];
         }
     }
 }
+
+#pragma mark- AVCaptureVideoDataOutputSampleBufferDelegate的方法
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
+    Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
+    if (captureDeviceClass != nil) {
+        
+        CFDictionaryRef metadataDict = CMCopyDictionaryOfAttachments(NULL,sampleBuffer, kCMAttachmentMode_ShouldPropagate);
+        NSDictionary *metadata = [[NSMutableDictionary alloc] initWithDictionary:(__bridge NSDictionary*)metadataDict];
+        CFRelease(metadataDict);
+        NSDictionary *exifMetadata = [[metadata objectForKey:(NSString *)kCGImagePropertyExifDictionary] mutableCopy];
+        float brightnessValue = [[exifMetadata objectForKey:(NSString *)kCGImagePropertyExifBrightnessValue] floatValue];
+        
+        NSLog(@"%f",brightnessValue);
+        
+        // 根据brightnessValue的值来打开和关闭闪光灯
+        AVCaptureDevice * myLightDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        BOOL result = [myLightDevice hasTorch];// 判断设备是否有闪光灯
+        if ((brightnessValue < -2) && result) {// 打开闪光灯
+//            [myLightDevice lockForConfiguration:nil];
+//            [myLightDevice setTorchMode: AVCaptureTorchModeOn];//开
+//            [myLightDevice unlockForConfiguration];
+            [self showLight];
+            NSLog(@"闪关灯打开");
+            
+        }else if((brightnessValue > -2) && result) {// 关闭闪光灯
+            //[myLightDevice lockForConfiguration:nil];
+            // [myLightDevice setTorchMode: AVCaptureTorchModeOff];
+            //[myLightDevice unlockForConfiguration];
+            [self hideLight];
+             NSLog(@"闪关灯关闭");
+        }
+    }
+}
+
+/**
+ *  开启/关闭手电筒
+ */
+- (void)clickLightBtn:(UIButton *)sender {
+    if ([self.Opendelegate respondsToSelector:@selector(buttonBeTouched: view:)]) {
+        [self.Opendelegate buttonBeTouched:sender view:_Openlabel];
+    }
+}
+
+-(void)showLight{
+    [UIView animateWithDuration:0.5 animations:^{
+        btn.alpha = 1;
+        _Openlabel.alpha = btn.alpha;
+    }];
+    
+}
+
+-(void)hideLight{
+    if (![YXManager share].isLight) {
+        [UIView animateWithDuration:0.5 animations:^{
+            btn.alpha = 0;
+            _Openlabel.alpha = btn.alpha;
+        }];
+    }
+   
+}
+
+
+
+
 @end

@@ -10,6 +10,7 @@
 #import "MainTabbarController.h"
 #import "MainNavVc.h"
 #import "QRScanViewController.h"
+#import "YXManager.h"
 
 
 
@@ -53,8 +54,19 @@
     [PayPalMobile initializeWithClientIdsForEnvironments:@{PayPalEnvironmentProduction :PPEnvironmentProduction,PayPalEnvironmentSandbox : PPEnvironmentSandbox}];
     
 
-    
+    //判断是否登陆过设备，有就不用扫描
+    YXManager *manager = [YXManager share];
+    //创建
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    // 读取账户
+    NSString * ScanID;
+    if ([userDefaults objectForKey:@"DeviceSN"]&&![[userDefaults objectForKey:@"DeviceSN"] isEqualToString:@""]) {
+        ScanID  = [userDefaults objectForKey:@"DeviceSN"];
+        manager.isScan = YES;
+        manager.ScanID = ScanID;
+    }
    
+    
     
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];

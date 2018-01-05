@@ -24,7 +24,7 @@
 
 + (void)sendGetNetWorkWithUrl:(NSString *)url parameters:(NSDictionary *)dict hudView:(UIView *)hudView successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock {
     
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+   
     
     
    
@@ -46,8 +46,7 @@
        
        
        successBlock(data);
-       [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-
+       
        
    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
        

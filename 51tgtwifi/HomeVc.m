@@ -15,13 +15,13 @@
 #import "YXManager.h"
 #import "QRScanViewController.h"
 #import "LFRoundProgressView.h"
-#define Name_Device 17
-#define Device_Info 15
+#define Name_Device [UIScreen mainScreen].bounds.size.width<375?13:17
+#define Device_Info [UIScreen mainScreen].bounds.size.width<375?12:15
 #define Hmargin  16
 
-#define Global_url @"http://as2.51tgt.com/wxapp/GetDeviceInfoByQrCode?device_no=TGT24170833260"
+#define Global_url @"http://as2.51tgt.com/wxapp/GetDeviceInfoByQrCode?device_no=TGT24170833091"
 
-@interface HomeVc ()<UIScrollViewDelegate,CBCentralManagerDelegate,CBPeripheralDelegate>
+@interface HomeVc ()<UIScrollViewDelegate,CBCentralManagerDelegate,CBPeripheralDelegate,UIGestureRecognizerDelegate>
 {
     MBProgressHUD     *hud;
     YXManager    *_manager;
@@ -66,7 +66,14 @@
     //读取数据，进一次就够了
     BOOL              _isRequest;
     //最底部在进度条时显示的透明遮挡tabbarview
+    UIView            *_viewBack1;
+    UIView            *_viewBack2;
     int               _timeNum;
+    
+    //使用国家弹窗
+    UIView            *_useCountyView;
+    //解除绑定的按钮
+    UIButton          *_cancelBtn;
     
 }
 
@@ -130,7 +137,8 @@
             NSLog(@"蓝牙已开启CBCentralManagerStatePoweredOn");//蓝牙已开启
             
                 _manager.isOpenBluetooth = YES;
-                [self.cMgr scanForPeripheralsWithServices:nil // 通过某些服务筛选外设
+                CBUUID *uuid = [CBUUID UUIDWithString:@"FFF0"];
+                [self.cMgr scanForPeripheralsWithServices:@[uuid] // 通过某些服务筛选外设
                                                   options:nil]; // dict,条件
             
 
@@ -161,6 +169,7 @@
             NSLog(@"设备名字===%@",per.name);
             if ([_manager.ScanID isEqualToString:per.name]) {
                 self.peripheral = per;
+                NSLog(@"匹配到的设备===%@",per.name);
                 _manager.peripheral = per;
                 // 发现完之后就是进行连接
                 [self.cMgr connectPeripheral:self.peripheral options:nil];
@@ -196,8 +205,11 @@
 //
 //    }
 //    else{
-    CBUUID *uuid = [CBUUID UUIDWithString:@"FFF0"];
-    [ self.cMgr scanForPeripheralsWithServices:@[uuid] options: nil];
+    if (_manager.isScan) {
+        CBUUID *uuid = [CBUUID UUIDWithString:@"FFF0"];
+        [ self.cMgr scanForPeripheralsWithServices:@[uuid] options: nil];
+    }
+    
 //    }
 }
 
@@ -525,14 +537,13 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-   
+    //判断是否登陆过设备，有就不用扫描
 
 }
 #pragma mark viewDidload
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _manager = [YXManager share];
-    
+     _manager = [YXManager share];
     NSLog(@"%@",_manager);
     _timeNum = 0;
     _total = @"";
@@ -549,19 +560,17 @@
         [self GetDeviceInfo];
         [self RequestandGetGlobalUI];
     }else{
-    // Do any additional setup after loading the view
     _GetInfo = GET_DEVICE_INFO;
     //调用二维码扫描
     [self openScanView];
-//    [self.cMgr scanForPeripheralsWithServices:nil options:nil];
     [self setBackgroudImage];
     [self addScrView];
     [self showDeviceInfo];
     //判断是否扫描是为了防止创建两个中心设备
-        if (_manager.isScan) {
-            
-            [self.cMgr scanForPeripheralsWithServices:nil options:nil];
-            [self showSchdu];
+    if (_manager.isScan) {
+        CBUUID *uuid = [CBUUID UUIDWithString:@"FFF0"];
+        [self.cMgr scanForPeripheralsWithServices:@[uuid] options:nil];
+        [self showSchdu];
         }
 //    [self showDeviceInfo];
 //    //网络请求，应该放到蓝牙连接里面
@@ -599,11 +608,10 @@
 
 #pragma mark 二维码扫描
 -(void)openScanView{
-    if (!_manager.ScanID) {
+    if (!_manager.isScan) {
         QRScanViewController *VC = [[QRScanViewController alloc]init];
         [self.navigationController pushViewController:VC animated:YES];
     }
-   
 }
 
 -(void)changePWD:(NSNotification*)notic{
@@ -612,7 +620,6 @@
     _isWrite = YES;
     _manager.isReload = NO;
     [self.peripheral discoverServices:nil];
-    
 }
 
 -(void)heimindan:(NSNotification*)notic{
@@ -621,7 +628,6 @@
     _isWrite = YES;
     _manager.isReload = NO;
     [self.peripheral discoverServices:nil];
-    
 }
 
 -(void)setAPN:(NSNotification*)notic{
@@ -639,21 +645,14 @@
     _isWrite = YES;
     _manager.isReload = NO;
     [self.peripheral discoverServices:nil];
-    
-    
 }
 
 -(void)closeWIFI:(NSNotification*)notic{
-    
-    
     _dictApn = notic.userInfo;
     _GetInfo = @"CMD_BT_DISCONNECT_AP";
     _isWrite = YES;
     _manager.isReload = NO;
     [self.peripheral discoverServices:nil];
-    
-    
-    
 }
 
 
@@ -662,16 +661,14 @@
     
     UIImageView *backgroud = [[UIImageView alloc]init];
     backgroud.frame = CGRectMake(0, 0, XScreenWidth,XScreenHeight);
-    
     backgroud.image = [UIImage imageNamed:@"ic_bg.jpg"];
-    
     [self.view addSubview:backgroud];
 }
 
 -(void)addScrView{
     self.scrollView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_scrollView];
-    _scrollView.contentSize = CGSizeMake(0,900*11/8);
+    _scrollView.contentSize = CGSizeMake(0,(900+70));
     _scrollView.scrollEnabled = YES;
     _scrollView.delegate = self;
     //隐藏垂直方向滑动条
@@ -680,18 +677,6 @@
 
 #pragma mark 设备信息前缀
 -(void)showDeviceInfo{
-   
-//    UIView *_view = [UIView new];
-//    [_scrollView addSubview:_view];
-//    [_view mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(_scrollView).with.offset(20);
-//        make.right.equalTo(_scrollView).with.offset(-20);
-//        make.top.equalTo(_scrollView).with.offset(20+60+X_bang);
-//        make.height.mas_equalTo(@250);
-//    }];
-//    _view.layer.cornerRadius = 10;
-//    _view.backgroundColor = [UIColor whiteColor];
-    
     //距离左右边margin
     CGFloat kMagin = 20.0;
     //宽度
@@ -704,7 +689,7 @@
     //设备ssid
     UILabel *name_ssid = [UILabel new];
     [_view addSubview:name_ssid];
-//    name_ssid.text =SetLange(@"shebeissid");
+    //name_ssid.text =SetLange(@"shebeissid");
     name_ssid.text = @"设备SSID:";
     [name_ssid mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -712,8 +697,6 @@
         make.right.equalTo(_view).with.offset(-10);
         make.top.equalTo(_view).with.offset(10);
         make.height.mas_equalTo(@25);
-        
-        
     }];
     name_ssid.numberOfLines = 0;
     name_ssid.font = [UIFont boldSystemFontOfSize:Name_Device];
@@ -857,27 +840,27 @@
         
     }];
     //name_totalFlow.text  = SetLange(@"zongliuliang");
-    name_totalFlow.text  = @"总流量:";
+    name_totalFlow.text  = @"有效期:";
     name_totalFlow.numberOfLines = 0;
     name_totalFlow.font = [UIFont boldSystemFontOfSize:Name_Device];
     
     //剩余流量
-    UILabel *name_leftFlow = [UILabel new];
-    
-    [_view2 addSubview:name_leftFlow];
-    
-    [name_leftFlow mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(name_totalFlow.mas_bottom).with.offset(Hmargin);
-        make.right.equalTo(_view2).with.offset(-10);
-        make.left.equalTo(_view2).with.offset(10);
-        make.height.mas_equalTo(@25);
-        
-    }];
-    //name_leftFlow.text  = SetLange(@"shengyuliuliag");
-    name_leftFlow.text  = @"剩余流量:";
-    name_leftFlow.numberOfLines = 0;
-    name_leftFlow.font = [UIFont boldSystemFontOfSize:Name_Device];
+//    UILabel *name_leftFlow = [UILabel new];
+//
+//    [_view2 addSubview:name_leftFlow];
+//
+//    [name_leftFlow mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.equalTo(name_totalFlow.mas_bottom).with.offset(Hmargin);
+//        make.right.equalTo(_view2).with.offset(-10);
+//        make.left.equalTo(_view2).with.offset(10);
+//        make.height.mas_equalTo(@25);
+//
+//    }];
+//    //name_leftFlow.text  = SetLange(@"shengyuliuliag");
+//    name_leftFlow.text  = @"剩余流量:";
+//    name_leftFlow.numberOfLines = 0;
+//    name_leftFlow.font = [UIFont boldSystemFontOfSize:Name_Device];
     
     //使用国家
     UILabel *name_useContry = [UILabel new];
@@ -886,7 +869,7 @@
     
     [name_useContry mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(name_leftFlow.mas_bottom).with.offset(Hmargin);
+        make.top.equalTo(name_totalFlow.mas_bottom).with.offset(Hmargin);
         make.right.equalTo(_view2).with.offset(-10);
         make.left.equalTo(_view2).with.offset(10);
         make.height.mas_equalTo(@25);
@@ -1040,7 +1023,66 @@
     name_Globalendtime.text  = @"结束时间:";
     name_Globalendtime.numberOfLines = 0;
     name_Globalendtime.font = [UIFont boldSystemFontOfSize:Name_Device];
+    
+    //解除绑定的按钮
+    _cancelBtn = [UIButton new];
+    [_scrollView addSubview:_cancelBtn];
+//    [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(_view2.mas_bottom).with.offset(10);
+//        make.left.equalTo(_scrollView).with.offset(10);
+//        make.right.equalTo(_scrollView).with.offset(-10);
+//        make.height.mas_equalTo(@50);
+//    }];
+    _cancelBtn.frame = CGRectMake(_view2.x, _view2.maxY+20, kWidth, 50);
 
+    [_cancelBtn setTitle:@"解除绑定" forState:UIControlStateNormal];
+    _cancelBtn.layer.cornerRadius = 10;
+    _cancelBtn.backgroundColor =[UIColor colorWithRed:252.0/255.0 green:87.0/255.0 blue:89.0/255.0 alpha:1]; ;
+    [_cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_cancelBtn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
+    _cancelBtn.tag = 101;
+}
+
+#pragma mark button点击事件
+-(void)click:(UIButton *)btn{
+    if (btn.tag==101) {
+        UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"是否要解除绑定的设备？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        [self presentViewController:alertOne animated:YES completion:nil];
+        
+        UIAlertAction *certain = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+            hud.mode = MBProgressHUDModeIndeterminate;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hideAnimated:YES afterDelay:0.5];
+             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                 //储存设备sn号
+                 [[NSUserDefaults standardUserDefaults ]setObject:@"" forKey:@"DeviceSN"];
+                 //必须
+                 [[NSUserDefaults standardUserDefaults]synchronize];
+                 _manager.isScan = NO;
+                 _manager.ScanID = @"";
+                 _manager.isReload = NO;
+                 if (self.peripheral) {
+                     [self.cMgr cancelPeripheralConnection:self.peripheral];
+                     self.peripheral = nil;
+                     self.cMgr = nil;
+                 }
+                  dispatch_async(dispatch_get_main_queue(), ^{
+                      [_scrollView removeFromSuperview];
+                      [self openScanView];
+                      });
+                 });
+            
+            
+            
+        }];
+        
+        UIAlertAction *certain2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+        
+        [alertOne addAction:certain];
+        [alertOne addAction:certain2];
+
+    }
 }
 
 #pragma mark 获取设备信息并赋值
@@ -1192,6 +1234,7 @@
 #pragma mark 网络请求获取全球套餐
 -(void)RequestandGetGlobalUI{
     _isRequest = YES;
+     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     [NetWork sendGetNetWorkWithUrl:Global_url parameters:nil hudView:self.view successBlock:^(id data) {
        // NSLog(@"data==%@==",data);
@@ -1210,9 +1253,11 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideSchdu];
 //            [UIView animateWithDuration:1.0 animations:^{
-                [self GetDeviceInfo];
-                [self GetTranslateUI:_manager.modelTranslate];
-                [self GetGlobalUI:_manager.modelGlobal];
+            [self GetDeviceInfo];
+            [self GetTranslateUI:_manager.modelTranslate];
+            [self GetGlobalUI:_manager.modelGlobal];
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+
 //            }];
         
         
@@ -1249,23 +1294,23 @@
     _totalFlow_trans.numberOfLines = 0;
     _totalFlow_trans.font = [UIFont boldSystemFontOfSize:Name_Device];
     
-    //剩余流量
-    UILabel *_leftFlow_trans = [UILabel new];
-    
-    [_view2 addSubview:_leftFlow_trans];
-    
-    [_leftFlow_trans mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(_totalFlow_trans.mas_bottom).with.offset(Hmargin);
-        //make.right.equalTo(_view2).with.offset(-10);
-        make.left.mas_equalTo(_view2.frame.size.width/2);
-        make.height.mas_equalTo(@25);
-        
-    }];
-    
-    _leftFlow_trans.text  = [NSString stringWithFormat:@"%@M",model.left_flow_count];
-    _leftFlow_trans.numberOfLines = 0;
-    _leftFlow_trans.font = [UIFont boldSystemFontOfSize:Name_Device];
+//    //剩余流量
+//    UILabel *_leftFlow_trans = [UILabel new];
+//
+//    [_view2 addSubview:_leftFlow_trans];
+//
+//    [_leftFlow_trans mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.equalTo(_totalFlow_trans.mas_bottom).with.offset(Hmargin);
+//        //make.right.equalTo(_view2).with.offset(-10);
+//        make.left.mas_equalTo(_view2.frame.size.width/2);
+//        make.height.mas_equalTo(@25);
+//
+//    }];
+//
+//    _leftFlow_trans.text  = [NSString stringWithFormat:@"%@M",model.left_flow_count];
+//    _leftFlow_trans.numberOfLines = 0;
+//    _leftFlow_trans.font = [UIFont boldSystemFontOfSize:Name_Device];
     
     //使用国家
     UILabel *_useConutry_trans = [UILabel new];
@@ -1274,7 +1319,7 @@
     
     [_useConutry_trans mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(_leftFlow_trans.mas_bottom).with.offset(Hmargin);
+        make.top.equalTo(_totalFlow_trans.mas_bottom).with.offset(Hmargin);
         //make.right.equalTo(_view2).with.offset(-10);
         make.left.mas_equalTo(_view2.frame.size.width/2);
         make.height.mas_equalTo(@25);
@@ -1375,6 +1420,8 @@
     _Globaleffective_countries.text  = [model.effective_countries stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     _Globaleffective_countries.numberOfLines = 0;
     _Globaleffective_countries.font = [UIFont boldSystemFontOfSize:Name_Device];
+    _Globaleffective_countries.userInteractionEnabled = YES;
+    [_Globaleffective_countries addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTap)]];
     
     //开始时间
     UILabel *_GlobalstarTime = [UILabel new];
@@ -1412,6 +1459,84 @@
     
 }
 
+#pragma mark 手势点击，显示详细的可用国家
+-(void)labelTap{
+    //弹窗背景
+    _viewBack1 = [[UIView alloc]initWithFrame:CGRectMake(0, XScreenHeight-49-X_bottom, XScreenWidth, 49+X_bottom)];
+    _viewBack1.backgroundColor = [UIColor blackColor];
+    _viewBack1.alpha = 0.3;
+    [[UIApplication sharedApplication].keyWindow addSubview:_viewBack1];
+    // [self.view addSubview:_viewBack];
+    _viewBack2 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, XScreenWidth, XScreenHeight)];
+    _viewBack2.backgroundColor = [UIColor blackColor];
+    _viewBack2.alpha = 0.3;
+    [self.view addSubview:_viewBack2];
+    
+    //使用国家
+    //国家名字
+    _useCountyView = [UIView new];
+    [self.view addSubview:_useCountyView];
+    UILabel *label = [UILabel new];
+    [_useCountyView addSubview:label];
+    label.textColor = [UIColor blackColor];
+    label.text  = [_manager.modelGlobal.effective_countries stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    label.numberOfLines = 0;
+    label.font = [UIFont boldSystemFontOfSize:Name_Device];
+    CGRect tmpRect = [label.text boundingRectWithSize:CGSizeMake(XScreenWidth-30-30, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:label.font,NSFontAttributeName, nil] context:nil];
+    
+    [_useCountyView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.view);
+        make.centerX.mas_equalTo(self.view);
+        make.left.mas_offset(20);
+        make.right.mas_offset(-20);
+        make.height.mas_equalTo(tmpRect.size.height+80);
+    }];
+    _useCountyView.backgroundColor = [UIColor whiteColor];
+    _useCountyView.layer.cornerRadius = 10;
+    
+    
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_offset(10);
+        make.left.mas_offset(10);
+        make.right.mas_offset(-10);
+        make.bottom.mas_offset(-70);
+        
+    }];
+    
+    //第一条横线
+    UIView *firstLine = [UIView new];
+    [_useCountyView addSubview:firstLine];
+    firstLine.backgroundColor = [UIColor colorWithRed:62.0/255.0 green:110.0/255.0 blue:148.0/255.0 alpha:1];
+    [firstLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_useCountyView).with.offset(0);
+        make.right.equalTo(_useCountyView).with.offset(0);
+        make.top.equalTo(label.mas_bottom).with.offset(10);
+        make.height.mas_equalTo(@1);
+        
+    }];
+    
+    
+    UIButton *imagebtn = [UIButton new];
+    [_useCountyView addSubview:imagebtn];
+    [imagebtn setImage:[UIImage imageNamed:@"dislikeicon_textpage"] forState:UIControlStateNormal];
+    [imagebtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_offset(-10);
+        make.centerX.mas_equalTo(_useCountyView);
+        make.width.mas_equalTo(60);
+        make.height.mas_equalTo(36);
+    }];
+    
+    [imagebtn addTarget:self action:@selector(disView) forControlEvents:UIControlEventTouchUpInside];
+    [_viewBack1 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disView)]];
+    [_viewBack2 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disView)]];
+}
+
+-(void)disView{
+    [_viewBack1 removeFromSuperview];
+    [_viewBack2 removeFromSuperview];
+    [_useCountyView removeFromSuperview];
+}
+
 
 #pragma mark - 显示进度条
 
@@ -1423,7 +1548,11 @@
 //    hud.color = [UIColor grayColor];
 //
 //    [hud showAnimated:YES];
-    
+    //弹窗背景
+    _viewBack1 = [[UIView alloc]initWithFrame:CGRectMake(0, XScreenHeight-49-X_bottom, XScreenWidth, 49+X_bottom)];
+    _viewBack1.backgroundColor = [UIColor whiteColor];
+    _viewBack1.alpha = 0.3;
+    [[UIApplication sharedApplication].keyWindow addSubview:_viewBack1];
     
     
     //2.annular & LineCapStyle
@@ -1465,10 +1594,27 @@
     for (LFRoundProgressView *progressView in progressViews) {
         CGFloat progress = ![self.timer isValid] ? 10 / 10.0f : progressView.progress + 0.01f;
         progressView.progress = progress;
+       
         
         
         if (progressView.progress >= 1.0f && [self.timer isValid]) {
             progressView.progress = 0.f;
+            [self.timer invalidate];
+            self.timer = nil;
+            UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"绑定设备失败，请重新扫描设备二维码/条形码尝试" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                                        [self presentViewController:alertOne animated:YES completion:nil];
+            
+            UIAlertAction *certain = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                _manager.isScan = NO;
+                if (self.peripheral) {
+                    [self.cMgr cancelPeripheralConnection:self.peripheral];
+                }
+                [_viewBack1  removeFromSuperview];
+                self.cMgr = nil;
+                [self openScanView];
+            }];
+            
+                                        [alertOne addAction:certain];
         }
         
         self.progressLabel.text = [NSString stringWithFormat:@"绑定设备中，请保持蓝牙状态打开..."];
@@ -1486,6 +1632,7 @@
 
 -(void)hideSchdu{
 //    [hud hideAnimated:YES];
+    [_viewBack1 removeFromSuperview];
     [self.timer invalidate];
      self.timer = nil;
    
@@ -1496,7 +1643,7 @@
 /*********************懒加载*******************************/
 -(UIScrollView *)scrollView{
     if (!_scrollView) {
-         _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, XScreenWidth,900)];
+         _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 20+X_bang, XScreenWidth,XScreenHeight-49-X_bottom-20-X_bang)];
     }
     return _scrollView;
 }

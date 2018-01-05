@@ -20,9 +20,19 @@
 
 @end
 
+@protocol BaseViewButtonDelegete <NSObject>
+
+@optional
+// 当button点击后做的事情
+- (void)buttonBeTouched:(UIButton *)sender view:(UILabel *)label;
+
+@end
+
 @interface ScanView : UIView
 
 @property (nonatomic,assign) id<TGTScanQRCodeDelegate> delegate;
+//委托回调接口
+@property (nonatomic, weak) id <BaseViewButtonDelegete> Opendelegate;
 
 // 开始扫描
 - (void)startScanQrCode;

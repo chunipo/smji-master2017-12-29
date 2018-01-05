@@ -147,16 +147,16 @@
     
 
 //    TitleText.text = SetLange(@"title");
-    TitleText.text = @"流量商场";
+    TitleText.text = @"流量商城(测试)";
 //    TitleText.text = NSLocalizedString(@"title", nil);
     
     
     TitleText.textColor = [UIColor whiteColor];
-    
+    TitleText.font = [UIFont fontWithName:Title_Font size:20];
     [TitleText mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.center.equalTo(_TitleView);
-        make.size.mas_equalTo(CGSizeMake(100, 100));
+        make.size.mas_equalTo(CGSizeMake(150, 50));
     }];
     
     TitleText.textAlignment = 1;
