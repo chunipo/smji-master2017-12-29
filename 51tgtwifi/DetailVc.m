@@ -145,6 +145,11 @@
     else if (btn.tag==102){//点击购买
 //            PayViewController *vc = [[PayViewController alloc]init];
 //            [self.navigationController pushViewController:vc animated:YES];
+        UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"暂不支持购买" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        [self presentViewController:alertOne animated:YES completion:nil];
+        
+        UIAlertAction *certain = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+        [alertOne addAction:certain];
     
     }
 }

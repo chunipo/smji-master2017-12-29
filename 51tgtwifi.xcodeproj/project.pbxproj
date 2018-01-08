@@ -97,6 +97,7 @@
 		D76FF08C1FFCCA19008250A6 /* dislikeicon_textpage.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF08A1FFCCA18008250A6 /* dislikeicon_textpage.png */; };
 		D76FF08E1FFE3601008250A6 /* light.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF08D1FFE3601008250A6 /* light.png */; };
 		D76FF0901FFE361A008250A6 /* click.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF08F1FFE361A008250A6 /* click.png */; };
+		D76FF09C200321EA008250A6 /* HomeDemoVc.m in Sources */ = {isa = PBXBuildFile; fileRef = D76FF09B200321EA008250A6 /* HomeDemoVc.m */; };
 		D7A512F51FEA90CD001C8158 /* YXManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A512F41FEA90CD001C8158 /* YXManager.m */; };
 		D7A512F81FEA9382001C8158 /* ic_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7A512F71FEA9382001C8158 /* ic_bg.jpg */; };
 		D7A512FB1FEA93D2001C8158 /* HomeVc.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A512FA1FEA93D2001C8158 /* HomeVc.m */; };
@@ -326,6 +327,8 @@
 		D76FF0971FFF53CC008250A6 /* ScanQR1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ScanQR1@2x.png"; path = "../../../Desktop/working/途鸽翻译机图标/mipmap-hdpi/新建文件夹 (4)/ScanQR1@2x.png"; sourceTree = "<group>"; };
 		D76FF0981FFF53CC008250A6 /* ScanQR1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ScanQR1@3x.png"; path = "../../../Desktop/working/途鸽翻译机图标/mipmap-hdpi/新建文件夹 (4)/ScanQR1@3x.png"; sourceTree = "<group>"; };
 		D76FF0991FFF53CD008250A6 /* ScanQR4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ScanQR4@2x.png"; path = "../../../Desktop/working/途鸽翻译机图标/mipmap-hdpi/新建文件夹 (4)/ScanQR4@2x.png"; sourceTree = "<group>"; };
+		D76FF09A200321EA008250A6 /* HomeDemoVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeDemoVc.h; sourceTree = "<group>"; };
+		D76FF09B200321EA008250A6 /* HomeDemoVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeDemoVc.m; sourceTree = "<group>"; };
 		D7A512F31FEA90CD001C8158 /* YXManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXManager.h; sourceTree = "<group>"; };
 		D7A512F41FEA90CD001C8158 /* YXManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXManager.m; sourceTree = "<group>"; };
 		D7A512F71FEA9382001C8158 /* ic_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ic_bg.jpg; sourceTree = "<group>"; };
@@ -709,6 +712,8 @@
 				12D6B87B1FA1984C006B6B38 /* BluetrueViewController.m */,
 				D7A512F91FEA93D2001C8158 /* HomeVc.h */,
 				D7A512FA1FEA93D2001C8158 /* HomeVc.m */,
+				D76FF09A200321EA008250A6 /* HomeDemoVc.h */,
+				D76FF09B200321EA008250A6 /* HomeDemoVc.m */,
 			);
 			name = "首页";
 			sourceTree = "<group>";
@@ -1177,6 +1182,7 @@
 			files = (
 				129AE2461F9ED99F0019192D /* MMMaterialDesignSpinner.m in Sources */,
 				1AF3C0CA1F8FBB7B00A35AFC /* ViewController.m in Sources */,
+				D76FF09C200321EA008250A6 /* HomeDemoVc.m in Sources */,
 				D7A513911FF39A11001C8158 /* LFRoundProgressView.m in Sources */,
 				D7A513361FF1E359001C8158 /* DeviceConnectWifiViewC.m in Sources */,
 				07635CEE1FB9325200057FC8 /* GCDTestVC.m in Sources */,

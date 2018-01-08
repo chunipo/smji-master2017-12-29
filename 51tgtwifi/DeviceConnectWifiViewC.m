@@ -14,6 +14,7 @@
 {
     UIView        *_TitleView;
     UITextField   *_wifiPwd;
+    UITextField   *_wifiName;
     YXManager     *_manager;
     MBProgressHUD *hud;
 }
@@ -145,10 +146,30 @@
     view1.backgroundColor = [UIColor clearColor];
     [self.view addSubview:view1];
     
-    UILabel *lab1 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 300, 40)];
-    lab1.text =[NSString stringWithFormat:@"热点名称: %@",[[UIDevice currentDevice] name]];
+    UILabel *lab1 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 80, 40)];
+    lab1.text =[NSString stringWithFormat:@"热点名称:"];
     lab1.textColor = [UIColor blackColor];
     [view1 addSubview:lab1];
+    
+    _wifiName = [[UITextField alloc]initWithFrame:CGRectMake(lab1.maxX, 10, XScreenWidth-lab1.maxX-20, 40)];;
+    [view1 addSubview:_wifiName];
+    
+    _wifiName.delegate = self;
+    //oldText.text = @"输入旧密码";
+    _wifiName.textAlignment = NSTextAlignmentLeft;
+    //_wifiPwd.font = [UIFont systemFontOfSize:20];
+    _wifiName.borderStyle = UITextBorderStyleNone;
+    _wifiName.placeholder = @"输入热点名称";
+    //_wifiName.secureTextEntry = YES;
+    _wifiName.keyboardType = UIKeyboardTypeNamePhonePad;
+    
+    _wifiName.rightViewMode = UITextFieldViewModeWhileEditing;
+    UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 25, 12)];
+    //    btn1.backgroundColor =[UIColor redColor];
+    [btn2 setImage:[UIImage imageNamed:@"ic_show_password.png"] forState:UIControlStateNormal];
+    btn2.tag = 202;
+    [btn2 addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
+    _wifiPwd.rightView = btn2;
     
     //热点密码
     UIView *view2 = [[UIView alloc]initWithFrame:CGRectMake(0, view1.maxY, XScreenWidth, view1.height)];
@@ -201,7 +222,7 @@
     UILabel *tip = [[UILabel alloc]initWithFrame:CGRectMake(20, view2.maxY+20+joinBtn.height+30, 250, 300)];
     tip.backgroundColor = [UIColor clearColor];
     tip.textColor = [UIColor grayColor];
-    tip.text = @"连接提示:\n1、确保手机已开启热点\n2、确保热点密码正确\n3、建议以字母或数字命名热点\n(注意:如果没有开启手机热点，设备将会连接上一个错误的热点!)";
+    tip.text = @"连接提示:\n1.确保已开启热点\n2.确保热点密码正确\n";
     [self.view addSubview:tip];
     tip.numberOfLines = 0;
     if (_manager.isConnectWifi == YES) {
@@ -245,24 +266,43 @@
             _wifiPwd.secureTextEntry=YES;
         
     }
+//    //显示WIFI名称
+//    else if (btn.tag==202){
+//        if (_wifiName.secureTextEntry) {
+//            _wifiName.secureTextEntry = NO;
+//        }else
+//            _wifiName.secureTextEntry=YES;
+//
+//    }
     //加入热点的设置
     else if (btn.tag==301){
         if (_manager.isConnectWifi==NO) {
-            _manager.WIFIname = [[UIDevice currentDevice] name];
+            _manager.WIFIname = _wifiName.text;
             _manager.WIFIpwd = _wifiPwd.text;
             if (_wifiPwd.text.length<8 || !_wifiPwd.text) {
-                UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"连接失败" message:@"热点密码不能小于8位数" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"提示" message:@"输入的热点密码小于8位，是否要连接该热点？" preferredStyle:UIAlertControllerStyleAlert];
                 [self presentViewController:alertOne animated:YES completion:nil];
                 
-                UIAlertAction *certain = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+                UIAlertAction *certain = [UIAlertAction actionWithTitle:@"连接" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    NSDictionary *dict = @{
+                                           @"SSID":_manager.WIFIname,
+                                           @"PWD":_manager.WIFIpwd
+                                           };
+                    //远程设置让蓝牙可搜索服务
+                    _manager.isReload = NO;
+                    _manager.isConnectInfo = YES;
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"setWIFI" object:nil userInfo:dict];
+                    [self showSchdu];
+                }];
+                UIAlertAction *certain2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
                 
                 [alertOne addAction:certain];
+                [alertOne addAction:certain2];
             }else{
                 NSDictionary *dict = @{
                                        @"SSID":_manager.WIFIname,
                                        @"PWD":_manager.WIFIpwd
                                        };
-//                [[NSNotificationCenter defaultCenter] postNotificationName:@"SetLanguage" object:nil];
                 //远程设置让蓝牙可搜索服务
                 _manager.isReload = NO;
                 _manager.isConnectInfo = YES;

@@ -147,7 +147,7 @@
     
 
 //    TitleText.text = SetLange(@"title");
-    TitleText.text = @"流量商城(测试)";
+    TitleText.text = @"流量商城";
 //    TitleText.text = NSLocalizedString(@"title", nil);
     
     

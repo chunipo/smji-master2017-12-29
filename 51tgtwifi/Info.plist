@@ -56,7 +56,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3.2.3</string>
+	<string>3.2.5</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
@@ -69,7 +69,7 @@
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>是否允许此App使用蓝牙？</string>
 	<key>NSCameraUsageDescription</key>
-	<string>是否允许此App使用摄像机</string>
+	<string>是否允许此App使用相机来扫描途鸽翻译机设备条形码/二维码？</string>
 	<key>NSContactsUsageDescription</key>
 	<string>contactsDesciption</string>
 	<key>NSMicrophoneUsageDescription</key>

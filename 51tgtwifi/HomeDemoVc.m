@@ -1,12 +1,13 @@
 //
-//  HomeVc.m
+//  HomeDemoVc.m
 //  51tgtwifi
 //
-//  Created by DEVCOM on 2017/12/20.
-//  Copyright © 2017年 weiyuxiang. All rights reserved.
+//  Created by DEVCOM on 2018/1/8.
+//  Copyright © 2018年 weiyuxiang. All rights reserved.
 //
 
-#import "HomeVc.h"
+#import "HomeDemoVc.h"
+
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "NSStringTool.h"
 #import "BLEToolsbar.h"
@@ -21,7 +22,7 @@
 
 #define Global_url @"http://as2.51tgt.com/wxapp/GetDeviceInfoByQrCode?device_no=TGT24170833260"
 
-@interface HomeVc ()<UIScrollViewDelegate,CBCentralManagerDelegate,CBPeripheralDelegate,UIGestureRecognizerDelegate>
+@interface HomeDemoVc ()<UIScrollViewDelegate,CBCentralManagerDelegate,CBPeripheralDelegate,UIGestureRecognizerDelegate>
 {
     MBProgressHUD     *hud;
     YXManager         *_manager;
@@ -55,7 +56,7 @@
     //修改密码的信息
     NSString          *_changePwd;
     //黑名单
-     NSString         *_blackStr;
+    NSString         *_blackStr;
     //apn
     NSDictionary      *_dictApn;
     //连接附近热点
@@ -94,7 +95,7 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @end
 
-@implementation HomeVc
+@implementation HomeDemoVc
 /*****************************************************************************/
 //1.建立一个Central Manager实例进行蓝牙管理
 
@@ -136,12 +137,12 @@
         {
             NSLog(@"蓝牙已开启CBCentralManagerStatePoweredOn");//蓝牙已开启
             
-                _manager.isOpenBluetooth = YES;
-                CBUUID *uuid = [CBUUID UUIDWithString:@"FFF0"];
-                [self.cMgr scanForPeripheralsWithServices:@[uuid] // 通过某些服务筛选外设
-                                                  options:nil]; // dict,条件
+            _manager.isOpenBluetooth = YES;
+            CBUUID *uuid = [CBUUID UUIDWithString:@"FFF0"];
+            [self.cMgr scanForPeripheralsWithServices:@[uuid] // 通过某些服务筛选外设
+                                              options:nil]; // dict,条件
             
-
+            
         }
             break;
         default:
@@ -161,9 +162,9 @@
     
     NSLog(@"peripheral####%@。advertisementData###%@  cmgr===%@",peripheral,advertisementData,self.cMgr);
     if (![self.peripheralArr containsObject:peripheral] ) {
-         [self.peripheralArr addObject:peripheral];
+        [self.peripheralArr addObject:peripheral];
     }
-
+    
     if (_manager.ScanID) {
         for (CBPeripheral *per in self.peripheralArr) {
             NSLog(@"设备名字===%@",per.name);
@@ -177,7 +178,7 @@
         }
         
     }
-   
+    
 }
 
 
@@ -205,7 +206,7 @@
         CBUUID *uuid = [CBUUID UUIDWithString:@"FFF0"];
         [ self.cMgr scanForPeripheralsWithServices:@[uuid] options: nil];
     }
-
+    
 }
 //一旦我们读取到外设的相关服务UUID就会回调下面的方法
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error;
@@ -214,9 +215,9 @@
     if (_manager.isReload==YES) {//判断是否获取到数据，获取到了就停止自动扫描，因为断开后会自动重连
         
     }else{
-    for (CBService *s in [peripheral services]) {
-        [peripheral discoverCharacteristics:nil forService:s];
-    }
+        for (CBService *s in [peripheral services]) {
+            [peripheral discoverCharacteristics:nil forService:s];
+        }
     }
 }
 
@@ -271,11 +272,11 @@
                 [peripheral writeValue:data forCharacteristic:chariter type:CBCharacteristicWriteWithResponse];
             }
             else{
-            NSString *str = _GetInfo;
-           // NSString *str =@"CMD_BT_GET_CURRENT_AP";
-            str = [str stringByAppendingString:END_FLAG];
-            NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
-             [peripheral writeValue:data forCharacteristic:chariter type:CBCharacteristicWriteWithResponse];
+                NSString *str = _GetInfo;
+                // NSString *str =@"CMD_BT_GET_CURRENT_AP";
+                str = [str stringByAppendingString:END_FLAG];
+                NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
+                [peripheral writeValue:data forCharacteristic:chariter type:CBCharacteristicWriteWithResponse];
             }
         }
     }
@@ -288,30 +289,30 @@
         NSLog(@"=======%@",error.userInfo);
         
     }else{
-         if ([_GetInfo isEqualToString:@"CMD_BT_CONNECT_TO_AP"]){
+        if ([_GetInfo isEqualToString:@"CMD_BT_CONNECT_TO_AP"]){
             //防止断开连接继续读取
-                 _GetInfo = @"CMD_BT_GET_CURRENT_AP";
-             
-                 _isGETwifi = YES;
-                [self.peripheral discoverServices:nil];
-             
-             
-        
+            _GetInfo = @"CMD_BT_GET_CURRENT_AP";
+            
+            _isGETwifi = YES;
+            [self.peripheral discoverServices:nil];
+            
+            
+            
         }else if ([_GetInfo isEqualToString:@"CMD_BT_DISCONNECT_AP"]){
             //防止断开连接继续读取
-                
-                _GetInfo = @"CMD_BT_GET_CURRENT_AP";
-                [self.peripheral discoverServices:nil];
-          
+            
+            _GetInfo = @"CMD_BT_GET_CURRENT_AP";
+            [self.peripheral discoverServices:nil];
             
             
             
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"closeUI" object:@"NO" userInfo:nil];
+            
+            //        [[NSNotificationCenter defaultCenter] postNotificationName:@"closeUI" object:@"NO" userInfo:nil];
         }
         NSLog(@"发送数据成功");
     }
     /* When a write occurs, need to set off a re-read of the local CBCharacteristic to update its value */
-//        [peripheral readValueForCharacteristic:characteristic];
+    //        [peripheral readValueForCharacteristic:characteristic];
 }
 
 //中心读取外设实时数据
@@ -320,7 +321,7 @@
         NSLog(@"Error changing notification state: %@", error.localizedDescription);
     }
     if (characteristic.isNotifying) {
-    //        [peripheral readValueForCharacteristic:characteristic];
+        //        [peripheral readValueForCharacteristic:characteristic];
         
     } else { // Notification has stopped
         NSLog(@"Notification stopped on %@.  Disconnecting", characteristic);
@@ -329,14 +330,14 @@
 
 //获取外设发来的数据,不论是read和notify,获取数据都从这个方法中读取
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
-
+    
     if (characteristic.properties==2) {
         //读
         NSData* data = characteristic.value;
         NSString* value = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSLog(@"characteristic(读取到的) : %@, data : %@, value : %@", characteristic, data, value);
     }else if (characteristic.properties==18){
-       //非写入模式
+        //非写入模式
         if (!_isWrite) {
             //订阅
             NSData* data = characteristic.value;
@@ -344,9 +345,9 @@
             [_dataBlue appendData:data];
             NSLog(@"characteristic(读取到的) : %@, data : %@，value：%li", characteristic,data,value.length );
             if (value) {
-            _total = [_total stringByAppendingString:value];
+                _total = [_total stringByAppendingString:value];
             }
-           
+            
             NSLog(@"total===%@",_total);
             if(_total.length){
                 if ([_total hasSuffix:END_FLAG]) {
@@ -383,19 +384,19 @@
                         }
                         
                         _total = @"";
-                       // _GetInfo = @"";
+                        // _GetInfo = @"";
                         
-//                        if (!_isGet) {
-//                            //获取完之后写入第二次数据
-//                            _GetInfo = GET_DEVICE_INFO;
-//                            _total = @"";
-//                             [self.peripheral discoverServices:nil];
-//                            _isGet = YES;
-//                        }
-//                        //解析成字典失败
-//                        else{
-//                            _total = @"";
-//                        }
+                        //                        if (!_isGet) {
+                        //                            //获取完之后写入第二次数据
+                        //                            _GetInfo = GET_DEVICE_INFO;
+                        //                            _total = @"";
+                        //                             [self.peripheral discoverServices:nil];
+                        //                            _isGet = YES;
+                        //                        }
+                        //                        //解析成字典失败
+                        //                        else{
+                        //                            _total = @"";
+                        //                        }
                     }
                 }
             }
@@ -406,13 +407,13 @@
             if (!_total) {
                 
             }else{
-            _total = [_total stringByAppendingString:value];
+                _total = [_total stringByAppendingString:value];
             }
             NSLog(@"total===%@",_total);
             if(_total.length){
                 if ([_total hasSuffix:END_FLAG]) {
                     _total =  [_total stringByReplacingOccurrencesOfString:END_FLAG withString:@""];
-                   NSLog(@"total转成json前===%@",_total);
+                    NSLog(@"total转成json前===%@",_total);
                     NSDictionary *dict = [NSStringTool dictionaryWithJsonString:_total];
                     NSLog(@"total===%@=====",dict);
                     
@@ -422,12 +423,12 @@
                         _GetInfo = @"";
                         _manager.isReload = YES;
                         if ([dict[@"value"] isEqualToString:@"true"]) {
-
+                            
                             
                             [[NSNotificationCenter defaultCenter]postNotificationName:@"closeChangePWD_suc" object:nil];
                         }else{
-//
-                             [[NSNotificationCenter defaultCenter]postNotificationName:@"closeChangePWD_fai" object:nil];
+                            //
+                            [[NSNotificationCenter defaultCenter]postNotificationName:@"closeChangePWD_fai" object:nil];
                         }
                     }
                     //设置黑名单
@@ -438,7 +439,7 @@
                         if ([dict[@"value"] isEqualToString:@"true"]) {
                             [[NSNotificationCenter defaultCenter]postNotificationName:@"closeChangePWD_suc" object:nil];
                         }else{
-
+                            
                             [[NSNotificationCenter defaultCenter]postNotificationName:@"closeChangePWD_fai" object:nil];
                         }
                         
@@ -448,10 +449,10 @@
                         _GetInfo = @"";
                         _manager.isReload = YES;
                         if ([dict[@"value"] isEqualToString:@"true"]) {
-//
+                            //
                             [[NSNotificationCenter defaultCenter]postNotificationName:@"closeChangePWD_suc" object:nil];
                         }else{
-//
+                            //
                             [[NSNotificationCenter defaultCenter]postNotificationName:@"closeChangePWD_fai" object:nil];
                         }
                         
@@ -462,17 +463,17 @@
                         _manager.isReload = YES;
                         NSString *str = dict[@"value"];
                         if(_manager.isConnectInfo){
-                        str = [str stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-                        str = [str stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-                        str = [str stringByRemovingPercentEncoding];
-                        if ([str isEqualToString:_manager.WIFIname]) {
-                            _manager.isConnectWifi = YES;
-                            [[NSNotificationCenter defaultCenter]postNotificationName:@"closePWD_suc" object:nil];
-                        }else{
-                            _manager.isConnectWifi = NO;
-                            [[NSNotificationCenter defaultCenter]postNotificationName:@"closePWD_fai" object:nil];
+                            str = [str stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+                            str = [str stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+                            str = [str stringByRemovingPercentEncoding];
+                            if ([str isEqualToString:_manager.WIFIname]) {
+                                _manager.isConnectWifi = YES;
+                                [[NSNotificationCenter defaultCenter]postNotificationName:@"closePWD_suc" object:nil];
+                            }else{
+                                _manager.isConnectWifi = NO;
+                                [[NSNotificationCenter defaultCenter]postNotificationName:@"closePWD_fai" object:nil];
+                            }
                         }
-                    }
                         else{
                             if ([str isEqualToString:@"<unknown ssid>"]) {
                                 _manager.isConnectWifi = NO;
@@ -489,7 +490,7 @@
         }
         
     }else if (characteristic.properties==10){
-
+        
     }
     
 }
@@ -506,12 +507,12 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //判断是否登陆过设备，有就不用扫描
-
+    
 }
 #pragma mark viewDidload
 - (void)viewDidLoad {
     [super viewDidLoad];
-     _manager = [YXManager share];
+    _manager = [YXManager share];
     NSLog(@"%@",_manager);
     _timeNum = 0;
     _total = @"";
@@ -528,46 +529,35 @@
         [self GetDeviceInfo];
         [self RequestandGetGlobalUI];
     }else{
-    _GetInfo = GET_DEVICE_INFO;
-    //调用二维码扫描
-    [self openScanView];
-    [self setBackgroudImage];
-    [self addScrView];
-    [self showDeviceInfo];
-    //判断是否扫描是为了防止创建两个中心设备
-    if (_manager.isScan) {
-        CBUUID *uuid = [CBUUID UUIDWithString:@"FFF0"];
-        [self.cMgr scanForPeripheralsWithServices:@[uuid] options:nil];
-        //上架审核专属
-        if (![_manager.ScanID isEqualToString:@"TGT2417083309"]) {
+        _GetInfo = GET_DEVICE_INFO;
+        //调用二维码扫描
+        [self openScanView];
+        [self setBackgroudImage];
+        [self addScrView];
+        [self showDeviceInfo];
+        //判断是否扫描是为了防止创建两个中心设备
+        if (_manager.isScan) {
+            CBUUID *uuid = [CBUUID UUIDWithString:@"FFF0"];
+            [self.cMgr scanForPeripheralsWithServices:@[uuid] options:nil];
             [self showSchdu];
-        }else{
-            _manager.model.ssid = @"*TUGE24170833091 百度翻译机";
-            _manager.model.password = @"b0aaa6ad";
-            _manager.model.Power = @"100%";
-            _manager.model.CurrConnections = @"0";
-            _manager.model.Signal2 = @"-110";
-            _manager.model.AppVersion = @"T4_v2.1.17";
-            [self createUI];
         }
-        }
-//    [self showDeviceInfo];
-//    //网络请求，应该放到蓝牙连接里面
-//    [self RequestandGetGlobalUI];
-    
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changePWD:) name:@"changePwd" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(heimindan:) name:@"heimingdan" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setAPN:) name:@"setAPN" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setWIFI:) name:@"setWIFI" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeWIFI:) name:@"closeWIFI" object:nil];
-      
-    NSLog(@"Thread:======%@",[NSThread currentThread]);
-    //添加定时器防止视图控制器你被销毁
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:50000.0 target:self selector:@selector(action) userInfo:nil repeats:YES];
+        //    [self showDeviceInfo];
+        //    //网络请求，应该放到蓝牙连接里面
+        //    [self RequestandGetGlobalUI];
+        
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changePWD:) name:@"changePwd" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(heimindan:) name:@"heimingdan" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setAPN:) name:@"setAPN" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setWIFI:) name:@"setWIFI" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(closeWIFI:) name:@"closeWIFI" object:nil];
+        
+        NSLog(@"Thread:======%@",[NSThread currentThread]);
+        //添加定时器防止视图控制器你被销毁
+        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:50000.0 target:self selector:@selector(action) userInfo:nil repeats:YES];
     }
-
-
+    
+    
 }
 
 
@@ -576,13 +566,13 @@
 }
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
-   
-//
+    
+    //
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-   
+    
 }
 
 #pragma mark 二维码扫描
@@ -598,13 +588,7 @@
     _GetInfo = @"CMD_SET_WIFIANDPASSWORD";
     _isWrite = YES;
     _manager.isReload = NO;
-    if (self.peripheral) {
-        [self.peripheral discoverServices:nil];
-    }
-    else{
-         [[NSNotificationCenter defaultCenter]postNotificationName:@"closeChangePWD_fai" object:nil];
-    }
-   
+    [self.peripheral discoverServices:nil];
 }
 
 -(void)heimindan:(NSNotification*)notic{
@@ -612,12 +596,7 @@
     _GetInfo = @"CMD_SET_BLACK_LIST";
     _isWrite = YES;
     _manager.isReload = NO;
-    if (self.peripheral) {
     [self.peripheral discoverServices:nil];
-    }
-    else{
-         [[NSNotificationCenter defaultCenter]postNotificationName:@"closeChangePWD_fai" object:nil];
-    }
 }
 
 -(void)setAPN:(NSNotification*)notic{
@@ -625,12 +604,7 @@
     _GetInfo = @"CMD_SET_APN";
     _isWrite = YES;
     _manager.isReload = NO;
-    if (self.peripheral) {
-        [self.peripheral discoverServices:nil];
-    }
-    else{
-         [[NSNotificationCenter defaultCenter]postNotificationName:@"closeChangePWD_fai" object:nil];
-    }
+    [self.peripheral discoverServices:nil];
     
 }
 
@@ -639,12 +613,7 @@
     _GetInfo = @"CMD_BT_CONNECT_TO_AP";
     _isWrite = YES;
     _manager.isReload = NO;
-    if (self.peripheral) {
-        [self.peripheral discoverServices:nil];
-    }
-    else{
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"closePWD_fai" object:nil];
-    }
+    [self.peripheral discoverServices:nil];
 }
 
 -(void)closeWIFI:(NSNotification*)notic{
@@ -768,7 +737,7 @@
         make.height.mas_equalTo(@25);
         
     }];
-   // name_signStrong.text  = SetLange(@"xinhaoqiangdu");
+    // name_signStrong.text  = SetLange(@"xinhaoqiangdu");
     name_signStrong.text  = @"信号强度:";
     name_signStrong.numberOfLines = 0;
     name_signStrong.font = [UIFont boldSystemFontOfSize:Name_Device];
@@ -786,20 +755,20 @@
         make.height.mas_equalTo(@25);
         
     }];
-   // name_deviceVersion.text  = SetLange(@"shebeibanben");
+    // name_deviceVersion.text  = SetLange(@"shebeibanben");
     name_deviceVersion.text  = @"设备版本:";
     name_deviceVersion.numberOfLines = 0;
     name_deviceVersion.font = [UIFont boldSystemFontOfSize:Name_Device];
     
     /*************************翻译订单信息*************************************/
-//    UIView *_view2 = [UIView new];
-//    [self.view addSubview:_view2];
-//    [_view2 mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.view).with.offset(20);
-//        make.right.equalTo(self.view).with.offset(-20);
-//        make.top.equalTo(_view.mas_bottom).with.offset(30);
-//        make.height.mas_equalTo(@400);
-//    }];
+    //    UIView *_view2 = [UIView new];
+    //    [self.view addSubview:_view2];
+    //    [_view2 mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.left.equalTo(self.view).with.offset(20);
+    //        make.right.equalTo(self.view).with.offset(-20);
+    //        make.top.equalTo(_view.mas_bottom).with.offset(30);
+    //        make.height.mas_equalTo(@400);
+    //    }];
     _view2 = [[UIView alloc]initWithFrame:CGRectMake(kMagin, _view.maxY+30, kWidth, 530)];
     _view2.layer.cornerRadius = 10;
     _view2.backgroundColor = [UIColor whiteColor];
@@ -812,7 +781,7 @@
     //翻译订单
     OrderLab = [UILabel new];
     [_view2 addSubview:OrderLab];
-   // OrderLab.text =SetLange(@"fanyidingdan");
+    // OrderLab.text =SetLange(@"fanyidingdan");
     //OrderLab.text =
     [OrderLab mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -845,22 +814,22 @@
     name_totalFlow.font = [UIFont boldSystemFontOfSize:Name_Device];
     
     //剩余流量
-//    UILabel *name_leftFlow = [UILabel new];
-//
-//    [_view2 addSubview:name_leftFlow];
-//
-//    [name_leftFlow mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.top.equalTo(name_totalFlow.mas_bottom).with.offset(Hmargin);
-//        make.right.equalTo(_view2).with.offset(-10);
-//        make.left.equalTo(_view2).with.offset(10);
-//        make.height.mas_equalTo(@25);
-//
-//    }];
-//    //name_leftFlow.text  = SetLange(@"shengyuliuliag");
-//    name_leftFlow.text  = @"剩余流量:";
-//    name_leftFlow.numberOfLines = 0;
-//    name_leftFlow.font = [UIFont boldSystemFontOfSize:Name_Device];
+    //    UILabel *name_leftFlow = [UILabel new];
+    //
+    //    [_view2 addSubview:name_leftFlow];
+    //
+    //    [name_leftFlow mas_makeConstraints:^(MASConstraintMaker *make) {
+    //
+    //        make.top.equalTo(name_totalFlow.mas_bottom).with.offset(Hmargin);
+    //        make.right.equalTo(_view2).with.offset(-10);
+    //        make.left.equalTo(_view2).with.offset(10);
+    //        make.height.mas_equalTo(@25);
+    //
+    //    }];
+    //    //name_leftFlow.text  = SetLange(@"shengyuliuliag");
+    //    name_leftFlow.text  = @"剩余流量:";
+    //    name_leftFlow.numberOfLines = 0;
+    //    name_leftFlow.font = [UIFont boldSystemFontOfSize:Name_Device];
     
     //使用国家
     UILabel *name_useContry = [UILabel new];
@@ -875,7 +844,7 @@
         make.height.mas_equalTo(@25);
         
     }];
-   // name_useContry.text  = SetLange(@"shiyongguojia");
+    // name_useContry.text  = SetLange(@"shiyongguojia");
     name_useContry.text  = @"使用国家:";
     name_useContry.numberOfLines = 0;
     name_useContry.font = [UIFont boldSystemFontOfSize:Name_Device];
@@ -893,7 +862,7 @@
         make.height.mas_equalTo(@25);
         
     }];
-   // name_starTime.text  = SetLange(@"kaishishjian");
+    // name_starTime.text  = SetLange(@"kaishishjian");
     name_starTime.text  = @"开始时间:";
     name_starTime.numberOfLines = 0;
     name_starTime.font = [UIFont boldSystemFontOfSize:Name_Device];
@@ -915,12 +884,12 @@
     name_endTime.text  = @"结束时间:";
     name_endTime.numberOfLines = 0;
     name_endTime.font = [UIFont boldSystemFontOfSize:Name_Device];
-    NSLog(@"长度是%@",name_endTime.frame.origin.y);
+    
     
     //***************************通用流量信息*********************************************//
     flowInfo = [UILabel new];
     [_view2 addSubview:flowInfo];
-   // flowInfo.text =SetLange(@"fanyidingdan");
+    // flowInfo.text =SetLange(@"fanyidingdan");
     [flowInfo mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(_view2).with.offset(10);
@@ -1001,7 +970,7 @@
         make.height.mas_equalTo(@25);
         
     }];
-   // name_Globalstartime.text  = SetLange(@"kaishishjian");
+    // name_Globalstartime.text  = SetLange(@"kaishishjian");
     name_Globalstartime.text  = @"开始时间:";
     name_Globalstartime.numberOfLines = 0;
     name_Globalstartime.font = [UIFont boldSystemFontOfSize:Name_Device];
@@ -1019,7 +988,7 @@
         make.height.mas_equalTo(@25);
         
     }];
-   // name_Globalendtime.text  = SetLange(@"jieshushijian");
+    // name_Globalendtime.text  = SetLange(@"jieshushijian");
     name_Globalendtime.text  = @"结束时间:";
     name_Globalendtime.numberOfLines = 0;
     name_Globalendtime.font = [UIFont boldSystemFontOfSize:Name_Device];
@@ -1027,14 +996,14 @@
     //解除绑定的按钮
     _cancelBtn = [UIButton new];
     //[_scrollView addSubview:_cancelBtn];
-//    [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(_view2.mas_bottom).with.offset(10);
-//        make.left.equalTo(_scrollView).with.offset(10);
-//        make.right.equalTo(_scrollView).with.offset(-10);
-//        make.height.mas_equalTo(@50);
-//    }];
+    //    [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.top.equalTo(_view2.mas_bottom).with.offset(10);
+    //        make.left.equalTo(_scrollView).with.offset(10);
+    //        make.right.equalTo(_scrollView).with.offset(-10);
+    //        make.height.mas_equalTo(@50);
+    //    }];
     _cancelBtn.frame = CGRectMake(_view2.x, _view2.maxY+20, kWidth, 50);
-
+    
     [_cancelBtn setTitle:@"解除绑定" forState:UIControlStateNormal];
     _cancelBtn.layer.cornerRadius = 10;
     _cancelBtn.backgroundColor =[UIColor colorWithRed:252.0/255.0 green:87.0/255.0 blue:89.0/255.0 alpha:1]; ;
@@ -1054,31 +1023,31 @@
             hud.mode = MBProgressHUDModeIndeterminate;
             hud.removeFromSuperViewOnHide = YES;
             [hud hideAnimated:YES afterDelay:0.5];
-             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                 //储存设备sn号
-                 [[NSUserDefaults standardUserDefaults ]setObject:@"" forKey:@"DeviceSN"];
-                 //必须
-                 [[NSUserDefaults standardUserDefaults]synchronize];
-                 _manager.isScan = NO;
-                 _manager.ScanID = @"";
-                 _manager.isReload = NO;
-                  dispatch_async(dispatch_get_main_queue(), ^{
-                      if (self.peripheral) {
-                          [self.cMgr cancelPeripheralConnection:self.peripheral];
-                          self.peripheral = nil;
-                          self.cMgr = nil;
-                      }
-                      [_scrollView removeFromSuperview];
-                      [self openScanView];
-                      });
-                 });
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                //储存设备sn号
+                [[NSUserDefaults standardUserDefaults ]setObject:@"" forKey:@"DeviceSN"];
+                //必须
+                [[NSUserDefaults standardUserDefaults]synchronize];
+                _manager.isScan = NO;
+                _manager.ScanID = @"";
+                _manager.isReload = NO;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (self.peripheral) {
+                        [self.cMgr cancelPeripheralConnection:self.peripheral];
+                        self.peripheral = nil;
+                        self.cMgr = nil;
+                    }
+                    [_scrollView removeFromSuperview];
+                    [self openScanView];
+                });
+            });
         }];
         
         UIAlertAction *certain2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
         
         [alertOne addAction:certain];
         [alertOne addAction:certain2];
-
+        
     }
 }
 
@@ -1175,8 +1144,8 @@
     }else if (i<-115){
         _singel.image = [UIImage imageNamed:@"wifi_signal_1"];
     }
-//    _singel.numberOfLines = 0;
-//    _singel.font = [UIFont boldSystemFontOfSize:Name_Device];
+    //    _singel.numberOfLines = 0;
+    //    _singel.font = [UIFont boldSystemFontOfSize:Name_Device];
     
     //设备版本
     _appVersion = [UILabel new];
@@ -1185,7 +1154,7 @@
     [_appVersion mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.mas_equalTo(_view.frame.size.width/2);
-       // make.right.equalTo(_view).with.offset(-80);
+        // make.right.equalTo(_view).with.offset(-80);
         make.top.equalTo(_singel.mas_bottom).with.offset(15);
         make.height.mas_equalTo(@25);
         //make.width.mas_equalTo(@);
@@ -1195,93 +1164,85 @@
     _appVersion.font = [UIFont boldSystemFontOfSize:Name_Device];
     
     
-//    if(_deviceInfo.AppVersion){
-        _view.alpha = 1.0;
-        _view2.alpha = 1.0;
+    //    if(_deviceInfo.AppVersion){
+    _view.alpha = 1.0;
+    _view2.alpha = 1.0;
     
-        _manager.isReload = YES;
-//    }
+    _manager.isReload = YES;
+    //    }
     
 }
 
 #pragma mark 调用全部视图
 -(void)createUI{
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        //返回主线程 拿到数据
-//        [self RequestandGetGlobalUI];
-//       
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//             [self showDeviceInfo];
-//            [self GetTranslateUI:_manager.modelTranslate];
-//            [self GetTranslateUI:_manager.modelGlobal];
-//            [self GetDeviceInfo];
-//            _manager.isReload = YES;
-//        });
-//    });
-//    [self showDeviceInfo];
-//    //网络请求，应该放到蓝牙连接里面
+    //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    //        //返回主线程 拿到数据
+    //        [self RequestandGetGlobalUI];
+    //
+    //        dispatch_async(dispatch_get_main_queue(), ^{
+    //             [self showDeviceInfo];
+    //            [self GetTranslateUI:_manager.modelTranslate];
+    //            [self GetTranslateUI:_manager.modelGlobal];
+    //            [self GetDeviceInfo];
+    //            _manager.isReload = YES;
+    //        });
+    //    });
+    //    [self showDeviceInfo];
+    //    //网络请求，应该放到蓝牙连接里面
     if (!_isRequest) {
-         [self RequestandGetGlobalUI];
+        [self RequestandGetGlobalUI];
     }
-   
-//    [self GetDeviceInfo];
-//    _manager.isReload = YES;
+    
+    //    [self GetDeviceInfo];
+    //    _manager.isReload = YES;
 }
 
 #pragma mark 网络请求获取全球套餐
 -(void)RequestandGetGlobalUI{
     _isRequest = YES;
-     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    [NetWork sendGetNetWorkWithUrl:Global_url parameters:nil hudView:self.view successBlock:^(id data) {
-       // NSLog(@"data==%@==",data);
-        NSArray *arr = data[@"device_order"];
-        NSDictionary *dictTranslate = arr[0];
-        PackagInfoModel *modelTranslate = [[PackagInfoModel alloc]init];
-        [modelTranslate setValuesForKeysWithDictionary:dictTranslate];
-        [_manager.modelTranslate setValuesForKeysWithDictionary:dictTranslate];
-//        [self GetTranslateUI:_manager.modelTranslate];
-        
-        NSDictionary *dictGlobal = arr[1];
-        PackagInfoModel *modelGlobal = [[PackagInfoModel alloc]init];
-        [modelGlobal setValuesForKeysWithDictionary:dictGlobal];
-        [_manager.modelGlobal setValuesForKeysWithDictionary:dictGlobal];
-        _manager.isReload = YES;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self hideSchdu];
-//            [UIView animateWithDuration:1.0 animations:^{
-            [self GetDeviceInfo];
-            [self GetTranslateUI:_manager.modelTranslate];
-            [self GetGlobalUI:_manager.modelGlobal];
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            if (!_manager.modelTranslate.effective_countries) {//隐藏下部分的翻译跟全球订单
-                NSLog(@"===%@===",_manager.modelTranslate.endTime);
-                //距离左右边margin
-                CGFloat kMagin = 20.0;
-                //宽度
-                CGFloat kWidth = XScreenWidth - 2*kMagin;
-                _view2.alpha = 0;
-                _cancelBtn.frame = CGRectMake(_view.x,_scrollView.height-70, kWidth, 50);
-                _scrollView.contentSize = CGSizeMake(0,0);
-            }else if (!_manager.modelGlobal.effective_countries){//隐藏全球订单
-                //距离左右边margin
-                CGFloat kMagin = 20.0;
-                //宽度
-                CGFloat kWidth = XScreenWidth - 2*kMagin;
-                _view2.alpha = 1;
-                _view2.frame = CGRectMake(kMagin, _view.maxY+30, kWidth, 530);
-                _scrollView.contentSize = CGSizeMake(0,0);
-            }
-//            }];
-        
-        
-        
-        });
-    } failureBlock:^(NSString *error) {
-        NSLog(@"获取数据失败%@",error);
-        
-    }];
-});
+        [NetWork sendGetNetWorkWithUrl:Global_url parameters:nil hudView:self.view successBlock:^(id data) {
+            // NSLog(@"data==%@==",data);
+            NSArray *arr = data[@"device_order"];
+            NSDictionary *dictTranslate = arr[0];
+            PackagInfoModel *modelTranslate = [[PackagInfoModel alloc]init];
+            [modelTranslate setValuesForKeysWithDictionary:dictTranslate];
+            [_manager.modelTranslate setValuesForKeysWithDictionary:dictTranslate];
+            //        [self GetTranslateUI:_manager.modelTranslate];
+            
+            NSDictionary *dictGlobal = arr[1];
+            PackagInfoModel *modelGlobal = [[PackagInfoModel alloc]init];
+            [modelGlobal setValuesForKeysWithDictionary:dictGlobal];
+            [_manager.modelGlobal setValuesForKeysWithDictionary:dictGlobal];
+            _manager.isReload = YES;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self hideSchdu];
+                //            [UIView animateWithDuration:1.0 animations:^{
+                [self GetDeviceInfo];
+                [self GetTranslateUI:_manager.modelTranslate];
+                [self GetGlobalUI:_manager.modelGlobal];
+                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                if (!_manager.modelTranslate.effective_countries) {
+                    NSLog(@"===%@===",_manager.modelTranslate.endTime);
+                    //距离左右边margin
+                    CGFloat kMagin = 20.0;
+                    //宽度
+                    CGFloat kWidth = XScreenWidth - 2*kMagin;
+                    _view2.alpha = 0;
+                    _cancelBtn.frame = CGRectMake(_view.x,_scrollView.height-70, kWidth, 50);
+                    _scrollView.contentSize = CGSizeMake(0,0);
+                }
+                //            }];
+                
+                
+                
+            });
+        } failureBlock:^(NSString *error) {
+            NSLog(@"获取数据失败%@",error);
+            
+        }];
+    });
     
     
 }
@@ -1304,27 +1265,27 @@
         make.height.mas_equalTo(@25);
         
     }];
-    _totalFlow_trans.text  =[NSString stringWithFormat:@"三年",nil];
+    _totalFlow_trans.text  =[NSString stringWithFormat:@"%@M", model.flow_count];
     _totalFlow_trans.numberOfLines = 0;
     _totalFlow_trans.font = [UIFont boldSystemFontOfSize:Name_Device];
     
-//    //剩余流量
-//    UILabel *_leftFlow_trans = [UILabel new];
-//
-//    [_view2 addSubview:_leftFlow_trans];
-//
-//    [_leftFlow_trans mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.top.equalTo(_totalFlow_trans.mas_bottom).with.offset(Hmargin);
-//        //make.right.equalTo(_view2).with.offset(-10);
-//        make.left.mas_equalTo(_view2.frame.size.width/2);
-//        make.height.mas_equalTo(@25);
-//
-//    }];
-//
-//    _leftFlow_trans.text  = [NSString stringWithFormat:@"%@M",model.left_flow_count];
-//    _leftFlow_trans.numberOfLines = 0;
-//    _leftFlow_trans.font = [UIFont boldSystemFontOfSize:Name_Device];
+    //    //剩余流量
+    //    UILabel *_leftFlow_trans = [UILabel new];
+    //
+    //    [_view2 addSubview:_leftFlow_trans];
+    //
+    //    [_leftFlow_trans mas_makeConstraints:^(MASConstraintMaker *make) {
+    //
+    //        make.top.equalTo(_totalFlow_trans.mas_bottom).with.offset(Hmargin);
+    //        //make.right.equalTo(_view2).with.offset(-10);
+    //        make.left.mas_equalTo(_view2.frame.size.width/2);
+    //        make.height.mas_equalTo(@25);
+    //
+    //    }];
+    //
+    //    _leftFlow_trans.text  = [NSString stringWithFormat:@"%@M",model.left_flow_count];
+    //    _leftFlow_trans.numberOfLines = 0;
+    //    _leftFlow_trans.font = [UIFont boldSystemFontOfSize:Name_Device];
     
     //使用国家
     UILabel *_useConutry_trans = [UILabel new];
@@ -1334,7 +1295,7 @@
     [_useConutry_trans mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(_totalFlow_trans.mas_bottom).with.offset(Hmargin);
-        make.right.equalTo(_view2).with.offset(-10);
+        //make.right.equalTo(_view2).with.offset(-10);
         make.left.mas_equalTo(_view2.frame.size.width/2);
         make.height.mas_equalTo(@25);
         
@@ -1342,8 +1303,6 @@
     _useConutry_trans.text  =model.effective_countries;
     _useConutry_trans.numberOfLines = 0;
     _useConutry_trans.font = [UIFont boldSystemFontOfSize:Name_Device];
-    _useConutry_trans.userInteractionEnabled = YES;
-    [_useConutry_trans addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTap:)]];
     
     //开始时间
     UILabel *_starTime_trans = [UILabel new];
@@ -1393,7 +1352,7 @@
     [_GlobaltotalFlow mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(flowInfo.mas_bottom).with.offset(Hmargin);
-       // make.right.equalTo(_view2).with.offset(-10);
+        // make.right.equalTo(_view2).with.offset(-10);
         make.left.mas_equalTo(_view2.frame.size.width/2);
         make.height.mas_equalTo(@25);
         
@@ -1437,7 +1396,7 @@
     _Globaleffective_countries.numberOfLines = 0;
     _Globaleffective_countries.font = [UIFont boldSystemFontOfSize:Name_Device];
     _Globaleffective_countries.userInteractionEnabled = YES;
-    [_Globaleffective_countries addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTap:)]];
+    [_Globaleffective_countries addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTap)]];
     
     //开始时间
     UILabel *_GlobalstarTime = [UILabel new];
@@ -1476,8 +1435,7 @@
 }
 
 #pragma mark 手势点击，显示详细的可用国家
--(void)labelTap:(UIGestureRecognizer *)labTap{
-    UILabel *lab =(UILabel *) labTap.view;
+-(void)labelTap{
     //弹窗背景
     _viewBack1 = [[UIView alloc]initWithFrame:CGRectMake(0, XScreenHeight-49-X_bottom, XScreenWidth, 49+X_bottom)];
     _viewBack1.backgroundColor = [UIColor blackColor];
@@ -1496,7 +1454,7 @@
     UILabel *label = [UILabel new];
     [_useCountyView addSubview:label];
     label.textColor = [UIColor blackColor];
-    label.text  = [lab.text stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    label.text  = [_manager.modelGlobal.effective_countries stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     label.numberOfLines = 0;
     label.font = [UIFont boldSystemFontOfSize:Name_Device];
     CGRect tmpRect = [label.text boundingRectWithSize:CGSizeMake(XScreenWidth-30-30, 1000) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:[NSDictionary dictionaryWithObjectsAndKeys:label.font,NSFontAttributeName, nil] context:nil];
@@ -1558,13 +1516,13 @@
 #pragma mark - 显示进度条
 
 -(void)showSchdu{
-//    hud =   [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//
-//    hud.mode = MBProgressHUDModeAnnularDeterminate;
-//
-//    hud.color = [UIColor grayColor];
-//
-//    [hud showAnimated:YES];
+    //    hud =   [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //
+    //    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    //
+    //    hud.color = [UIColor grayColor];
+    //
+    //    [hud showAnimated:YES];
     //弹窗背景
     _viewBack1 = [[UIView alloc]initWithFrame:CGRectMake(0, XScreenHeight-49-X_bottom, XScreenWidth, 49+X_bottom)];
     _viewBack1.backgroundColor = [UIColor whiteColor];
@@ -1611,7 +1569,7 @@
     for (LFRoundProgressView *progressView in progressViews) {
         CGFloat progress = ![self.timer isValid] ? 10 / 10.0f : progressView.progress + 0.01f;
         progressView.progress = progress;
-       
+        
         
         
         if (progressView.progress >= 1.0f && [self.timer isValid]) {
@@ -1619,7 +1577,7 @@
             [self.timer invalidate];
             self.timer = nil;
             UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"绑定设备:%@      失败，请重新扫描设备二维码/条形码尝试",_manager.ScanID] message:nil preferredStyle:UIAlertControllerStyleAlert];
-                                        [self presentViewController:alertOne animated:YES completion:nil];
+            [self presentViewController:alertOne animated:YES completion:nil];
             
             UIAlertAction *certain = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 _manager.isScan = NO;
@@ -1631,28 +1589,28 @@
                 [self openScanView];
             }];
             
-                                        [alertOne addAction:certain];
+            [alertOne addAction:certain];
         }
         
         self.progressLabel.text = [NSString stringWithFormat:@"绑定设备中，请保持蓝牙状态打开..."];
     }
     
-//    _timeNum +=1;
-//    if (_timeNum/5==8) {
-//        _isRequest = NO;
-//        _manager.isReload = NO;
-//    }
-//    NSLog(@"时间==%i",_timeNum);
+    //    _timeNum +=1;
+    //    if (_timeNum/5==8) {
+    //        _isRequest = NO;
+    //        _manager.isReload = NO;
+    //    }
+    //    NSLog(@"时间==%i",_timeNum);
     
 }
 
 
 -(void)hideSchdu{
-//    [hud hideAnimated:YES];
+    //    [hud hideAnimated:YES];
     [_viewBack1 removeFromSuperview];
     [self.timer invalidate];
-     self.timer = nil;
-   
+    self.timer = nil;
+    
     [self.largeProgressView removeFromSuperview];
     [self.progressLabel removeFromSuperview];
 }
@@ -1660,7 +1618,7 @@
 /*********************懒加载*******************************/
 -(UIScrollView *)scrollView{
     if (!_scrollView) {
-         _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 20+X_bang, XScreenWidth,XScreenHeight-49-X_bottom-20-X_bang)];
+        _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 20+X_bang, XScreenWidth,XScreenHeight-49-X_bottom-20-X_bang)];
     }
     return _scrollView;
 }
@@ -1671,13 +1629,14 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
+

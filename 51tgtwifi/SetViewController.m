@@ -181,7 +181,8 @@
     [_APN_mmsc resignFirstResponder];
     [_APN_port resignFirstResponder];
     [_APN_proxy resignFirstResponder];
-    _view_APN.frame = CGRectMake(0, 0, 0, 0);
+//    _view_APN.frame = CGRectMake(0, 0, 0, 0);
+    [_view_APN removeFromSuperview];
     
     MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
     hud.mode = MBProgressHUDModeText;
@@ -286,7 +287,7 @@
     
     
     
-     _arr = @[@[@"修改设备热点密码",@"连接WIFI"],@[@"设置热点访问黑名单",@"软件版本检测"],@[@"关于我们"]];
+     _arr = @[@[@"修改设备热点密码",@"设置APN",@"连接WIFI"],@[@"设置热点访问黑名单",@"当前软件版本"],@[@"关于我们"]];
      _arrImg = @[@[@"ic_setting_modify_password.png",@"ic_setting_apn.png",@"ic_connect_wifi.png"],@[@"ic_setting_blacklist.png",@"ic_setting_blacklist.png"],@[@"ic_setting_tip_language.png"]];
     _tableView.tableHeaderView =[self headView] ;
 
@@ -376,7 +377,7 @@
        
     }
     //设备连接wifi
-    else if (indexPath.section==0&&indexPath.row==1){
+    else if (indexPath.section==0&&indexPath.row==2){
         if (_manager.isOpenBluetooth) {
             DeviceConnectWifiViewC *vc = [[DeviceConnectWifiViewC alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
@@ -418,19 +419,19 @@
         AboutMeViewController *aboutVc = [[AboutMeViewController alloc]init];
         [self.navigationController pushViewController:aboutVc animated:YES];
     }
-    //设置APN（摒弃）
-//    else if (indexPath.section==0&&indexPath.row==1){
-//        if (_manager.isOpenBluetooth) {
-//            [self setApn];
-//        }else{
-//            MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-//            hud.mode = MBProgressHUDModeText;
-//            hud.label.text = @"请打开蓝牙开关";
-//            hud.removeFromSuperViewOnHide = YES;
-//            [hud hideAnimated:YES afterDelay:1];
-//        }
-//
-//    }
+    //设置APN
+    else if (indexPath.section==0&&indexPath.row==1){
+        if (_manager.isOpenBluetooth) {
+            [self setApn];
+        }else{
+            MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.label.text = @"请打开蓝牙开关";
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hideAnimated:YES afterDelay:1];
+        }
+
+    }
 }
 
 
@@ -694,7 +695,7 @@ _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 28
         _viewBack1.frame = CGRectMake(0, 0, 0, 0);
         _viewBack2.frame = CGRectMake(0, 0, 0, 0);
         _view_APN.frame = CGRectMake(0, 0, 0, 0);
-    }else if (btn.tag==303)//apn输入黑名单
+    }else if (btn.tag==303)//apn输入
     {
         NSDictionary *dict = @{
                                @"apn":_APN_apn.text,

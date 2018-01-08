@@ -9,6 +9,7 @@
 #import "MainTabbarController.h"
 #import "HomeViewController.h"
 #import "HomeVc.h"
+#import "HomeDemoVc.h"
 #import "MainNavVc.h"
 #import "SetViewController.h"
 #import "ShoppingVc.h"
@@ -65,11 +66,11 @@
     NSString *str1 = SetLange(@"shouye");
     NSString *str2 = SetLange(@"shangcheng");
     NSString *str3 = SetLange(@"shezhi");
-    NSArray *arr1 = @[@"首页",@"设置"];
-    NSArray *arr2 = @[@"HomeVc",@"SetViewController"];
+    NSArray *arr1 = @[@"首页",@"商城",@"设置"];
+    NSArray *arr2 = @[@"HomeVc",@"ShoppingVc",@"SetViewController"];
     
-    NSArray *arr3 = @[@"ic_home_u.png",@"ic_setting_u.png"];
-    NSArray *arr4 = @[@"ic_home_s.png",@"ic_setting_s.png"];
+    NSArray *arr3 = @[@"ic_home_u.png",@"ic_mall_u.png",@"ic_setting_u.png"];
+    NSArray *arr4 = @[@"ic_home_s.png",@"ic_mall_s.png",@"ic_setting_s.png"];
     //添加视图控制器到tabbar
     [self addVc:arr2 title:arr1 image:arr3 selectedImage:arr4];
     

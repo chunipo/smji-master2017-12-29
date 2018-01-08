@@ -62,11 +62,12 @@
     upOrdown = NO;
     num =0;
     
-    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _qrBgView.maxY + 20, XScreenWidth, 30)];
+    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _qrBgView.maxY + 20, XScreenWidth, 40)];
     tipLabel.font = [UIFont systemFontOfSize:16];
-    tipLabel.text = @"将二维码/条形码放入框内,即可自动扫描";
+    tipLabel.text = @"请将途鸽翻译机设备二维码/条形码放入框内,即可自动扫描并绑定/激活设备";
     tipLabel.textColor = [UIColor whiteColor];
     tipLabel.textAlignment = NSTextAlignmentCenter;
+    tipLabel.numberOfLines = 0;
     [self addSubview:tipLabel];
     
     
@@ -218,16 +219,29 @@
         // 输出扫描字符串
         NSLog(@"%@===metadataObjects==%@",metadataObject.stringValue,metadataObjects);
         //扫描二维码使用的~
-//        NSString *str = metadataObject.stringValue;
-//        str = [str stringByReplacingOccurrencesOfString:@"sn=" withString:@"***"];
-//        str = [str stringByReplacingOccurrencesOfString:@"&mac" withString:@"###"];
-//        NSRange star = [str rangeOfString:@"***"];//匹配得到的下标
-//        NSRange end = [str rangeOfString:@"###"];//匹配得到的下标
-//        str = [str substringWithRange:NSMakeRange(star.location+3, end.location-star.location-3)];//截取范围内的字符串
-        
-        if (self.delegate != nil && [self.delegate respondsToSelector:@selector(getResponse:)]) {
-            [self.delegate getResponse:metadataObject.stringValue];
+        NSString *str = metadataObject.stringValue;
+        if ([[metadataObject type] isEqualToString:AVMetadataObjectTypeQRCode]) {
+            str = [str stringByReplacingOccurrencesOfString:@"sn=" withString:@"***"];
+            str = [str stringByReplacingOccurrencesOfString:@"＆wmac" withString:@"###"];
+            NSRange star = [str rangeOfString:@"***"];//匹配得到的下标
+            NSRange end = [str rangeOfString:@"###"];//匹配得到的下标
+            NSLog(@"===str==%@",str);
+            str = [str substringWithRange:NSMakeRange(star.location+3,14)];//截取范围内的字符串
+            if (self.delegate != nil && [self.delegate respondsToSelector:@selector(getResponse:)]) {
+                [self.delegate getResponse:str];
+            }
+        }else {
+            if ([str hasPrefix:@"TGT"]) {
+                if (self.delegate != nil && [self.delegate respondsToSelector:@selector(getResponse:)]) {
+                    [self.delegate getResponse:str];
+                }
+            }else{
+                
+            }
         }
+        
+        
+        
     }
 }
 
