@@ -9,10 +9,15 @@
 #import "QRScanViewController.h"
 #import "ScanView.h"
 #import "YXManager.h"
+#import "NetWork.h"
 
+#define isActiveUrl @"http://as2.51tgt.com/FyjApp/GetDeviceStatus?ssid=%@"
+#define ActiveDeviceUrl @"http://as2.51tgt.com//FyjApp/DeviceActive?ssid=%@"
 @interface QRScanViewController ()<TGTScanQRCodeDelegate,BaseViewButtonDelegete,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 {
     MBProgressHUD        *hud;
+    YXManager            *_manager;
+    BOOL                 *_isActiveSuc;
 }
 @property (nonatomic,retain) ScanView *scanView;
 @end
@@ -21,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _manager = [YXManager share];
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = [UIColor whiteColor];
@@ -186,62 +191,128 @@ dispatch_async(dispatch_get_main_queue(), ^{
 
 #pragma mark - TGTScanQRCodeDelegate
 - (void)getResponse:(NSString *)qrCodeString {
-    if ([self isActivationDevice:qrCodeString]) {//激活过
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"扫描到设备：%@", qrCodeString] preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"重新扫描" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            [_scanView startScanQrCode];
-        }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"绑定设备" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self.delegate getQrCodeResponse:qrCodeString];
-            YXManager *manager = [YXManager share];
-            manager.ScanID = qrCodeString;
-            manager.isScan = YES;
-            manager.isBind = YES;
-            [self.navigationController popViewControllerAnimated:YES];
-            //储存设备sn号
-            [[NSUserDefaults standardUserDefaults ]setObject:manager.ScanID forKey:@"DeviceSN"];
-            //必须
-            [[NSUserDefaults standardUserDefaults]synchronize];
-            
-        }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"不绑定设备，直接进入" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            YXManager *manager = [YXManager share];
-            manager.isBind = NO;
-            manager.isScan = YES;
-            manager.ScanID = qrCodeString;
-            [self.navigationController popViewControllerAnimated:YES];
-            //储存设备sn号
-            [[NSUserDefaults standardUserDefaults ]setObject:manager.ScanID forKey:@"DeviceSN"];
-            //必须
-            [[NSUserDefaults standardUserDefaults]synchronize];
-            
-        }]];
-        [self presentViewController:alert animated:true completion:nil];
-    }else{//激活设备
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"是否激活设备?"] preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            [_scanView startScanQrCode];
-        }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self activationDevice];
-        }]];
-        [self presentViewController:alert animated:true completion:nil];
-        
-    }
+    [self isActivationDevice:qrCodeString];
     
     
 }
 
 #pragma mark 判断设备是否已激活
 -(BOOL)isActivationDevice:(NSString *)str{
+  
+    NSString *Actstr = [NSString stringWithFormat:isActiveUrl,str];
+    [NetWork sendGetNetWorkWithUrl:Actstr parameters:nil hudView:self.view successBlock:^(id data) {
+        NSLog(@"====%@===",data[@"data"][@"device"][@"is_active"]);
+        if (!data[@"data"]) {
+            _manager.isActive = NO;
+        }else if (data[@"data"][@"device"][@"is_active"] ==0){
+            _manager.isActive = NO;
+        }else{
+            _manager.isActive = YES;
+        }
+        
+        if (_manager.isActive) {//激活过
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"扫描到设备：%@", str] preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"重新扫描" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                [_scanView startScanQrCode];
+            }]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"绑定设备" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self.delegate getQrCodeResponse:str];
+                YXManager *manager = [YXManager share];
+                manager.ScanID = str;
+                manager.isScan = YES;
+                manager.isBind = YES;
+                [self.navigationController popViewControllerAnimated:YES];
+                //储存设备sn号
+                [[NSUserDefaults standardUserDefaults ]setObject:manager.ScanID forKey:@"DeviceSN"];
+                //必须
+                [[NSUserDefaults standardUserDefaults]synchronize];
+                
+            }]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"不绑定设备，直接进入" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                YXManager *manager = [YXManager share];
+                manager.isBind = NO;
+                manager.isScan = YES;
+                manager.ScanID = str;
+                [self.navigationController popViewControllerAnimated:YES];
+                //储存设备sn号
+                [[NSUserDefaults standardUserDefaults ]setObject:manager.ScanID forKey:@"DeviceSN"];
+                //必须
+                [[NSUserDefaults standardUserDefaults]synchronize];
+                
+            }]];
+            [self presentViewController:alert animated:true completion:nil];
+        }else{//激活设备
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"设备未激活，是否激活设备?"] preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                [_scanView startScanQrCode];
+            }]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self activationDevice:str];
+            }]];
+            [self presentViewController:alert animated:true completion:nil];
+            
+        }
+        
+    } failureBlock:^(NSString *error) {
+         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"网络中断"] preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+         [self presentViewController:alert animated:true completion:nil];
+    }];
     
-    
-    return YES;
+    return _manager.isActive;
 }
 
 #pragma mark 激活设备
--(void)activationDevice{
-    
+-(void)activationDevice:(NSString *)strSN{
+    NSString *str = [NSString stringWithFormat:ActiveDeviceUrl,strSN];
+    [NetWork sendGetNetWorkWithUrl:str parameters:nil hudView:self.view successBlock:^(id data) {
+        if (!data[@"data"]) {
+            _manager.isActiveSuc = NO;
+        }else if (data[@"data"][@"device"][@"active"] ==0){
+            _manager.isActiveSuc = NO;
+        }else{
+            _manager.isActiveSuc = YES;
+        }
+        
+        if (_manager.isActiveSuc) {//激活成功
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"激活成功!"] preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"绑定设备" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self.delegate getQrCodeResponse:str];
+                YXManager *manager = [YXManager share];
+                manager.ScanID = str;
+                manager.isScan = YES;
+                manager.isBind = YES;
+                [self.navigationController popViewControllerAnimated:YES];
+                //储存设备sn号
+                [[NSUserDefaults standardUserDefaults ]setObject:manager.ScanID forKey:@"DeviceSN"];
+                //必须
+                [[NSUserDefaults standardUserDefaults]synchronize];
+                
+            }]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"不绑定设备，直接进入" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                YXManager *manager = [YXManager share];
+                manager.isBind = NO;
+                manager.isScan = YES;
+                manager.ScanID = str;
+                [self.navigationController popViewControllerAnimated:YES];
+                //储存设备sn号
+                [[NSUserDefaults standardUserDefaults ]setObject:manager.ScanID forKey:@"DeviceSN"];
+                //必须
+                [[NSUserDefaults standardUserDefaults]synchronize];
+                
+            }]];
+            [self presentViewController:alert animated:true completion:nil];
+        }else{
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"激活失败!"] preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+            [self presentViewController:alert animated:true completion:nil];
+        }
+        
+    } failureBlock:^(NSString *error) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"网络中断"] preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+         [self presentViewController:alert animated:true completion:nil];
+    }];
     
 }
 

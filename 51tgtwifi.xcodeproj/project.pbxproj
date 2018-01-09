@@ -98,6 +98,13 @@
 		D76FF08E1FFE3601008250A6 /* light.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF08D1FFE3601008250A6 /* light.png */; };
 		D76FF0901FFE361A008250A6 /* click.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF08F1FFE361A008250A6 /* click.png */; };
 		D76FF09C200321EA008250A6 /* HomeDemoVc.m in Sources */ = {isa = PBXBuildFile; fileRef = D76FF09B200321EA008250A6 /* HomeDemoVc.m */; };
+		D76FF09E2004B793008250A6 /* hide-write.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF09D2004B793008250A6 /* hide-write.png */; };
+		D76FF0A02004B805008250A6 /* show-write.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF09F2004B805008250A6 /* show-write.png */; };
+		D76FF0A72004C758008250A6 /* SingletonView.m in Sources */ = {isa = PBXBuildFile; fileRef = D76FF0A62004C758008250A6 /* SingletonView.m */; };
+		D76FF0A92004CB10008250A6 /* currect.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0A82004CB10008250A6 /* currect.png */; };
+		D76FF0AB2004CB80008250A6 /* 22222.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0AA2004CB80008250A6 /* 22222.png */; };
+		D76FF0AD2004CBFF008250A6 /* fasle.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0AC2004CBFF008250A6 /* fasle.png */; };
+		D76FF0AF2004CC56008250A6 /* 333.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0AE2004CC56008250A6 /* 333.png */; };
 		D7A512F51FEA90CD001C8158 /* YXManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A512F41FEA90CD001C8158 /* YXManager.m */; };
 		D7A512F81FEA9382001C8158 /* ic_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7A512F71FEA9382001C8158 /* ic_bg.jpg */; };
 		D7A512FB1FEA93D2001C8158 /* HomeVc.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A512FA1FEA93D2001C8158 /* HomeVc.m */; };
@@ -329,6 +336,14 @@
 		D76FF0991FFF53CD008250A6 /* ScanQR4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ScanQR4@2x.png"; path = "../../../Desktop/working/途鸽翻译机图标/mipmap-hdpi/新建文件夹 (4)/ScanQR4@2x.png"; sourceTree = "<group>"; };
 		D76FF09A200321EA008250A6 /* HomeDemoVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeDemoVc.h; sourceTree = "<group>"; };
 		D76FF09B200321EA008250A6 /* HomeDemoVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeDemoVc.m; sourceTree = "<group>"; };
+		D76FF09D2004B793008250A6 /* hide-write.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hide-write.png"; sourceTree = "<group>"; };
+		D76FF09F2004B805008250A6 /* show-write.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "show-write.png"; sourceTree = "<group>"; };
+		D76FF0A52004C758008250A6 /* SingletonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingletonView.h; sourceTree = "<group>"; };
+		D76FF0A62004C758008250A6 /* SingletonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingletonView.m; sourceTree = "<group>"; };
+		D76FF0A82004CB10008250A6 /* currect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = currect.png; sourceTree = "<group>"; };
+		D76FF0AA2004CB80008250A6 /* 22222.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 22222.png; sourceTree = "<group>"; };
+		D76FF0AC2004CBFF008250A6 /* fasle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fasle.png; sourceTree = "<group>"; };
+		D76FF0AE2004CC56008250A6 /* 333.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 333.png; sourceTree = "<group>"; };
 		D7A512F31FEA90CD001C8158 /* YXManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXManager.h; sourceTree = "<group>"; };
 		D7A512F41FEA90CD001C8158 /* YXManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXManager.m; sourceTree = "<group>"; };
 		D7A512F71FEA9382001C8158 /* ic_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ic_bg.jpg; sourceTree = "<group>"; };
@@ -731,6 +746,8 @@
 		D76FF0551FF4DE03008250A6 /* 加载动画 */ = {
 			isa = PBXGroup;
 			children = (
+				D76FF0A52004C758008250A6 /* SingletonView.h */,
+				D76FF0A62004C758008250A6 /* SingletonView.m */,
 				D76FF0571FF4DE19008250A6 /* LoadingViewForOC.h */,
 				D76FF0591FF4DE19008250A6 /* LoadingViewForOC.m */,
 			);
@@ -777,6 +794,10 @@
 		D7A513171FEBF8FA001C8158 /* 设置 */ = {
 			isa = PBXGroup;
 			children = (
+				D76FF0AE2004CC56008250A6 /* 333.png */,
+				D76FF0AC2004CBFF008250A6 /* fasle.png */,
+				D76FF0AA2004CB80008250A6 /* 22222.png */,
+				D76FF0A82004CB10008250A6 /* currect.png */,
 				D7A513481FF25279001C8158 /* 1.png */,
 				D7A5133E1FF2512B001C8158 /* ic_connect_wifi.png */,
 				D7A5133F1FF2512C001C8158 /* ic_setting_apn.png */,
@@ -793,6 +814,8 @@
 		D7A513181FEBF904001C8158 /* 修改热点密码 */ = {
 			isa = PBXGroup;
 			children = (
+				D76FF09F2004B805008250A6 /* show-write.png */,
+				D76FF09D2004B793008250A6 /* hide-write.png */,
 				D7A513191FEBF913001C8158 /* ic_show_password.png */,
 			);
 			name = "修改热点密码";
@@ -1028,6 +1051,7 @@
 				D76FF0871FFC7D08008250A6 /* ScanQR1@3x.png in Resources */,
 				129AE2341F9DB3980019192D /* Icon-Paypal@3x.png in Resources */,
 				D7A513491FF25279001C8158 /* 1.png in Resources */,
+				D76FF0AD2004CBFF008250A6 /* fasle.png in Resources */,
 				D7A513281FF0CCEF001C8158 /* ic_splash01.png in Resources */,
 				D76FF0841FFC7D08008250A6 /* ScanQR2@3x.png in Resources */,
 				D7A513081FEBBD03001C8158 /* ic_home_u@3x.png in Resources */,
@@ -1058,6 +1082,7 @@
 				D7A5139E1FF48E91001C8158 /* qrcode_scan_line.png in Resources */,
 				D76FF0861FFC7D08008250A6 /* ScanQR1@2x.png in Resources */,
 				129AE22F1F9DA65F0019192D /* iocn_weixin_green@2x.png in Resources */,
+				D76FF0A92004CB10008250A6 /* currect.png in Resources */,
 				129AE21B1F9DA65F0019192D /* button_bg_red_short@2x.png in Resources */,
 				129AE2271F9DA65F0019192D /* icon_weixin_white@2x.png in Resources */,
 				D76FF0831FFC7D08008250A6 /* ScanQR2@2x.png in Resources */,
@@ -1074,8 +1099,10 @@
 				129AE2291F9DA65F0019192D /* icon_yinlian@2x.png in Resources */,
 				129AE2151F9DA65F0019192D /* back@2x.png in Resources */,
 				129AE22E1F9DA65F0019192D /* icon_zhifubao_white@3x.png in Resources */,
+				D76FF0AB2004CB80008250A6 /* 22222.png in Resources */,
 				129AE2301F9DA65F0019192D /* iocn_weixin_green@3x.png in Resources */,
 				129AE21A1F9DA65F0019192D /* button_bg_green@3x.png in Resources */,
+				D76FF0AF2004CC56008250A6 /* 333.png in Resources */,
 				D76FF0851FFC7D08008250A6 /* ScanQR3@2x.png in Resources */,
 				D76FF04D1FF4D924008250A6 /* toast_keywords_option@2x.png in Resources */,
 				129AE2421F9ED97C0019192D /* MBProgressHUD.bundle in Resources */,
@@ -1091,11 +1118,13 @@
 				D7A513991FF48B1B001C8158 /* wifi_signal_5.png in Resources */,
 				129AE21D1F9DA65F0019192D /* button_bg_red@2x.png in Resources */,
 				D7A5130E1FEBBD6D001C8158 /* ic_mall_s@2x.png in Resources */,
+				D76FF09E2004B793008250A6 /* hide-write.png in Resources */,
 				D7A5139B1FF48B1B001C8158 /* wifi_signal_1.png in Resources */,
 				D7A5139C1FF48B1B001C8158 /* wifi_signal_2.png in Resources */,
 				D76FF0901FFE361A008250A6 /* click.png in Resources */,
 				129AE2171F9DA65F0019192D /* button_bg_blue@2x.png in Resources */,
 				129AE2211F9DA65F0019192D /* head-portrait@2x.png in Resources */,
+				D76FF0A02004B805008250A6 /* show-write.png in Resources */,
 				1AF3C0CD1F8FBB7B00A35AFC /* Main.storyboard in Resources */,
 				129AE2131F9DA65F0019192D /* ¥@3x.png in Resources */,
 				D7A513091FEBBD03001C8158 /* ic_mall_u@3x.png in Resources */,
@@ -1197,6 +1226,7 @@
 				D7A5134D1FF38C42001C8158 /* HWCircleView.m in Sources */,
 				129AE1E21F9DA26A0019192D /* PayView.m in Sources */,
 				129AE1DF1F9DA20C0019192D /* PayViewController.m in Sources */,
+				D76FF0A72004C758008250A6 /* SingletonView.m in Sources */,
 				D7A512F51FEA90CD001C8158 /* YXManager.m in Sources */,
 				D7A5133B1FF22C1A001C8158 /* DisconnectViewController.m in Sources */,
 				129AE1E81F9DA3900019192D /* UILabel+Extension.m in Sources */,

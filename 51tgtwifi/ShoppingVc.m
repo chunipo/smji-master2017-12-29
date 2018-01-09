@@ -13,8 +13,9 @@
 #import "ShopTabCell.h"
 #import "DetailVc.h"
 #import "LoadingViewForOC.h"
+#import "YXManager.h"
 
-#define DoorOpen @"http://as2.51tgt.com/FyjApp/GetFlowProducts?ssid=TGT23170126536&type=RMB"
+#define DoorOpen @"http://as2.51tgt.com/FyjApp/GetFlowProducts?ssid=%@&type=RMB"
 #define PicHead  @"http://as2.51tgt.com"
 
 
@@ -29,6 +30,8 @@
     MBProgressHUD      *hud;
 
     LoadingViewForOC   *_loadView;
+    
+    YXManager          *_manager;
 }
 
 //paypal配置
@@ -44,7 +47,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-
+    _manager = [YXManager share];
 }
 
 - (void)viewDidLoad {
@@ -100,9 +103,12 @@
 
 
     [self showSchdu];
-    
-    
-    NSString *str = DoorOpen;
+    NSString *str ;
+    if (isBeta) {
+        str = [NSString stringWithFormat:DoorOpen,@"TGT23170126536"];
+    }else{
+        str = [NSString stringWithFormat:DoorOpen,_manager.sn];
+    }
     
     [NetWork sendGetNetWorkWithUrl:str parameters:nil hudView:self.view successBlock:^(id data) {
             

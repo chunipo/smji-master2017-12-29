@@ -19,7 +19,7 @@
 #define Device_Info [UIScreen mainScreen].bounds.size.width<375?12:15
 #define Hmargin  16
 
-#define Global_url @"http://as2.51tgt.com/wxapp/GetDeviceInfoByQrCode?device_no=TGT24170833260"
+#define Global_url @"http://as2.51tgt.com/wxapp/GetDeviceInfoByQrCode?device_no=%@"
 
 @interface HomeVc ()<UIScrollViewDelegate,CBCentralManagerDelegate,CBPeripheralDelegate,UIGestureRecognizerDelegate>
 {
@@ -542,7 +542,7 @@
         CBUUID *uuid = [CBUUID UUIDWithString:@"FFF0"];
         [self.cMgr scanForPeripheralsWithServices:@[uuid] options:nil];
         //上架审核专属
-        if (![_manager.ScanID isEqualToString:@"TGT24170833091"]) {
+        if (![_manager.ScanID isEqualToString:@"TGT2417083309"]) {
             
             [self showSchdu];
         }
@@ -606,7 +606,7 @@
     _GetInfo = @"CMD_SET_WIFIANDPASSWORD";
     _isWrite = YES;
     _manager.isReload = NO;
-    if (self.peripheral) {
+    if (_manager.isBind) {
         [self.peripheral discoverServices:nil];
     }
     else{
@@ -620,11 +620,11 @@
     _GetInfo = @"CMD_SET_BLACK_LIST";
     _isWrite = YES;
     _manager.isReload = NO;
-    if (self.peripheral) {
+    if (_manager.isBind) {
     [self.peripheral discoverServices:nil];
     }
     else{
-         [[NSNotificationCenter defaultCenter]postNotificationName:@"closeChangePWD_fai" object:nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"closeChangePWD_fai" object:nil];
     }
 }
 
@@ -633,7 +633,7 @@
     _GetInfo = @"CMD_SET_APN";
     _isWrite = YES;
     _manager.isReload = NO;
-    if (self.peripheral) {
+    if (_manager.isBind) {
         [self.peripheral discoverServices:nil];
     }
     else{
@@ -647,7 +647,7 @@
     _GetInfo = @"CMD_BT_CONNECT_TO_AP";
     _isWrite = YES;
     _manager.isReload = NO;
-    if (self.peripheral) {
+    if (_manager.isBind) {
         [self.peripheral discoverServices:nil];
     }
     else{
@@ -1116,9 +1116,12 @@
         _manager.isBind = YES;
         _manager.isReload = NO;
         _isRequest = NO;
+        _isRequest = NO;
         _view3.alpha = 0;
         _view2.alpha = 0;
         _view.alpha = 0;
+        _bindBtn.alpha = 0;
+        _GetInfo = GET_DEVICE_INFO;
         CBUUID *uuid = [CBUUID UUIDWithString:@"FFF0"];
         [self.cMgr scanForPeripheralsWithServices:@[uuid] options:nil];
         [self showSchdu];
@@ -1260,8 +1263,22 @@
 -(void)RequestandGetGlobalUI{
     _isRequest = YES;
      [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    NSString *Packgurl;
+    if (isBeta) {
+        Packgurl = [NSString stringWithFormat:Global_url,@"TGT24170833260"];
+    }else{
+        NSString *ssid = _manager.model.ssid;
+        NSLog(@"===前%@==",ssid);
+        ssid = [ssid stringByReplacingOccurrencesOfString:@"*TUGE" withString:@"TGT"];
+        NSRange star = [ssid rangeOfString:@"TGT"];//匹配得到的下标
+        ssid = [ssid substringWithRange:NSMakeRange(star.location,14)];//截取范围内的字符串
+        NSLog(@"===后%@==",ssid);
+        _manager.sn = ssid;
+        Packgurl = [NSString stringWithFormat:Global_url,ssid];
+    }
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    [NetWork sendGetNetWorkWithUrl:Global_url parameters:nil hudView:self.view successBlock:^(id data) {
+    [NetWork sendGetNetWorkWithUrl:Packgurl parameters:nil hudView:self.view successBlock:^(id data) {
        // NSLog(@"data==%@==",data);
         NSArray *arr = data[@"device_order"];
         NSDictionary *dictTranslate = arr[0];

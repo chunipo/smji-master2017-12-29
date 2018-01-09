@@ -436,11 +436,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/SetViewController.m"
-            timestampString = "537154572.184525"
+            timestampString = "537189353.659567"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "647"
-            endingLineNumber = "647"
+            startingLineNumber = "674"
+            endingLineNumber = "674"
             landmarkName = "-show:"
             landmarkType = "7">
          </BreakpointContent>
@@ -468,11 +468,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/DeviceConnectWifiViewC.m"
-            timestampString = "537154572.184763"
+            timestampString = "537189353.659745"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
             landmarkName = "-closePWD_suc"
             landmarkType = "7">
          </BreakpointContent>
@@ -484,11 +484,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/DeviceConnectWifiViewC.m"
-            timestampString = "537154572.184866"
+            timestampString = "537189353.659812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
             landmarkName = "-closePWD_fai"
             landmarkType = "7">
          </BreakpointContent>
@@ -500,11 +500,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/DeviceConnectWifiViewC.m"
-            timestampString = "537154572.184932"
+            timestampString = "537189353.6598769"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "319"
-            endingLineNumber = "319"
+            startingLineNumber = "331"
+            endingLineNumber = "331"
             landmarkName = "-click:"
             landmarkType = "7">
          </BreakpointContent>
@@ -516,7 +516,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.184992"
+            timestampString = "537189353.659941"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "156"
@@ -532,7 +532,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.1853141"
+            timestampString = "537189353.660465"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "206"
@@ -548,11 +548,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/QRScanViewController.m"
-            timestampString = "537154572.18558"
+            timestampString = "537189353.660907"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "-scQRReaderForImage:"
             landmarkType = "7">
          </BreakpointContent>
@@ -564,11 +564,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/QRScanViewController.m"
-            timestampString = "537154572.185662"
+            timestampString = "537189353.661459"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "-scQRReaderForImage:"
             landmarkType = "7">
          </BreakpointContent>
@@ -580,11 +580,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/QRScanViewController.m"
-            timestampString = "537154572.185739"
+            timestampString = "537189353.661837"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
             landmarkName = "-scQRReaderForImage:"
             landmarkType = "7">
          </BreakpointContent>
@@ -596,11 +596,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/QRScanViewController.m"
-            timestampString = "537154572.185816"
+            timestampString = "537189353.6622241"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
             landmarkName = "-scQRReaderForImage:"
             landmarkType = "7">
          </BreakpointContent>
@@ -612,11 +612,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/QRScanViewController.m"
-            timestampString = "537154572.185891"
+            timestampString = "537189353.662585"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
             landmarkName = "-buttonBeTouched:view:"
             landmarkType = "7">
          </BreakpointContent>
@@ -628,7 +628,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/ScanView.m"
-            timestampString = "537154572.185964"
+            timestampString = "537189353.662931"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "284"
@@ -644,11 +644,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/QRScanViewController.m"
-            timestampString = "537154572.186035"
+            timestampString = "537189353.6630189"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
             landmarkName = "-buttonBeTouched:view:"
             landmarkType = "7">
          </BreakpointContent>
@@ -660,11 +660,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/QRScanViewController.m"
-            timestampString = "537154572.186101"
+            timestampString = "537189353.663325"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
             landmarkName = "-buttonBeTouched:view:"
             landmarkType = "7">
          </BreakpointContent>
@@ -676,11 +676,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/SetViewController.m"
-            timestampString = "537154572.1861759"
+            timestampString = "537189353.663651"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "730"
-            endingLineNumber = "730"
+            startingLineNumber = "764"
+            endingLineNumber = "764"
             landmarkName = "-show:"
             landmarkType = "7">
          </BreakpointContent>
@@ -692,7 +692,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.18624"
+            timestampString = "537189353.663744"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "636"
@@ -708,7 +708,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.1863509"
+            timestampString = "537189353.663866"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "266"
@@ -724,7 +724,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.18645"
+            timestampString = "537189353.663977"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "268"
@@ -740,7 +740,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.186547"
+            timestampString = "537189353.6640871"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "453"
@@ -756,7 +756,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.186644"
+            timestampString = "537189353.664201"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "618"
@@ -772,23 +772,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.186731"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
-            landmarkName = "-centralManager:didDiscoverPeripheral:advertisementData:RSSI:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.186811"
+            timestampString = "537189353.664309"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "550"
@@ -804,7 +788,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/ScanView.m"
-            timestampString = "537154572.186891"
+            timestampString = "537189353.664416"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "224"
@@ -820,7 +804,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/ScanView.m"
-            timestampString = "537154572.186942"
+            timestampString = "537189353.664475"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "234"
@@ -836,7 +820,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/ScanView.m"
-            timestampString = "537154572.1869889"
+            timestampString = "537189353.664531"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "239"
@@ -852,43 +836,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.187099"
+            timestampString = "537189353.6645859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "627"
-            endingLineNumber = "627"
-            landmarkName = "-heimindan:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.187216"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "624"
-            endingLineNumber = "624"
-            landmarkName = "-heimindan:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.187317"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1561"
-            endingLineNumber = "1561"
+            startingLineNumber = "1578"
+            endingLineNumber = "1578"
             landmarkName = "-labelTap:"
             landmarkType = "7">
          </BreakpointContent>
@@ -900,7 +852,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.1874141"
+            timestampString = "537189353.664676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "546"
@@ -916,27 +868,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.187494"
+            timestampString = "537189353.664752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "560"
-            endingLineNumber = "560"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.187578"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1297"
-            endingLineNumber = "1297"
+            startingLineNumber = "1314"
+            endingLineNumber = "1314"
             landmarkName = "-RequestandGetGlobalUI"
             landmarkType = "7">
          </BreakpointContent>
@@ -948,11 +884,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.1876431"
+            timestampString = "537189353.664825"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1302"
-            endingLineNumber = "1302"
+            startingLineNumber = "1319"
+            endingLineNumber = "1319"
             landmarkName = "-RequestandGetGlobalUI"
             landmarkType = "7">
          </BreakpointContent>
@@ -964,11 +900,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.187698"
+            timestampString = "537189353.664896"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1332"
-            endingLineNumber = "1332"
+            startingLineNumber = "1349"
+            endingLineNumber = "1349"
             landmarkName = "-RequestandGetGlobalUI"
             landmarkType = "7">
          </BreakpointContent>
@@ -980,27 +916,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.1877511"
+            timestampString = "537189353.664968"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1067"
-            endingLineNumber = "1067"
-            landmarkName = "-showDeviceInfo"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.187802"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1135"
-            endingLineNumber = "1135"
+            startingLineNumber = "1138"
+            endingLineNumber = "1138"
             landmarkName = "-GetDeviceInfo"
             landmarkType = "7">
             <Locations>
@@ -1012,11 +932,11 @@
                   moduleName = "51tgtwifi"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/dev/Downloads/smji-master/51tgtwifi/HomeVc.m"
-                  timestampString = "537099537.438552"
+                  timestampString = "537189005.718877"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1135"
-                  endingLineNumber = "1135"
+                  startingLineNumber = "1138"
+                  endingLineNumber = "1138"
                   offsetFromSymbolStart = "252">
                </Location>
                <Location
@@ -1027,11 +947,11 @@
                   moduleName = "51tgtwifi"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/dev/Downloads/smji-master/51tgtwifi/HomeVc.m"
-                  timestampString = "537099537.440469"
+                  timestampString = "537189005.7205141"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1138"
-                  endingLineNumber = "1138"
+                  startingLineNumber = "1141"
+                  endingLineNumber = "1141"
                   offsetFromSymbolStart = "40">
                </Location>
             </Locations>
@@ -1044,27 +964,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.187852"
+            timestampString = "537189353.665035"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1253"
-            endingLineNumber = "1253"
-            landmarkName = "-createUI"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.187902"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1262"
-            endingLineNumber = "1262"
+            startingLineNumber = "1326"
+            endingLineNumber = "1326"
             landmarkName = "-RequestandGetGlobalUI"
             landmarkType = "7">
          </BreakpointContent>
@@ -1076,12 +980,124 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.1880029"
+            timestampString = "537189353.665105"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1309"
-            endingLineNumber = "1309"
+            startingLineNumber = "1277"
+            endingLineNumber = "1277"
             landmarkName = "-RequestandGetGlobalUI"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[HomeVc RequestandGetGlobalUI]"
+                  moduleName = "51tgtwifi"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dev/Downloads/smji-master/51tgtwifi/HomeVc.m"
+                  timestampString = "537189005.727227"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1280"
+                  endingLineNumber = "1280"
+                  offsetFromSymbolStart = "148">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__31-[HomeVc RequestandGetGlobalUI]_block_invoke"
+                  moduleName = "51tgtwifi"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dev/Downloads/smji-master/51tgtwifi/HomeVc.m"
+                  timestampString = "537189005.728704"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1281"
+                  endingLineNumber = "1281"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "51tgtwifi/HomeVc.m"
+            timestampString = "537189353.665168"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "281"
+            endingLineNumber = "281"
+            landmarkName = "-peripheral:didDiscoverCharacteristicsForService:error:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "51tgtwifi/SetViewController.m"
+            timestampString = "537189353.665229"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
+            landmarkName = "-closeChangePWD_suc"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "51tgtwifi/SetViewController.m"
+            timestampString = "537189353.665278"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "237"
+            endingLineNumber = "237"
+            landmarkName = "-closeChangePWD_fai"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "51tgtwifi/SingletonView.m"
+            timestampString = "537189353.665331"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "-singleViewWithTitle:inParentView:isSuc:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "51tgtwifi/SingletonView.m"
+            timestampString = "537189353.665383"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "-singleViewWithTitle:inParentView:isSuc:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1092,12 +1108,108 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "51tgtwifi/HomeVc.m"
-            timestampString = "537154572.188071"
+            timestampString = "537189353.665433"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1321"
-            endingLineNumber = "1321"
+            startingLineNumber = "624"
+            endingLineNumber = "624"
+            landmarkName = "-heimindan:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "51tgtwifi/HomeVc.m"
+            timestampString = "537189353.665486"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "627"
+            endingLineNumber = "627"
+            landmarkName = "-heimindan:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "51tgtwifi/HomeVc.m"
+            timestampString = "537189353.665537"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1288"
+            endingLineNumber = "1288"
             landmarkName = "-RequestandGetGlobalUI"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "51tgtwifi/QRScanViewController.m"
+            timestampString = "537189353.665589"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
+            landmarkName = "-isActivationDevice:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "51tgtwifi/QRScanViewController.m"
+            timestampString = "537189353.665875"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
+            landmarkName = "-isActivationDevice:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "51tgtwifi/QRScanViewController.m"
+            timestampString = "537189353.666157"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
+            landmarkName = "-isActivationDevice:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "51tgtwifi/QRScanViewController.m"
+            timestampString = "537189353.666494"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "317"
+            endingLineNumber = "317"
+            landmarkName = "-activationDevice:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

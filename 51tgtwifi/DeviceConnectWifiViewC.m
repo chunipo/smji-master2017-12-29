@@ -9,6 +9,7 @@
 #import "DeviceConnectWifiViewC.h"
 #import "YXManager.h"
 #import "HomeVc.h"
+#import "SingletonView.h"
 
 @interface DeviceConnectWifiViewC ()<UITextFieldDelegate>
 {
@@ -44,22 +45,30 @@
     [self hideSchdu];
     [self.navigationController popViewControllerAnimated:YES];
     
-    MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-    hud.mode = MBProgressHUDModeText;
-    hud.label.text = @"连接成功";
-   
-    hud.removeFromSuperViewOnHide = YES;
-    [hud hideAnimated:YES afterDelay:2];
+//    MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//    hud.mode = MBProgressHUDModeText;
+//    hud.label.text = @"连接成功";
+//
+//    hud.removeFromSuperViewOnHide = YES;
+//    [hud hideAnimated:YES afterDelay:2];
+    [SingletonView showSingleViewWithTitle:@"连接成功" imageName:nil inParentView:self.view isSuc:YES];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [SingletonView hideWaitView];
+    });
 }
 -(void)closePWD_fai{
     [self hideSchdu];
     [self.navigationController popViewControllerAnimated:YES];
     
-    MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-    hud.mode = MBProgressHUDModeText;
-    hud.label.text = @"连接失败";
-    hud.removeFromSuperViewOnHide = YES;
-    [hud hideAnimated:YES afterDelay:2];
+//    MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//    hud.mode = MBProgressHUDModeText;
+//    hud.label.text = @"连接失败";
+//    hud.removeFromSuperViewOnHide = YES;
+//    [hud hideAnimated:YES afterDelay:2];
+    [SingletonView showSingleViewWithTitle:@"连接失败" imageName:nil inParentView:self.view isSuc:NO];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [SingletonView hideWaitView];
+    });
 }
 
 -(void)disconnectWIFI_suc{
@@ -194,9 +203,9 @@
     _wifiPwd.keyboardType = UIKeyboardTypeNamePhonePad;
     
     _wifiPwd.rightViewMode = UITextFieldViewModeWhileEditing;
-    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 25, 12)];
-    //    btn1.backgroundColor =[UIColor redColor];
-    [btn1 setImage:[UIImage imageNamed:@"ic_show_password.png"] forState:UIControlStateNormal];
+    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 32, 32)];
+    [btn1 setImage:[UIImage imageNamed:@"hide-write.png"] forState:UIControlStateNormal];
+    [btn1 setImage:[UIImage imageNamed:@"show-write.png"] forState:UIControlStateSelected];
     btn1.tag = 201;
     [btn1 addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
     _wifiPwd.rightView = btn1;
@@ -262,8 +271,11 @@
     else if (btn.tag==201){
         if (_wifiPwd.secureTextEntry) {
             _wifiPwd.secureTextEntry = NO;
-        }else
+            btn.selected = YES;
+        }else{
             _wifiPwd.secureTextEntry=YES;
+            btn.selected = NO;
+        }
         
     }
 //    //显示WIFI名称

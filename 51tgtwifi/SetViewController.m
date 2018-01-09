@@ -14,6 +14,7 @@
 #import "YXManager.h"
 #import "AboutMeViewController.h"
 #import "DeviceConnectWifiViewC.h"
+#import "SingletonView.h"
 
 #define Name_Device [UIScreen mainScreen].bounds.size.width<375?14:17
 
@@ -186,11 +187,21 @@
     [_view_wifi removeFromSuperview];
     [_view removeFromSuperview];
     
-    MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-    hud.mode = MBProgressHUDModeText;
-    hud.label.text = @"修改成功";
-    hud.removeFromSuperViewOnHide = YES;
-    [hud hideAnimated:YES afterDelay:1];
+//    MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//    hud.mode = MBProgressHUDModeText;
+//    hud.label.text = @"修改成功";
+//    hud.removeFromSuperViewOnHide = YES;
+//    [hud hideAnimated:YES afterDelay:1];
+    [SingletonView showSingleViewWithTitle:@"修改成功" imageName:nil inParentView:self.view isSuc:YES];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        
+        [SingletonView hideWaitView];
+        
+        //        [SingletonView showSingleViewWithTitle:@"很长很长的很长很长很长很长的很长很长很长很长的很长很长很长很长的很长很长的标题" imageName:nil inParentView:self.view];
+    });
     
 }
 -(void)closeChangePWD_fai{
@@ -218,11 +229,15 @@
     [_view_wifi removeFromSuperview];
     [_view removeFromSuperview];
     
-    MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-    hud.mode = MBProgressHUDModeText;
-    hud.label.text = @"修改失败";
-    hud.removeFromSuperViewOnHide = YES;
-    [hud hideAnimated:YES afterDelay:1];
+//    MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+//    hud.mode = MBProgressHUDModeText;
+//    hud.label.text = @"修改失败";
+//    hud.removeFromSuperViewOnHide = YES;
+//    [hud hideAnimated:YES afterDelay:1];
+    [SingletonView showSingleViewWithTitle:@"修改失败" imageName:nil inParentView:self.view isSuc:NO];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [SingletonView hideWaitView];
+    });
     
 }
 
@@ -292,7 +307,7 @@
     
     
     
-     _arr = @[@[@"修改设备热点密码",@"设置APN",@"连接WIFI"],@[@"设置热点访问黑名单",@"当前软件版本"],@[@"关于我们"]];
+     _arr = @[@[@"修改设备热点密码",@"设置APN",@"连接WIFI"],@[@"设置热点访问黑名单",@"当前设备软件版本号"],@[@"关于我们"]];
      _arrImg = @[@[@"ic_setting_modify_password.png",@"ic_setting_apn.png",@"ic_connect_wifi.png"],@[@"ic_setting_blacklist.png",@"ic_setting_blacklist.png"],@[@"ic_setting_tip_language.png"]];
     _tableView.tableHeaderView =[self headView] ;
 
@@ -532,9 +547,9 @@ _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 28
     oldText.keyboardType = UIKeyboardTypeNamePhonePad;
     
     oldText.rightViewMode = UITextFieldViewModeWhileEditing;
-    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 15)];
-//    btn1.backgroundColor =[UIColor redColor];
-    [btn1 setImage:[UIImage imageNamed:@"ic_show_password.png"] forState:UIControlStateNormal];
+    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 32, 32)];
+    [btn1 setImage:[UIImage imageNamed:@"hide-write.png"] forState:UIControlStateNormal];
+    [btn1 setImage:[UIImage imageNamed:@"show-write.png"] forState:UIControlStateSelected];
     btn1.tag = 101;
     [btn1 addTarget:self action:@selector(show:) forControlEvents:UIControlEventTouchUpInside];
     oldText.rightView = btn1;
@@ -573,9 +588,9 @@ _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 28
     newText.keyboardType = UIKeyboardTypeNamePhonePad;
     
     newText.rightViewMode = UITextFieldViewModeWhileEditing;
-    UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 15)];
-    //    btn2.backgroundColor =[UIColor redColor];
-    [btn2 setImage:[UIImage imageNamed:@"ic_show_password.png"] forState:UIControlStateNormal];
+    UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 32, 32)];
+    [btn2 setImage:[UIImage imageNamed:@"hide-write.png"] forState:UIControlStateNormal];
+    [btn2 setImage:[UIImage imageNamed:@"show-write.png"] forState:UIControlStateSelected];
     btn2.tag = 102;
     [btn2 addTarget:self action:@selector(show:) forControlEvents:UIControlEventTouchUpInside];
     newText.rightView = btn2;
@@ -625,6 +640,18 @@ _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 28
     [confirmBtn addTarget:self action:@selector(show:) forControlEvents:UIControlEventTouchUpInside];
     [cancelBtn addTarget:self action:@selector(show:) forControlEvents:UIControlEventTouchUpInside];
     
+    //竖线
+    UIView *suLine = [UIView new];
+    [_view addSubview:suLine];
+    [suLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(_view);
+        make.top.equalTo(thirdLine.mas_bottom).with.offset(0);
+        make.bottom.mas_equalTo(0);
+        make.width.mas_equalTo(@1);
+    }];
+    suLine.backgroundColor = [UIColor colorWithRed:62.0/255.0 green:110.0/255.0 blue:148.0/255.0 alpha:1];
+    suLine.alpha = 1;
+    
 }
 
 #pragma mark 点击事件，设置密码黑名单apn
@@ -666,15 +693,22 @@ _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 28
     else if (btn.tag==101){
         if (oldText.secureTextEntry) {
             oldText.secureTextEntry = NO;
-        }else
+            btn.selected = YES;
+        }else{
             oldText.secureTextEntry=YES;
+            btn.selected = NO;
+        }
+        
         
     }
     else if (btn.tag==102){
         if (newText.secureTextEntry) {
             newText.secureTextEntry = NO;
-        }else
+            btn.selected = YES;
+        }else{
             newText.secureTextEntry=YES;
+            btn.selected = NO;
+        }
     }
     else if (btn.tag==204)//黑名单取消输入
     {
@@ -858,6 +892,19 @@ _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 28
     cancelBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     [confirmBtn addTarget:self action:@selector(show:) forControlEvents:UIControlEventTouchUpInside];
     [cancelBtn addTarget:self action:@selector(show:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    //竖线
+    UIView *suLine = [UIView new];
+    [_view_wifi addSubview:suLine];
+    [suLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(_view_wifi);
+        make.top.equalTo(thirdLine.mas_bottom).with.offset(0);
+        make.bottom.mas_equalTo(0);
+        make.width.mas_equalTo(@1);
+    }];
+    suLine.backgroundColor = [UIColor colorWithRed:62.0/255.0 green:110.0/255.0 blue:148.0/255.0 alpha:1];
+    suLine.alpha = 1;
     
 }
 
@@ -1146,6 +1193,18 @@ _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 28
     [confirmBtn addTarget:self action:@selector(show:) forControlEvents:UIControlEventTouchUpInside];
     [cancelBtn addTarget:self action:@selector(show:) forControlEvents:UIControlEventTouchUpInside];
     
+    //竖线
+    UIView *suLine = [UIView new];
+    [_view_APN addSubview:suLine];
+    [suLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(_view_APN);
+        make.top.equalTo(thirdLine.mas_bottom).with.offset(0);
+        make.bottom.mas_equalTo(0);
+        make.width.mas_equalTo(@1);
+    }];
+    suLine.backgroundColor = [UIColor colorWithRed:62.0/255.0 green:110.0/255.0 blue:148.0/255.0 alpha:1];
+    suLine.alpha = 1;
+    
 }
 
 #pragma mark - 显示进度条
@@ -1155,9 +1214,7 @@ _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 28
     
     // hud.mode = MBProgressHUDModeIndeterminate;
     hud.label.text = NSLocalizedString(@"正在设置中...", @"HUD loading title");
-    
     hud.color = [UIColor grayColor];
-    
     [hud showAnimated:YES];
 }
 

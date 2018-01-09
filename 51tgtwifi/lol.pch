@@ -24,6 +24,9 @@
 #define X_bang (CGSizeEqualToSize(CGSizeMake(375, 812), [[UIScreen mainScreen]bounds].size)?20.0:0.0)
 #define X_bottom (CGSizeEqualToSize(CGSizeMake(375, 812), [[UIScreen mainScreen]bounds].size)?34.0:0.0)
 
+/*******是否测试******/
+#define isBeta YES
+
 #import "UIImage+Extension.h"
 #import "UIView+Extension.h"
 #import "Masonry.h"
