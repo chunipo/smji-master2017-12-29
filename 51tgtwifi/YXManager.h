@@ -12,6 +12,7 @@
 
 @interface YXManager : NSObject
 + (instancetype)share;
+@property (assign, nonatomic)BOOL isBind;//判断命令是绑定设备还是不绑定
 @property (assign, nonatomic)BOOL isLight;//判断是否开启闪光灯
 @property (assign, nonatomic)BOOL isScan;//判断是否扫描完成
 @property (assign, nonatomic)BOOL isOpenBluetooth;//判断是否开启蓝牙

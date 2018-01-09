@@ -181,8 +181,10 @@
     [_APN_mmsc resignFirstResponder];
     [_APN_port resignFirstResponder];
     [_APN_proxy resignFirstResponder];
-//    _view_APN.frame = CGRectMake(0, 0, 0, 0);
+    _view_APN.frame = CGRectMake(0, 0, 0, 0);
     [_view_APN removeFromSuperview];
+    [_view_wifi removeFromSuperview];
+    [_view removeFromSuperview];
     
     MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
     hud.mode = MBProgressHUDModeText;
@@ -212,6 +214,9 @@
     [_APN_port resignFirstResponder];
     [_APN_proxy resignFirstResponder];
     _view_APN.frame = CGRectMake(0, 0, 0, 0);
+    [_view_APN removeFromSuperview];
+    [_view_wifi removeFromSuperview];
+    [_view removeFromSuperview];
     
     MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
     hud.mode = MBProgressHUDModeText;
@@ -631,6 +636,9 @@ _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 28
         _viewBack1.frame = CGRectMake(0, 0, 0, 0);
         _viewBack2.frame = CGRectMake(0, 0, 0, 0);
         _view.frame = CGRectMake(0, 0, 0, 0);
+        [_view removeFromSuperview];
+        [_viewBack1 removeFromSuperview];
+        [_viewBack2 removeFromSuperview];
        
     }
     else if (btn.tag==103){
@@ -674,6 +682,9 @@ _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 28
         _viewBack1.frame = CGRectMake(0, 0, 0, 0);
         _viewBack2.frame = CGRectMake(0, 0, 0, 0);
         _view_wifi.frame = CGRectMake(0, 0, 0, 0);
+        [_view_wifi removeFromSuperview];
+        [_viewBack1 removeFromSuperview];
+        [_viewBack2 removeFromSuperview];
     }else if (btn.tag==203)//确认输入黑名单
     {
         [self showSchdu];
@@ -695,6 +706,9 @@ _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 28
         _viewBack1.frame = CGRectMake(0, 0, 0, 0);
         _viewBack2.frame = CGRectMake(0, 0, 0, 0);
         _view_APN.frame = CGRectMake(0, 0, 0, 0);
+        [_view_APN removeFromSuperview];
+        [_viewBack1 removeFromSuperview];
+        [_viewBack2 removeFromSuperview];
     }else if (btn.tag==303)//apn输入
     {
         NSDictionary *dict = @{
@@ -797,7 +811,7 @@ _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 28
         
     }];
     heimingTextView.delegate = self;
-    [heimingTextView becomeFirstResponder];
+   // [heimingTextView becomeFirstResponder];
     heimingTextView.font = [UIFont systemFontOfSize:18];
     
     

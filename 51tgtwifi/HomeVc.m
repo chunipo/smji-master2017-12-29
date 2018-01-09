@@ -28,6 +28,7 @@
     UIScrollView      *_scrollView;
     UIView            *_view;//第一张背景
     UIView            *_view2;//第二张
+    UIView            *_view3;//第三张
     NSString          *_total;
     //第一次进入获取的基础信息
     BOOL              _isWrite;
@@ -74,6 +75,8 @@
     UIView            *_useCountyView;
     //解除绑定的按钮
     UIButton          *_cancelBtn;
+    //绑定设备按钮
+    UIButton          *_bindBtn;
     
 }
 
@@ -535,13 +538,15 @@
     [self addScrView];
     [self showDeviceInfo];
     //判断是否扫描是为了防止创建两个中心设备
-    if (_manager.isScan) {
+    if (_manager.isScan&&_manager.isBind) {
         CBUUID *uuid = [CBUUID UUIDWithString:@"FFF0"];
         [self.cMgr scanForPeripheralsWithServices:@[uuid] options:nil];
         //上架审核专属
-        if (![_manager.ScanID isEqualToString:@"TGT2417083309"]) {
+        if (![_manager.ScanID isEqualToString:@"TGT24170833091"]) {
+            
             [self showSchdu];
-        }else{
+        }
+        else{
             _manager.model.ssid = @"*TUGE24170833091 百度翻译机";
             _manager.model.password = @"b0aaa6ad";
             _manager.model.Power = @"100%";
@@ -550,7 +555,10 @@
             _manager.model.AppVersion = @"T4_v2.1.17";
             [self createUI];
         }
-        }
+    }else if (!_manager.isBind&&_manager.isScan){//不绑定设备，则不开启蓝牙连接，直接获取设备套餐信息即可
+        _manager.isOpenBluetooth = YES;//用来在没绑定设备时随意点击设置
+        [self createUI];
+    }
 //    [self showDeviceInfo];
 //    //网络请求，应该放到蓝牙连接里面
 //    [self RequestandGetGlobalUI];
@@ -800,15 +808,13 @@
 //        make.top.equalTo(_view.mas_bottom).with.offset(30);
 //        make.height.mas_equalTo(@400);
 //    }];
-    _view2 = [[UIView alloc]initWithFrame:CGRectMake(kMagin, _view.maxY+30, kWidth, 530)];
+    _view2 = [[UIView alloc]initWithFrame:CGRectMake(kMagin, _view.maxY+30, kWidth, 230)];
     _view2.layer.cornerRadius = 10;
     _view2.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_view2];
     //860
     CGFloat k = _view2.maxY;
-    //s隐藏
-    _view2.alpha = 0;
-    _view.alpha = 0;
+   
     //翻译订单
     OrderLab = [UILabel new];
     [_view2 addSubview:OrderLab];
@@ -915,17 +921,21 @@
     name_endTime.text  = @"结束时间:";
     name_endTime.numberOfLines = 0;
     name_endTime.font = [UIFont boldSystemFontOfSize:Name_Device];
-    NSLog(@"长度是%@",name_endTime.frame.origin.y);
     
-    //***************************通用流量信息*********************************************//
+    //***************************全球流量信息*********************************************//
+    _view3 = [[UIView alloc]initWithFrame:CGRectMake(kMagin, _view2.maxY+30, kWidth, 300)];
+    _view3.layer.cornerRadius = 10;
+    _view3.backgroundColor = [UIColor whiteColor];
+    [_scrollView addSubview:_view3];
+    
     flowInfo = [UILabel new];
-    [_view2 addSubview:flowInfo];
+    [_view3 addSubview:flowInfo];
    // flowInfo.text =SetLange(@"fanyidingdan");
     [flowInfo mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(_view2).with.offset(10);
-        make.right.equalTo(_view2).with.offset(-10);
-        make.top.equalTo(name_endTime.mas_bottom).with.offset(30);
+        make.left.equalTo(_view3).with.offset(10);
+        make.right.equalTo(_view3).with.offset(-10);
+        make.top.equalTo(_view3).with.offset(20);
         make.height.mas_equalTo(@25);
         
         
@@ -936,13 +946,13 @@
     //总流量
     UILabel *name_GlobaltotalFlow = [UILabel new];
     
-    [_view2 addSubview:name_GlobaltotalFlow];
+    [_view3 addSubview:name_GlobaltotalFlow];
     
     [name_GlobaltotalFlow mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(flowInfo.mas_bottom).with.offset(Hmargin);
-        make.right.equalTo(_view2).with.offset(-10);
-        make.left.equalTo(_view2).with.offset(10);
+        make.right.equalTo(_view3).with.offset(-10);
+        make.left.equalTo(_view3).with.offset(10);
         make.height.mas_equalTo(@25);
         
     }];
@@ -954,13 +964,13 @@
     //剩余流量
     UILabel *name_GlobaleftFlow = [UILabel new];
     
-    [_view2 addSubview:name_GlobaleftFlow];
+    [_view3 addSubview:name_GlobaleftFlow];
     
     [name_GlobaleftFlow mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(name_GlobaltotalFlow.mas_bottom).with.offset(Hmargin);
-        make.right.equalTo(_view2).with.offset(-10);
-        make.left.equalTo(_view2).with.offset(10);
+        make.right.equalTo(_view3).with.offset(-10);
+        make.left.equalTo(_view3).with.offset(10);
         make.height.mas_equalTo(@25);
         
     }];
@@ -973,13 +983,13 @@
     //使用国家
     UILabel *name_GlobaluseCountry = [UILabel new];
     
-    [_view2 addSubview:name_GlobaluseCountry];
+    [_view3 addSubview:name_GlobaluseCountry];
     
     [name_GlobaluseCountry mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(name_GlobaleftFlow.mas_bottom).with.offset(Hmargin);
-        make.right.equalTo(_view2).with.offset(-10);
-        make.left.equalTo(_view2).with.offset(10);
+        make.right.equalTo(_view3).with.offset(-10);
+        make.left.equalTo(_view3).with.offset(10);
         make.height.mas_equalTo(@25);
         
     }];
@@ -991,13 +1001,13 @@
     //开始时间
     UILabel *name_Globalstartime = [UILabel new];
     
-    [_view2 addSubview:name_Globalstartime];
+    [_view3 addSubview:name_Globalstartime];
     
     [name_Globalstartime mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(name_GlobaluseCountry.mas_bottom).with.offset(Hmargin);
-        make.right.equalTo(_view2).with.offset(-10);
-        make.left.equalTo(_view2).with.offset(10);
+        make.right.equalTo(_view3).with.offset(-10);
+        make.left.equalTo(_view3).with.offset(10);
         make.height.mas_equalTo(@25);
         
     }];
@@ -1009,13 +1019,13 @@
     //结束时间
     UILabel *name_Globalendtime = [UILabel new];
     
-    [_view2 addSubview:name_Globalendtime];
+    [_view3 addSubview:name_Globalendtime];
     
     [name_Globalendtime mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(name_Globalstartime.mas_bottom).with.offset(Hmargin);
-        make.right.equalTo(_view2).with.offset(-10);
-        make.left.equalTo(_view2).with.offset(10);
+        make.right.equalTo(_view3).with.offset(-10);
+        make.left.equalTo(_view3).with.offset(10);
         make.height.mas_equalTo(@25);
         
     }];
@@ -1033,7 +1043,7 @@
 //        make.right.equalTo(_scrollView).with.offset(-10);
 //        make.height.mas_equalTo(@50);
 //    }];
-    _cancelBtn.frame = CGRectMake(_view2.x, _view2.maxY+20, kWidth, 50);
+    _cancelBtn.frame = CGRectMake(_view2.x, _view3.maxY+20, kWidth, 50);
 
     [_cancelBtn setTitle:@"解除绑定" forState:UIControlStateNormal];
     _cancelBtn.layer.cornerRadius = 10;
@@ -1041,6 +1051,29 @@
     [_cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_cancelBtn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
     _cancelBtn.tag = 101;
+    
+    //解除绑定的按钮
+    _bindBtn = [UIButton new];
+    [_scrollView addSubview:_bindBtn];
+    //    [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.top.equalTo(_view2.mas_bottom).with.offset(10);
+    //        make.left.equalTo(_scrollView).with.offset(10);
+    //        make.right.equalTo(_scrollView).with.offset(-10);
+    //        make.height.mas_equalTo(@50);
+    //    }];
+    _bindBtn.frame = CGRectMake(_view2.x, _view3.maxY+20, kWidth, 50);
+    
+    [_bindBtn setTitle:@"绑定设备" forState:UIControlStateNormal];
+    _bindBtn.layer.cornerRadius = 10;
+    _bindBtn.backgroundColor =[UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];; ;
+    [_bindBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_bindBtn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
+    _bindBtn.tag = 102;
+    
+    //s隐藏
+    _view3.alpha = 0;
+    _view2.alpha = 0;
+    _view.alpha = 0;
 }
 
 #pragma mark button点击事件
@@ -1079,6 +1112,16 @@
         [alertOne addAction:certain];
         [alertOne addAction:certain2];
 
+    }else if (btn.tag==102){//绑定设备
+        _manager.isBind = YES;
+        _manager.isReload = NO;
+        _isRequest = NO;
+        _view3.alpha = 0;
+        _view2.alpha = 0;
+        _view.alpha = 0;
+        CBUUID *uuid = [CBUUID UUIDWithString:@"FFF0"];
+        [self.cMgr scanForPeripheralsWithServices:@[uuid] options:nil];
+        [self showSchdu];
     }
 }
 
@@ -1195,37 +1238,22 @@
     _appVersion.font = [UIFont boldSystemFontOfSize:Name_Device];
     
     
-//    if(_deviceInfo.AppVersion){
-        _view.alpha = 1.0;
-        _view2.alpha = 1.0;
-    
-        _manager.isReload = YES;
-//    }
+
+    _view.alpha = 1.0;
+    _view2.alpha = 1.0;
+    _view3.alpha = 1.0;
+    _manager.isReload = YES;
+
     
 }
 
 #pragma mark 调用全部视图
 -(void)createUI{
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        //返回主线程 拿到数据
-//        [self RequestandGetGlobalUI];
-//       
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//             [self showDeviceInfo];
-//            [self GetTranslateUI:_manager.modelTranslate];
-//            [self GetTranslateUI:_manager.modelGlobal];
-//            [self GetDeviceInfo];
-//            _manager.isReload = YES;
-//        });
-//    });
-//    [self showDeviceInfo];
-//    //网络请求，应该放到蓝牙连接里面
+
     if (!_isRequest) {
          [self RequestandGetGlobalUI];
     }
-   
-//    [self GetDeviceInfo];
-//    _manager.isReload = YES;
+
 }
 
 #pragma mark 网络请求获取全球套餐
@@ -1246,6 +1274,7 @@
         PackagInfoModel *modelGlobal = [[PackagInfoModel alloc]init];
         [modelGlobal setValuesForKeysWithDictionary:dictGlobal];
         [_manager.modelGlobal setValuesForKeysWithDictionary:dictGlobal];
+       // _manager.modelGlobal = nil;
         _manager.isReload = YES;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideSchdu];
@@ -1254,23 +1283,56 @@
             [self GetTranslateUI:_manager.modelTranslate];
             [self GetGlobalUI:_manager.modelGlobal];
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-            if (!_manager.modelTranslate.effective_countries) {//隐藏下部分的翻译跟全球订单
-                NSLog(@"===%@===",_manager.modelTranslate.endTime);
-                //距离左右边margin
-                CGFloat kMagin = 20.0;
-                //宽度
-                CGFloat kWidth = XScreenWidth - 2*kMagin;
-                _view2.alpha = 0;
-                _cancelBtn.frame = CGRectMake(_view.x,_scrollView.height-70, kWidth, 50);
-                _scrollView.contentSize = CGSizeMake(0,0);
-            }else if (!_manager.modelGlobal.effective_countries){//隐藏全球订单
-                //距离左右边margin
-                CGFloat kMagin = 20.0;
-                //宽度
-                CGFloat kWidth = XScreenWidth - 2*kMagin;
-                _view2.alpha = 1;
-                _view2.frame = CGRectMake(kMagin, _view.maxY+30, kWidth, 530);
-                _scrollView.contentSize = CGSizeMake(0,0);
+            //距离左右边margin
+            CGFloat kMagin = 20.0;
+            //宽度
+            CGFloat kWidth = XScreenWidth - 2*kMagin;
+            if (_manager.isBind) {//绑定设备
+                if (!_manager.modelTranslate.effective_countries) {//隐藏下部分的翻译跟全球订单，只显示view，并取消滑动
+                    _view.alpha = 1;
+                    _view2.alpha = 0;
+                    _view3.alpha = 0;
+                    _view.frame = CGRectMake(kMagin, 20+60+X_bang, kWidth, 250);
+                    _cancelBtn.frame = CGRectMake(_view.x,_scrollView.height-70, kWidth, 50);
+                    _scrollView.contentSize = CGSizeMake(0,0);
+                    _bindBtn.alpha = 0;
+                }else if (!_manager.modelGlobal.effective_countries){//隐藏全球订单，显示view跟view2，允许滑动一下
+                    _view.alpha = 1;
+                    _view2.alpha = 1;
+                    _view3.alpha = 0;
+                    _view.frame = CGRectMake(kMagin, 20+60+X_bang, kWidth, 250);
+                    _view2.frame = CGRectMake(kMagin, _view.maxY+30, kWidth, 230);
+                    _scrollView.contentSize = CGSizeMake(0,XScreenHeight);
+                    _bindBtn.alpha = 0;
+                }else{//两个都不隐藏,
+                    _view.alpha = 1;
+                    _view2.alpha = 1;
+                    _view3.alpha = 1;
+                    _view.frame = CGRectMake(kMagin, 20+60+X_bang, kWidth, 250);
+                    _view2.frame = CGRectMake(kMagin, _view.maxY+30, kWidth, 230);
+                    _view3.frame = CGRectMake(kMagin, _view2.maxY+30, kWidth, 300);
+                    _scrollView.contentSize = CGSizeMake(0,900+70);
+                    _bindBtn.alpha = 0;
+                }
+            }
+           else {//不绑定设备
+               if (!_manager.modelGlobal.effective_countries){//隐藏全球订单
+                   _view.alpha = 0;
+                   _view2.alpha = 1;
+                   _view3.alpha = 0;
+                   _scrollView.contentSize = CGSizeMake(0,0);
+                   _view2.frame = _view.frame;
+                   _bindBtn.frame = CGRectMake(_view2.x, _view2.maxY+20, kWidth, 50);
+               }else{//包含全球订单
+                   _view.alpha = 0;
+                   _view2.alpha = 1;
+                   _view3.alpha = 1;
+                   _view3.frame = CGRectMake(kMagin, _view.maxY+30, kWidth, 230+30);//替换成view2位置
+                   _view2.frame = CGRectMake(kMagin, 20+60+X_bang, kWidth, 250);//替换成view的位置
+                   _scrollView.contentSize = CGSizeMake(0,XScreenHeight);
+                   _bindBtn.frame = CGRectMake(_view2.x, _view3.maxY+20, kWidth, 50);
+               }
+                
             }
 //            }];
         
@@ -1388,13 +1450,13 @@
     //总流量
     UILabel *_GlobaltotalFlow = [UILabel new];
     
-    [_view2 addSubview:_GlobaltotalFlow];
+    [_view3 addSubview:_GlobaltotalFlow];
     
     [_GlobaltotalFlow mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(flowInfo.mas_bottom).with.offset(Hmargin);
        // make.right.equalTo(_view2).with.offset(-10);
-        make.left.mas_equalTo(_view2.frame.size.width/2);
+        make.left.mas_equalTo(_view3.frame.size.width/2);
         make.height.mas_equalTo(@25);
         
     }];
@@ -1405,13 +1467,13 @@
     //剩余流量
     UILabel *_GloballeftFlow = [UILabel new];
     
-    [_view2 addSubview:_GloballeftFlow];
+    [_view3 addSubview:_GloballeftFlow];
     
     [_GloballeftFlow mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(_GlobaltotalFlow.mas_bottom).with.offset(Hmargin);
         // make.right.equalTo(_view2).with.offset(-10);
-        make.left.mas_equalTo(_view2.frame.size.width/2);
+        make.left.mas_equalTo(_view3.frame.size.width/2);
         make.height.mas_equalTo(@25);
         
     }];
@@ -1422,13 +1484,13 @@
     //使用国家
     UILabel *_Globaleffective_countries = [UILabel new];
     
-    [_view2 addSubview:_Globaleffective_countries];
+    [_view3 addSubview:_Globaleffective_countries];
     
     [_Globaleffective_countries mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(_GloballeftFlow.mas_bottom).with.offset(Hmargin);
-        make.right.equalTo(_view2).with.offset(-10);
-        make.left.mas_equalTo(_view2.frame.size.width/2);
+        make.right.equalTo(_view3).with.offset(-10);
+        make.left.mas_equalTo(_view3.frame.size.width/2);
         make.height.mas_equalTo(@25);
         
         
@@ -1442,13 +1504,13 @@
     //开始时间
     UILabel *_GlobalstarTime = [UILabel new];
     
-    [_view2 addSubview:_GlobalstarTime];
+    [_view3 addSubview:_GlobalstarTime];
     
     [_GlobalstarTime mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(_Globaleffective_countries.mas_bottom).with.offset(Hmargin);
         // make.right.equalTo(_view2).with.offset(-10);
-        make.left.mas_equalTo(_view2.frame.size.width/2);
+        make.left.mas_equalTo(_view3.frame.size.width/2);
         make.height.mas_equalTo(@25);
         
     }];
@@ -1459,13 +1521,13 @@
     //结束时间
     UILabel *_GlobalendTime = [UILabel new];
     
-    [_view2 addSubview:_GlobalendTime];
+    [_view3 addSubview:_GlobalendTime];
     
     [_GlobalendTime mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(_GlobalstarTime.mas_bottom).with.offset(Hmargin);
         // make.right.equalTo(_view2).with.offset(-10);
-        make.left.mas_equalTo(_view2.frame.size.width/2);
+        make.left.mas_equalTo(_view3.frame.size.width/2);
         make.height.mas_equalTo(@25);
         
     }];
