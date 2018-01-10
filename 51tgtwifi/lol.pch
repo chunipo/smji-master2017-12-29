@@ -26,6 +26,16 @@
 
 /*******是否测试******/
 #define isBeta YES
+//判断设备激活状态
+#define isActiveUrl @"http://as2.51tgt.com/FyjApp/GetDeviceStatus?ssid=%@"
+//激活设备接口
+#define ActiveDeviceUrl @"http://as2.51tgt.com//FyjApp/DeviceActive?ssid=%@"
+//翻译流量套餐接口
+#define Global_url @"http://as2.51tgt.com/wxapp/GetDeviceInfoByQrCode?device_no=%@"
+//流量商城
+#define DoorOpen @"http://as2.51tgt.com/FyjApp/GetFlowProducts?ssid=%@&type=RMB"
+#define PicHead  @"http://as2.51tgt.com"
+#define url(a) [@"http://as2.51tgt.com" stringByAppendingString:a]
 
 #import "UIImage+Extension.h"
 #import "UIView+Extension.h"

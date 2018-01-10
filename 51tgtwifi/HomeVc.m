@@ -382,9 +382,7 @@
                                 _manager.isReload = YES;
                                 [self.cMgr stopScan];
                             }
-                            
                         }
-                        
                         _total = @"";
                        // _GetInfo = @"";
                         
@@ -1115,8 +1113,8 @@
     }else if (btn.tag==102){//绑定设备
         _manager.isBind = YES;
         _manager.isReload = NO;
-        _isRequest = NO;
-        _isRequest = NO;
+        _isWrite = NO;//非写入
+        _isRequest = NO;//没请求到
         _view3.alpha = 0;
         _view2.alpha = 0;
         _view.alpha = 0;

@@ -469,10 +469,10 @@
 				129AE1E11F9DA26A0019192D /* PayView.m */,
 				120B87821F95B1450053B5A5 /* ShoppingVc.h */,
 				120B87831F95B1450053B5A5 /* ShoppingVc.m */,
-				129AE1DD1F9DA20C0019192D /* PayViewController.h */,
-				129AE1DE1F9DA20C0019192D /* PayViewController.m */,
 				12D6B8851FA2E5DD006B6B38 /* DetailVc.h */,
 				12D6B8861FA2E5DD006B6B38 /* DetailVc.m */,
+				129AE1DD1F9DA20C0019192D /* PayViewController.h */,
+				129AE1DE1F9DA20C0019192D /* PayViewController.m */,
 			);
 			name = Shopping;
 			sourceTree = "<group>";

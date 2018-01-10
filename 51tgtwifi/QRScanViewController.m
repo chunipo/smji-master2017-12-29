@@ -11,8 +11,7 @@
 #import "YXManager.h"
 #import "NetWork.h"
 
-#define isActiveUrl @"http://as2.51tgt.com/FyjApp/GetDeviceStatus?ssid=%@"
-#define ActiveDeviceUrl @"http://as2.51tgt.com//FyjApp/DeviceActive?ssid=%@"
+
 @interface QRScanViewController ()<TGTScanQRCodeDelegate,BaseViewButtonDelegete,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 {
     MBProgressHUD        *hud;
@@ -192,22 +191,27 @@ dispatch_async(dispatch_get_main_queue(), ^{
 #pragma mark - TGTScanQRCodeDelegate
 - (void)getResponse:(NSString *)qrCodeString {
     [self isActivationDevice:qrCodeString];
-    
-    
 }
 
 #pragma mark 判断设备是否已激活
 -(BOOL)isActivationDevice:(NSString *)str{
-  
+    [self showSchdu];
     NSString *Actstr = [NSString stringWithFormat:isActiveUrl,str];
     [NetWork sendGetNetWorkWithUrl:Actstr parameters:nil hudView:self.view successBlock:^(id data) {
-        NSLog(@"====%@===",data[@"data"][@"device"][@"is_active"]);
+        [self hideSchdu];
+        NSNumber *is_active ;
+        if (data[@"data"][@"device"][@"is_active"]) {
+             is_active = data[@"data"][@"device"][@"is_active"];
+        }
+        NSLog(@"====%@===%li",data[@"data"][@"device"][@"is_active"],(long)[is_active integerValue]);
         if (!data[@"data"]) {
             _manager.isActive = NO;
-        }else if (data[@"data"][@"device"][@"is_active"] ==0){
+        }else if ([is_active integerValue] ==0){//未激活
             _manager.isActive = NO;
-        }else{
+        }else if ([is_active integerValue] ==1){//已激活
             _manager.isActive = YES;
+        }else{
+            
         }
         
         if (_manager.isActive) {//激活过
@@ -216,7 +220,7 @@ dispatch_async(dispatch_get_main_queue(), ^{
                 [_scanView startScanQrCode];
             }]];
             [alert addAction:[UIAlertAction actionWithTitle:@"绑定设备" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [self.delegate getQrCodeResponse:str];
+                
                 YXManager *manager = [YXManager share];
                 manager.ScanID = str;
                 manager.isScan = YES;
@@ -254,8 +258,11 @@ dispatch_async(dispatch_get_main_queue(), ^{
         }
         
     } failureBlock:^(NSString *error) {
-         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"网络中断"] preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        [self hideSchdu];
+         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"无网络" message:[NSString stringWithFormat:@"需要手机有可用的网络接入"] preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [_scanView startScanQrCode];
+        }]];
          [self presentViewController:alert animated:true completion:nil];
     }];
     
@@ -264,22 +271,30 @@ dispatch_async(dispatch_get_main_queue(), ^{
 
 #pragma mark 激活设备
 -(void)activationDevice:(NSString *)strSN{
+    [self showSchdu];
     NSString *str = [NSString stringWithFormat:ActiveDeviceUrl,strSN];
     [NetWork sendGetNetWorkWithUrl:str parameters:nil hudView:self.view successBlock:^(id data) {
+        [self hideSchdu];
+        NSNumber *is_active ;
+        if (data[@"data"][@"active"]) {
+            is_active = data[@"data"][@"active"];
+        }
         if (!data[@"data"]) {
             _manager.isActiveSuc = NO;
-        }else if (data[@"data"][@"device"][@"active"] ==0){
+        }else if ([is_active integerValue] ==0){//激活失败
             _manager.isActiveSuc = NO;
-        }else{
+        }else if([is_active integerValue] ==1){//激活成功
             _manager.isActiveSuc = YES;
+        }else{
+            
         }
         
         if (_manager.isActiveSuc) {//激活成功
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"激活成功!"] preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"激活成功!" message:@"请选择以下方式进入app" preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"绑定设备" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [self.delegate getQrCodeResponse:str];
+                
                 YXManager *manager = [YXManager share];
-                manager.ScanID = str;
+                manager.ScanID = strSN;
                 manager.isScan = YES;
                 manager.isBind = YES;
                 [self.navigationController popViewControllerAnimated:YES];
@@ -293,7 +308,7 @@ dispatch_async(dispatch_get_main_queue(), ^{
                 YXManager *manager = [YXManager share];
                 manager.isBind = NO;
                 manager.isScan = YES;
-                manager.ScanID = str;
+                manager.ScanID = strSN;
                 [self.navigationController popViewControllerAnimated:YES];
                 //储存设备sn号
                 [[NSUserDefaults standardUserDefaults ]setObject:manager.ScanID forKey:@"DeviceSN"];
@@ -309,8 +324,11 @@ dispatch_async(dispatch_get_main_queue(), ^{
         }
         
     } failureBlock:^(NSString *error) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"网络中断"] preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        [self hideSchdu];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"无网络" message:[NSString stringWithFormat:@"需要手机有可用的网络接入"] preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [_scanView startScanQrCode];
+        }]];
          [self presentViewController:alert animated:true completion:nil];
     }];
     

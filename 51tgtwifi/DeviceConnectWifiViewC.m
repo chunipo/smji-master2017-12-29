@@ -51,10 +51,7 @@
 //
 //    hud.removeFromSuperViewOnHide = YES;
 //    [hud hideAnimated:YES afterDelay:2];
-    [SingletonView showSingleViewWithTitle:@"连接成功" imageName:nil inParentView:self.view isSuc:YES];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [SingletonView hideWaitView];
-    });
+    [self setSuc];
 }
 -(void)closePWD_fai{
     [self hideSchdu];
@@ -65,10 +62,7 @@
 //    hud.label.text = @"连接失败";
 //    hud.removeFromSuperViewOnHide = YES;
 //    [hud hideAnimated:YES afterDelay:2];
-    [SingletonView showSingleViewWithTitle:@"连接失败" imageName:nil inParentView:self.view isSuc:NO];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [SingletonView hideWaitView];
-    });
+    [self setFai];
 }
 
 -(void)disconnectWIFI_suc{
@@ -355,6 +349,88 @@
     [hud hideAnimated:YES];
 }
 
+#pragma mark -修改成功/失败弹窗
+-(void)setFai{
+    CGSize contentSize = [self textConstraintSize:@"修改失败"];
+    UIView *_hudView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 160,20 +50 + contentSize.height)];
+    _hudView.layer.cornerRadius = 6.0f;
+    _hudView.backgroundColor = [UIColor grayColor];
+    _hudView.alpha = 1;
+    [self.view addSubview:_hudView];
+    UILabel *activityIndicatorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    activityIndicatorLabel.textAlignment = NSTextAlignmentCenter;
+    [activityIndicatorLabel setLineBreakMode:NSLineBreakByWordWrapping];
+    [activityIndicatorLabel setNumberOfLines:0];
+    [activityIndicatorLabel setFont:[UIFont systemFontOfSize:13]];
+    activityIndicatorLabel.backgroundColor = [UIColor clearColor];
+    activityIndicatorLabel.textColor = [UIColor whiteColor];
+    [_hudView addSubview:activityIndicatorLabel];
+    activityIndicatorLabel.frame = CGRectMake(5.0f,60.0f ,150.0f, contentSize.height);
+    
+    _hudView.center = CGPointMake(XScreenWidth/2, XScreenHeight/2 - 50);
+    
+    activityIndicatorLabel.text = @"连接失败";
+    
+    UIImageView *img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fasle.png"] highlightedImage:nil];
+    img.frame = CGRectMake(55.0f, 10.0f, 50.0f, 50.0f);
+    [_hudView addSubview:img];
+    int64_t delayInSeconds = 1.5;      // 延迟的时间
+    /*
+     *@parameter 1,时间参照，从此刻开始计时
+     *@parameter 2,延时多久，此处为秒级，还有纳秒等。10ull * NSEC_PER_MSEC
+     */
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        // do something
+        _hudView.alpha = 0;
+        [_hudView removeFromSuperview];
+    });
+}
+
+-(void)setSuc{
+    CGSize contentSize = [self textConstraintSize:@"修改成功"];
+    UIView *_hudView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 160,20 +50 + contentSize.height)];
+    _hudView.layer.cornerRadius = 6.0f;
+    _hudView.backgroundColor = [UIColor grayColor];
+    _hudView.alpha = 1;
+    [self.view addSubview:_hudView];
+    UILabel *activityIndicatorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    activityIndicatorLabel.textAlignment = NSTextAlignmentCenter;
+    [activityIndicatorLabel setLineBreakMode:NSLineBreakByWordWrapping];
+    [activityIndicatorLabel setNumberOfLines:0];
+    [activityIndicatorLabel setFont:[UIFont systemFontOfSize:13]];
+    activityIndicatorLabel.backgroundColor = [UIColor clearColor];
+    activityIndicatorLabel.textColor = [UIColor whiteColor];
+    [_hudView addSubview:activityIndicatorLabel];
+    activityIndicatorLabel.frame = CGRectMake(5.0f,60.0f ,150.0f, contentSize.height);
+    
+    _hudView.center = CGPointMake(XScreenWidth/2, XScreenHeight/2 - 50);
+    
+    activityIndicatorLabel.text = @"连接成功";
+    
+    UIImageView *img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"currect.png"] highlightedImage:nil];
+    img.frame = CGRectMake(60.0f, 10.0f, 40.0f, 40.0f);
+    [_hudView addSubview:img];
+    int64_t delayInSeconds = 1.5;      // 延迟的时间
+    /*
+     *@parameter 1,时间参照，从此刻开始计时
+     *@parameter 2,延时多久，此处为秒级，还有纳秒等。10ull * NSEC_PER_MSEC
+     */
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        // do something
+        _hudView.alpha = 0;
+        [_hudView removeFromSuperview];
+    });
+}
+
+- (CGSize)textConstraintSize:(NSString *)text
+{
+    CGSize constraint = CGSizeMake(150, 20000.0f);
+    
+    return [text boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
+    
+}
 
 
 #pragma mark textField delegate

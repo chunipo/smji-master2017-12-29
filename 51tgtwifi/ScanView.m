@@ -64,7 +64,7 @@
     
     UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _qrBgView.maxY + 20, XScreenWidth, 40)];
     tipLabel.font = [UIFont systemFontOfSize:16];
-    tipLabel.text = @"请将途鸽翻译机设备二维码/条形码放入框内,即可自动扫描并绑定/激活设备";
+    tipLabel.text = @"请将百度翻译机设备二维码/条形码放入框内,即可自动扫描并绑定/激活设备";
     tipLabel.textColor = [UIColor whiteColor];
     tipLabel.textAlignment = NSTextAlignmentCenter;
     tipLabel.numberOfLines = 0;
@@ -222,7 +222,7 @@
         NSString *str = metadataObject.stringValue;
         if ([[metadataObject type] isEqualToString:AVMetadataObjectTypeQRCode]) {
             str = [str stringByReplacingOccurrencesOfString:@"sn=" withString:@"***"];
-            str = [str stringByReplacingOccurrencesOfString:@"＆wmac" withString:@"###"];
+            str = [str stringByReplacingOccurrencesOfString:@"&wmac" withString:@"###"];
             NSRange star = [str rangeOfString:@"***"];//匹配得到的下标
             NSRange end = [str rangeOfString:@"###"];//匹配得到的下标
             NSLog(@"===str==%@",str);

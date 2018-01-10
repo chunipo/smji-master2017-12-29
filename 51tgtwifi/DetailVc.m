@@ -10,7 +10,7 @@
 #import "PayViewController.h"
 #import "LoadingViewForOC.h"
 
-#define url(a) [@"http://as2.51tgt.com" stringByAppendingString:a]
+
 
 @interface DetailVc ()<UIWebViewDelegate>
 {

@@ -26,7 +26,7 @@ static SingletonView *viewObject = nil;
 
 + (void)showSingleViewWithTitle:(NSString *)title imageName:(NSString *)imgName inParentView:(UIView *)parentView isSuc:(BOOL)isSuc{
     
-    SingletonView *obj = [SingletonView sharedSingletonView];
+    SingletonView *obj = [[SingletonView alloc]init];
     
     NSLog(@"%p",obj);//都是同一个地址
     
@@ -36,31 +36,38 @@ static SingletonView *viewObject = nil;
 
 + (void)hideWaitView
 {
-    
+//    SingletonView *obj = [SingletonView sharedSingletonView];
+//    [obj heihei];
     [viewObject removeFromSuperview];
-}
-
-+ (instancetype)sharedSingletonView{
     
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        
-        viewObject = [[super allocWithZone:NULL] init];
-    });
-
-    return viewObject;
 }
+//-(void)heihei{
+//    img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@""] highlightedImage:nil];
+//
+//
+//}
 
-+ (instancetype)alloc{
-    
-    
-    return [SingletonView sharedSingletonView];
-}
+//+ (instancetype)sharedSingletonView{
+//
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//
+//        viewObject = [[super allocWithZone:NULL] init];
+//    });
+//
+//    return viewObject;
+//}
 
-+(instancetype)allocWithZone:(struct _NSZone *)zone{
-    
-    return [SingletonView sharedSingletonView];
-}
+//+ (instancetype)alloc{
+//
+//
+//    return [SingletonView sharedSingletonView];
+//}
+
+//+(instancetype)allocWithZone:(struct _NSZone *)zone{
+//
+//    return [SingletonView sharedSingletonView];
+//}
 
 
 
@@ -87,7 +94,7 @@ static SingletonView *viewObject = nil;
     self.alpha = 1;
 //    activityIndicator = [[UIActivityIndicatorView alloc]
 //                         initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
-//    img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"currect.png"] highlightedImage:nil];
+    img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"currect.png"] highlightedImage:nil];
 //
 //    [self addSubview:img];
     
