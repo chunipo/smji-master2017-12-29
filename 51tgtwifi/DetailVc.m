@@ -61,7 +61,7 @@
 
     
     
-    UIWebView *webV = [[UIWebView alloc]initWithFrame:CGRectMake(0, 20+60+X_bang, XScreenWidth, XScreenHeight-60-20-X_bang-49)];
+    UIWebView *webV = [[UIWebView alloc]initWithFrame:CGRectMake(0, 20+44+X_bang, XScreenWidth, XScreenHeight-44-20-X_bang-49-X_bottom)];
     NSURLRequest *request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:url(_DetailUrl)]];
     
     webV.backgroundColor = [UIColor whiteColor];
@@ -94,7 +94,7 @@
     self.view.backgroundColor = [UIColor blackColor];
     
     
-    _TitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 20+X_bang, XScreenWidth, 60)];
+    _TitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 20+X_bang, XScreenWidth, 44)];
     
     _TitleView.backgroundColor = [UIColor clearColor];
     
@@ -106,6 +106,7 @@
     TitleText.text = self.DetailTitle;
     TitleText.textColor = [UIColor whiteColor];
     TitleText.numberOfLines = 0;
+    TitleText.font = [UIFont systemFontOfSize:17];
     
     [TitleText mas_makeConstraints:^(MASConstraintMaker *make) {
         

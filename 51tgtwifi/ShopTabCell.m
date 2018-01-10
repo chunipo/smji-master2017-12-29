@@ -92,21 +92,21 @@
     
     _imageView.frame = CGRectMake(0, 0, XScreenWidth, 170);
     
-    _title.frame = CGRectMake(10,_imageView.maxY+ 10, XScreenWidth/2, 50);
+    _title.frame = CGRectMake(10,_imageView.maxY, XScreenWidth/2, 50);
     _title.numberOfLines = 0;
     
     
 
-    _type.frame = CGRectMake(XScreenWidth-120, _title.y, 40, 30);
+    _type.frame = CGRectMake(XScreenWidth-120, _title.y+10, 40, 30);
     _price.frame = CGRectMake(_type.maxX+2, _type.y, 60, 30);
     
     
     
-    _title.textColor = [UIColor blackColor];
-    _type.textColor = [UIColor blueColor];
-    _price.textColor = [UIColor blueColor];
+    _title.textColor = [UIColor grayColor];
+    _type.textColor = [UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];
+    _price.textColor = [UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];
     
-    _title.font = [UIFont systemFontOfSize:19];
+    _title.font = [UIFont systemFontOfSize:17];
     _price.font = [UIFont systemFontOfSize:22];
 }
 

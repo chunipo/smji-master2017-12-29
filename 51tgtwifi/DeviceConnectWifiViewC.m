@@ -97,7 +97,7 @@
     [self.view addSubview:backgroud];
 
     
-    _TitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 20+X_bang, XScreenWidth, 60)];
+    _TitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 20+X_bang, XScreenWidth, 44)];
     
     _TitleView.backgroundColor = [UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];
     
@@ -246,6 +246,7 @@
         [joinBtn2 addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
         tip.alpha = 0;
         _wifiPwd.text = _manager.WIFIpwd;
+        _wifiName.text = _manager.WIFIname;
         [_wifiPwd resignFirstResponder];
     }
     
@@ -338,7 +339,7 @@
     hud =   [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
    // hud.mode = MBProgressHUDModeIndeterminate;
-    hud.label.text = NSLocalizedString(@"正在连接中...", @"HUD loading title");
+    hud.label.text = NSLocalizedString(@"设置中...", @"HUD loading title");
     
     hud.color = [UIColor grayColor];
     
@@ -356,7 +357,7 @@
     _hudView.layer.cornerRadius = 6.0f;
     _hudView.backgroundColor = [UIColor grayColor];
     _hudView.alpha = 1;
-    [self.view addSubview:_hudView];
+    [[UIApplication sharedApplication].keyWindow addSubview:_hudView];
     UILabel *activityIndicatorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     activityIndicatorLabel.textAlignment = NSTextAlignmentCenter;
     [activityIndicatorLabel setLineBreakMode:NSLineBreakByWordWrapping];
@@ -393,7 +394,7 @@
     _hudView.layer.cornerRadius = 6.0f;
     _hudView.backgroundColor = [UIColor grayColor];
     _hudView.alpha = 1;
-    [self.view addSubview:_hudView];
+    [[UIApplication sharedApplication].keyWindow addSubview:_hudView];
     UILabel *activityIndicatorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     activityIndicatorLabel.textAlignment = NSTextAlignmentCenter;
     [activityIndicatorLabel setLineBreakMode:NSLineBreakByWordWrapping];

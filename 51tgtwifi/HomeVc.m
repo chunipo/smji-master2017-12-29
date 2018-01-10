@@ -690,7 +690,12 @@
     _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+60+X_bang, kWidth, 250)];
     _view.layer.cornerRadius = 10;
     _view.backgroundColor = [UIColor whiteColor];
-    [_scrollView addSubview:_view];
+    if (_manager.isBind) {//绑定的时候才添加进去
+         [_scrollView addSubview:_view];
+    }else{
+        
+    }
+   
     
     //设备ssid
     UILabel *name_ssid = [UILabel new];
@@ -813,6 +818,18 @@
     //860
     CGFloat k = _view2.maxY;
    
+    //小图标
+    UIImageView *orderImg = [UIImageView new];
+    [_view2 addSubview:orderImg];
+    [orderImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_view2).with.offset(10);
+        
+        make.top.equalTo(_view2).with.offset(20);
+        make.height.mas_equalTo(@25);
+        make.width.mas_equalTo(@25);
+    }];
+    orderImg.image = [UIImage imageNamed:@"activity_fill.png"];
+    
     //翻译订单
     OrderLab = [UILabel new];
     [_view2 addSubview:OrderLab];
@@ -820,7 +837,7 @@
     //OrderLab.text =
     [OrderLab mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(_view2).with.offset(10);
+        make.left.equalTo(orderImg.mas_right).with.offset(10);
         make.right.equalTo(_view2).with.offset(-10);
         make.top.equalTo(_view2).with.offset(20);
         make.height.mas_equalTo(@25);
@@ -926,12 +943,24 @@
     _view3.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_view3];
     
+    //小图标
+    UIImageView *flowInfoImg = [UIImageView new];
+    [_view3 addSubview:flowInfoImg];
+    [flowInfoImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_view3).with.offset(10);
+        
+        make.top.equalTo(_view3).with.offset(20);
+        make.height.mas_equalTo(@25);
+        make.width.mas_equalTo(@25);
+    }];
+    flowInfoImg.image = [UIImage imageNamed:@"activity_fill.png"];
+    
     flowInfo = [UILabel new];
     [_view3 addSubview:flowInfo];
    // flowInfo.text =SetLange(@"fanyidingdan");
     [flowInfo mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(_view3).with.offset(10);
+        make.left.equalTo(flowInfoImg.mas_right).with.offset(10);
         make.right.equalTo(_view3).with.offset(-10);
         make.top.equalTo(_view3).with.offset(20);
         make.height.mas_equalTo(@25);
@@ -1063,7 +1092,7 @@
     
     [_bindBtn setTitle:@"绑定设备" forState:UIControlStateNormal];
     _bindBtn.layer.cornerRadius = 10;
-    _bindBtn.backgroundColor =[UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];; ;
+    _bindBtn.backgroundColor =[UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];
     [_bindBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_bindBtn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
     _bindBtn.tag = 102;
@@ -1265,14 +1294,14 @@
     if (isBeta) {
         Packgurl = [NSString stringWithFormat:Global_url,@"TGT24170833260"];
     }else{
-        NSString *ssid = _manager.model.ssid;
-        NSLog(@"===前%@==",ssid);
-        ssid = [ssid stringByReplacingOccurrencesOfString:@"*TUGE" withString:@"TGT"];
-        NSRange star = [ssid rangeOfString:@"TGT"];//匹配得到的下标
-        ssid = [ssid substringWithRange:NSMakeRange(star.location,14)];//截取范围内的字符串
-        NSLog(@"===后%@==",ssid);
-        _manager.sn = ssid;
-        Packgurl = [NSString stringWithFormat:Global_url,ssid];
+//        NSString *ssid = _manager.model.ssid;
+//        NSLog(@"===前%@==",ssid);
+//        ssid = [ssid stringByReplacingOccurrencesOfString:@"*TUGE" withString:@"TGT"];
+//        NSRange star = [ssid rangeOfString:@"TGT"];//匹配得到的下标
+//        ssid = [ssid substringWithRange:NSMakeRange(star.location,14)];//截取范围内的字符串
+//        NSLog(@"===后%@==",ssid);
+//        _manager.sn = ssid;
+        Packgurl = [NSString stringWithFormat:Global_url,_manager.ScanID];
     }
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -1289,7 +1318,7 @@
         PackagInfoModel *modelGlobal = [[PackagInfoModel alloc]init];
         [modelGlobal setValuesForKeysWithDictionary:dictGlobal];
         [_manager.modelGlobal setValuesForKeysWithDictionary:dictGlobal];
-       // _manager.modelGlobal = nil;
+        _manager.modelGlobal = nil;
         _manager.isReload = YES;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideSchdu];
@@ -1311,14 +1340,16 @@
                     _cancelBtn.frame = CGRectMake(_view.x,_scrollView.height-70, kWidth, 50);
                     _scrollView.contentSize = CGSizeMake(0,0);
                     _bindBtn.alpha = 0;
+                    [_scrollView addSubview:_view];
                 }else if (!_manager.modelGlobal.effective_countries){//隐藏全球订单，显示view跟view2，允许滑动一下
                     _view.alpha = 1;
                     _view2.alpha = 1;
                     _view3.alpha = 0;
                     _view.frame = CGRectMake(kMagin, 20+60+X_bang, kWidth, 250);
                     _view2.frame = CGRectMake(kMagin, _view.maxY+30, kWidth, 230);
-                    _scrollView.contentSize = CGSizeMake(0,XScreenHeight);
+                    _scrollView.contentSize = CGSizeMake(0,620);
                     _bindBtn.alpha = 0;
+                    [_scrollView addSubview:_view];
                 }else{//两个都不隐藏,
                     _view.alpha = 1;
                     _view2.alpha = 1;
@@ -1328,6 +1359,7 @@
                     _view3.frame = CGRectMake(kMagin, _view2.maxY+30, kWidth, 300);
                     _scrollView.contentSize = CGSizeMake(0,900+70);
                     _bindBtn.alpha = 0;
+                    [_scrollView addSubview:_view];
                 }
             }
            else {//不绑定设备
@@ -1344,7 +1376,7 @@
                    _view3.alpha = 1;
                    _view3.frame = CGRectMake(kMagin, _view.maxY+30, kWidth, 230+30);//替换成view2位置
                    _view2.frame = CGRectMake(kMagin, 20+60+X_bang, kWidth, 250);//替换成view的位置
-                   _scrollView.contentSize = CGSizeMake(0,XScreenHeight);
+                   _scrollView.contentSize = CGSizeMake(0,700);
                    _bindBtn.frame = CGRectMake(_view2.x, _view3.maxY+20, kWidth, 50);
                }
                 
@@ -1616,7 +1648,7 @@
     [imagebtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_offset(-10);
         make.centerX.mas_equalTo(_useCountyView);
-        make.width.mas_equalTo(60);
+        make.width.mas_equalTo(36);
         make.height.mas_equalTo(36);
     }];
     

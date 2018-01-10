@@ -137,7 +137,7 @@
 #pragma mark - 创建标题栏
 -(void)HeadTitle{
     UIView *_TitleView = [[UIView alloc]init];
-    _TitleView.frame =CGRectMake(0, 20+X_bang, XScreenWidth, 60);
+    _TitleView.frame =CGRectMake(0, 20+X_bang, XScreenWidth, 44);
    
     _TitleView.backgroundColor = [UIColor clearColor];
     
@@ -150,7 +150,7 @@
     TitleText.text = @"流量商城";
 //    TitleText.text = NSLocalizedString(@"title", nil);
     TitleText.textColor = [UIColor whiteColor];
-    TitleText.font = [UIFont fontWithName:Title_Font size:20];
+    TitleText.font = [UIFont systemFontOfSize:19];
     [TitleText mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.center.equalTo(_TitleView);
@@ -166,7 +166,7 @@
     
     [self hideSchdu];
     
-    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 20+60+X_bang, XScreenWidth, XScreenHeight-40-64-25) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 20+44+X_bang, XScreenWidth, XScreenHeight-40-64-25) style:UITableViewStylePlain];
     
     _tableView.delegate = self;
     _tableView.dataSource = self;

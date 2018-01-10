@@ -77,6 +77,7 @@
     [self createTableview];
  
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(KeyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(closeChangePWD_suc) name:@"closeChangePWD_suc" object:nil];
@@ -103,7 +104,7 @@
             //获取输入框下端相对于window的Y坐标
             CGRect rect = [_view_wifi convertRect:_view_wifi.bounds toView:[[[UIApplication sharedApplication] delegate] window]];
             CGPoint tmp = rect.origin;
-            CGFloat inputBoxY = tmp.y + _view_wifi.frame.size.height;
+            CGFloat inputBoxY = _view_wifi.maxY;
             //计算二者差值
             CGFloat ty = keyboardY - inputBoxY;
             NSLog(@"position keyboard: %f, inputbox: %f, ty: %f", keyboardY, inputBoxY, ty);
@@ -135,7 +136,7 @@
             //获取输入框下端相对于window的Y坐标
             CGRect rect = [_view_APN convertRect:_view_APN.bounds toView:[[[UIApplication sharedApplication] delegate] window]];
             CGPoint tmp = rect.origin;
-            CGFloat inputBoxY = tmp.y + _view_APN.frame.size.height;
+            CGFloat inputBoxY = _view_APN.maxY;
             //计算二者差值
             CGFloat ty = keyboardY - inputBoxY;
             NSLog(@"position keyboard: %f, inputbox: %f, ty: %f", keyboardY, inputBoxY, ty);
@@ -247,7 +248,7 @@
 
 #pragma mark - 创建标题栏
 -(void)HeadTitle{
-    UIView *_TitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 20+X_bang, XScreenWidth, 60)];
+    UIView *_TitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 20+X_bang, XScreenWidth, 44)];
     
     _TitleView.backgroundColor = [UIColor clearColor];
     
@@ -259,7 +260,7 @@
     //TitleText.text = SetLange(@"setTitle");
     TitleText.text = @"设 置";
     TitleText.textColor = [UIColor whiteColor];
-    TitleText.font = [UIFont fontWithName:Title_Font size:20];
+    TitleText.font = [UIFont systemFontOfSize:19];
     [TitleText mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.center.equalTo(_TitleView);
@@ -271,7 +272,7 @@
 
 #pragma mark -创建tableview
 -(void)createTableview{
-    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 20+60+X_bang, XScreenWidth, XScreenHeight-40-64-25) style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 20+44+X_bang, XScreenWidth, XScreenHeight-20-44-X_bang-X_bottom) style:UITableViewStyleGrouped];
     
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -459,7 +460,7 @@
     UILabel *ssid = [[UILabel alloc]initWithFrame:CGRectMake(logo.maxX+20, 20, 300, 45)];
     
    
-    ssid.text = _manager.sn;
+    ssid.text = _manager.ScanID;
 //    if (!ssid.text) {
 //        ssid.text=SetLange(@"devicedName");
 //    }
@@ -489,7 +490,7 @@
     CGFloat kMagin = 20.0;
     //宽度
     CGFloat kWidth = XScreenWidth - 2*kMagin;
-_view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 280)];
+    _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 280)];
     _view.layer.cornerRadius = 5;
     _view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_view];
