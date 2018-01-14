@@ -1576,7 +1576,7 @@
             progressView.progress = 0.f;
             [self.timer invalidate];
             self.timer = nil;
-            UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"绑定设备:%@      失败，请重新扫描设备二维码/条形码尝试",_manager.ScanID] message:nil preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"连接设备:%@      失败，请重新扫描设备二维码/条形码尝试",_manager.ScanID] message:nil preferredStyle:UIAlertControllerStyleAlert];
             [self presentViewController:alertOne animated:YES completion:nil];
             
             UIAlertAction *certain = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

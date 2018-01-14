@@ -15,6 +15,7 @@
 #import "YXManager.h"
 #import "QRScanViewController.h"
 #import "LFRoundProgressView.h"
+//#import "NetNotifiVc.h"
 #define Name_Device [UIScreen mainScreen].bounds.size.width<375?13:17
 #define Device_Info [UIScreen mainScreen].bounds.size.width<375?12:15
 #define Hmargin  16
@@ -540,7 +541,7 @@
         CBUUID *uuid = [CBUUID UUIDWithString:@"FFF0"];
         [self.cMgr scanForPeripheralsWithServices:@[uuid] options:nil];
         //上架审核专属
-        if (![_manager.ScanID isEqualToString:@"TGT2417083309"]) {
+        if (![_manager.ScanID isEqualToString:@"TGT24170833091"]) {
             
             [self showSchdu];
         }
@@ -687,14 +688,14 @@
     CGFloat kMagin = 20.0;
     //宽度
     CGFloat kWidth = XScreenWidth - 2*kMagin;
-    _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+60+X_bang, kWidth, 250)];
+    _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+44+X_bang, kWidth, 250)];
     _view.layer.cornerRadius = 10;
     _view.backgroundColor = [UIColor whiteColor];
-    if (_manager.isBind) {//绑定的时候才添加进去
-         [_scrollView addSubview:_view];
-    }else{
-        
-    }
+//    if (_manager.isBind) {//绑定的时候才添加进去
+//         [_scrollView addSubview:_view];
+//    }else{
+//
+//    }
    
     
     //设备ssid
@@ -1063,7 +1064,7 @@
     
     //解除绑定的按钮
     _cancelBtn = [UIButton new];
-    //[_scrollView addSubview:_cancelBtn];
+    [_scrollView addSubview:_cancelBtn];
 //    [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.top.equalTo(_view2.mas_bottom).with.offset(10);
 //        make.left.equalTo(_scrollView).with.offset(10);
@@ -1072,7 +1073,7 @@
 //    }];
     _cancelBtn.frame = CGRectMake(_view2.x, _view3.maxY+20, kWidth, 50);
 
-    [_cancelBtn setTitle:@"解除绑定" forState:UIControlStateNormal];
+    [_cancelBtn setTitle:@"解除连接" forState:UIControlStateNormal];
     _cancelBtn.layer.cornerRadius = 10;
     _cancelBtn.backgroundColor =[UIColor colorWithRed:252.0/255.0 green:87.0/255.0 blue:89.0/255.0 alpha:1]; ;
     [_cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -1088,15 +1089,15 @@
     //        make.right.equalTo(_scrollView).with.offset(-10);
     //        make.height.mas_equalTo(@50);
     //    }];
-    _bindBtn.frame = CGRectMake(_view2.x, _view3.maxY+20, kWidth, 50);
+    _bindBtn.frame = CGRectMake(_view2.x, XScreenHeight-50-49-30, kWidth, 50);
     
-    [_bindBtn setTitle:@"绑定设备" forState:UIControlStateNormal];
+    [_bindBtn setTitle:@"连接设备" forState:UIControlStateNormal];
     _bindBtn.layer.cornerRadius = 10;
     _bindBtn.backgroundColor =[UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];
     [_bindBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_bindBtn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
     _bindBtn.tag = 102;
-    
+    _bindBtn.alpha = 0;
     //s隐藏
     _view3.alpha = 0;
     _view2.alpha = 0;
@@ -1106,7 +1107,7 @@
 #pragma mark button点击事件
 -(void)click:(UIButton *)btn{
     if (btn.tag==101) {
-        UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"是否要解除绑定的设备？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"是否要解除连接的设备？" message:nil preferredStyle:UIAlertControllerStyleAlert];
         [self presentViewController:alertOne animated:YES completion:nil];
         
         UIAlertAction *certain = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -1122,6 +1123,7 @@
                  _manager.isScan = NO;
                  _manager.ScanID = @"";
                  _manager.isReload = NO;
+                 _manager.isBind = NO;
                   dispatch_async(dispatch_get_main_queue(), ^{
                       if (self.peripheral) {
                           [self.cMgr cancelPeripheralConnection:self.peripheral];
@@ -1270,19 +1272,37 @@
     
 
     _view.alpha = 1.0;
-    _view2.alpha = 1.0;
-    _view3.alpha = 1.0;
-    _manager.isReload = YES;
+    [_scrollView addSubview:_view];
+//    [self.view addSubview:_scrollView];
+//    _scrollView.alpha = 1;
+   // _view.backgroundColor = [UIColor redColor];
+NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.frame.origin.x,_view.frame.origin.y);
+//    _view2.alpha = 1.0;
+//    _view3.alpha = 1.0;
+//    _manager.isReload = YES;
 
     
 }
 
 #pragma mark 调用全部视图
 -(void)createUI{
-
+    if (_manager.isBind) {
+        //距离左右边margin
+        CGFloat kMagin = 20.0;
+        //宽度
+        CGFloat kWidth = XScreenWidth - 2*kMagin;
+        [self hideSchdu];
+        [self GetDeviceInfo];
+        
+        [_scrollView addSubview:_view];
+        _scrollView.contentSize = CGSizeMake(0,0);
+        _cancelBtn.frame = CGRectMake(_view.x,XScreenHeight-49-50-30-X_bottom, kWidth, 50);
+        _cancelBtn.alpha = 1;
+    }
     if (!_isRequest) {
          [self RequestandGetGlobalUI];
     }
+    
 
 }
 
@@ -1313,12 +1333,15 @@
         [modelTranslate setValuesForKeysWithDictionary:dictTranslate];
         [_manager.modelTranslate setValuesForKeysWithDictionary:dictTranslate];
 //        [self GetTranslateUI:_manager.modelTranslate];
-        
-        NSDictionary *dictGlobal = arr[1];
+        NSDictionary *dictGlobal;
+        if (arr.count==2) {
+            dictGlobal = arr[1];
+        }
+//        NSDictionary *dictGlobal = arr[1];
         PackagInfoModel *modelGlobal = [[PackagInfoModel alloc]init];
         [modelGlobal setValuesForKeysWithDictionary:dictGlobal];
         [_manager.modelGlobal setValuesForKeysWithDictionary:dictGlobal];
-        _manager.modelGlobal = nil;
+        //_manager.modelGlobal = nil;
         _manager.isReload = YES;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideSchdu];
@@ -1336,8 +1359,9 @@
                     _view.alpha = 1;
                     _view2.alpha = 0;
                     _view3.alpha = 0;
+                    _cancelBtn.alpha = 1;
                     _view.frame = CGRectMake(kMagin, 20+60+X_bang, kWidth, 250);
-                    _cancelBtn.frame = CGRectMake(_view.x,_scrollView.height-70, kWidth, 50);
+                    _cancelBtn.frame = CGRectMake(_view.x,XScreenHeight-49-50-30-X_bottom, kWidth, 50);
                     _scrollView.contentSize = CGSizeMake(0,0);
                     _bindBtn.alpha = 0;
                     [_scrollView addSubview:_view];
@@ -1345,19 +1369,22 @@
                     _view.alpha = 1;
                     _view2.alpha = 1;
                     _view3.alpha = 0;
-                    _view.frame = CGRectMake(kMagin, 20+60+X_bang, kWidth, 250);
+                    _cancelBtn.alpha = 1;
+                    _view.frame = CGRectMake(kMagin, 20+44+X_bang, kWidth, 250);
                     _view2.frame = CGRectMake(kMagin, _view.maxY+30, kWidth, 230);
-                    _scrollView.contentSize = CGSizeMake(0,620);
+                    _cancelBtn.frame = CGRectMake(_view.x,_view2.maxY+30, kWidth, 50);
+                    _scrollView.contentSize = CGSizeMake(0,700);
                     _bindBtn.alpha = 0;
                     [_scrollView addSubview:_view];
                 }else{//两个都不隐藏,
                     _view.alpha = 1;
                     _view2.alpha = 1;
                     _view3.alpha = 1;
-                    _view.frame = CGRectMake(kMagin, 20+60+X_bang, kWidth, 250);
+                    _view.frame = CGRectMake(kMagin, 20+44+X_bang, kWidth, 250);
                     _view2.frame = CGRectMake(kMagin, _view.maxY+30, kWidth, 230);
                     _view3.frame = CGRectMake(kMagin, _view2.maxY+30, kWidth, 300);
-                    _scrollView.contentSize = CGSizeMake(0,900+70);
+                    _cancelBtn.frame = CGRectMake(_view.x,_view3.maxY+30, kWidth, 50);
+                    _scrollView.contentSize = CGSizeMake(0,900+70+80);
                     _bindBtn.alpha = 0;
                     [_scrollView addSubview:_view];
                 }
@@ -1367,16 +1394,28 @@
                    _view.alpha = 0;
                    _view2.alpha = 1;
                    _view3.alpha = 0;
+                   _bindBtn.alpha = 1;
+                   _cancelBtn.alpha = 0;
                    _scrollView.contentSize = CGSizeMake(0,0);
                    _view2.frame = _view.frame;
                    _bindBtn.frame = CGRectMake(_view2.x, _view2.maxY+20, kWidth, 50);
-               }else{//包含全球订单
+               }else if(!_manager.modelGlobal.effective_countries&&!_manager.modelTranslate.effective_countries){//全部不显示
+                   _view.alpha = 0;
+                   _view2.alpha = 0;
+                   _view3.alpha = 0;
+                   _bindBtn.alpha = 1;
+                   _cancelBtn.alpha = 0;
+                   _scrollView.contentSize = CGSizeMake(0,0);
+                   _bindBtn.frame = CGRectMake(_view2.x, XScreenHeight-49-X_bottom-50-20, kWidth, 50);
+               }else{//全部显示
                    _view.alpha = 0;
                    _view2.alpha = 1;
                    _view3.alpha = 1;
+                   _bindBtn.alpha = 1;
+                   _cancelBtn.alpha = 0;
                    _view3.frame = CGRectMake(kMagin, _view.maxY+30, kWidth, 230+30);//替换成view2位置
-                   _view2.frame = CGRectMake(kMagin, 20+60+X_bang, kWidth, 250);//替换成view的位置
-                   _scrollView.contentSize = CGSizeMake(0,700);
+                   _view2.frame = CGRectMake(kMagin, 20+44+X_bang, kWidth, 250);//替换成view的位置
+                   _scrollView.contentSize = CGSizeMake(0,720);
                    _bindBtn.frame = CGRectMake(_view2.x, _view3.maxY+20, kWidth, 50);
                }
                 
@@ -1387,8 +1426,22 @@
         
         });
     } failureBlock:^(NSString *error) {
-        NSLog(@"获取数据失败%@",error);
         
+        NSLog(@"获取数据失败%@",error);
+        _view2.alpha = 0;
+        _view3.alpha = 0;
+        _bindBtn.alpha = 0;
+        _scrollView.contentSize = CGSizeMake(0,0);
+        UIImageView *errorImg = [[UIImageView alloc]initWithFrame:CGRectMake((XScreenWidth-128)/2, (XScreenHeight-128)/2+100, 128, 128)];
+        errorImg.image = [UIImage imageNamed:@"netError.png"];
+        [self.view addSubview:errorImg];
+        
+        UILabel *lab = [[UILabel alloc]initWithFrame:CGRectMake((XScreenWidth-150)/2, errorImg.maxY+10, 150, 50)];
+        lab.text = @"当前无可用网路";
+        lab.textColor = [UIColor grayColor];
+        lab.textAlignment = NSTextAlignmentCenter;
+        lab.font = [UIFont systemFontOfSize:18];
+        [self.view addSubview:lab];
     }];
 });
     
@@ -1727,7 +1780,7 @@
             progressView.progress = 0.f;
             [self.timer invalidate];
             self.timer = nil;
-            UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"绑定设备:%@      失败，请重新扫描设备二维码/条形码尝试",_manager.ScanID] message:nil preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"连接设备:%@      失败，请重新扫描设备二维码/条形码尝试",_manager.ScanID] message:nil preferredStyle:UIAlertControllerStyleAlert];
                                         [self presentViewController:alertOne animated:YES completion:nil];
             
             UIAlertAction *certain = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -1743,7 +1796,7 @@
                                         [alertOne addAction:certain];
         }
         
-        self.progressLabel.text = [NSString stringWithFormat:@"绑定设备中，请保持蓝牙状态打开..."];
+        self.progressLabel.text = [NSString stringWithFormat:@"连接设备中，请保持蓝牙状态打开..."];
     }
     
 //    _timeNum +=1;

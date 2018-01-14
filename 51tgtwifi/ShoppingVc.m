@@ -44,13 +44,13 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    _manager = [YXManager share];
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    _manager = [YXManager share];
     // 初始化数组
     _arr = [NSMutableArray arrayWithCapacity:0];
     
@@ -104,7 +104,7 @@
     if (isBeta) {
         str = [NSString stringWithFormat:DoorOpen,@"TGT23170126536"];
     }else{
-        str = [NSString stringWithFormat:DoorOpen,_manager.sn];
+        str = [NSString stringWithFormat:DoorOpen,_manager.ScanID];
     }
     
     [NetWork sendGetNetWorkWithUrl:str parameters:nil hudView:self.view successBlock:^(id data) {
@@ -125,8 +125,18 @@
             [self createTableView];
             
         } failureBlock:^(NSString *error) {
-    
+            [self hideSchdu];
             NSLog(@"什么鬼？？？？？？");
+            UIImageView *errorImg = [[UIImageView alloc]initWithFrame:CGRectMake((XScreenWidth-128)/2, (XScreenHeight-128)/2, 128, 128)];
+            errorImg.image = [UIImage imageNamed:@"netError.png"];
+            [self.view addSubview:errorImg];
+            
+            UILabel *lab = [[UILabel alloc]initWithFrame:CGRectMake((XScreenWidth-150)/2, errorImg.maxY+10, 150, 50)];
+            lab.text = @"当前无可用网路";
+            lab.textColor = [UIColor grayColor];
+            lab.textAlignment = NSTextAlignmentCenter;
+            lab.font = [UIFont systemFontOfSize:18];
+            [self.view addSubview:lab];
     
         }];
     
@@ -172,7 +182,7 @@
     _tableView.dataSource = self;
     
     _tableView.rowHeight = 240;
-    
+    _tableView.tableFooterView = [[UIView alloc]init];
     [self.view addSubview:_tableView];
     
 

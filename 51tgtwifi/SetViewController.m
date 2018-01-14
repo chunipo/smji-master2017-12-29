@@ -272,7 +272,7 @@
 
 #pragma mark -创建tableview
 -(void)createTableview{
-    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 20+44+X_bang, XScreenWidth, XScreenHeight-20-44-X_bang-X_bottom) style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 20+44+X_bang, XScreenWidth, XScreenHeight-20-44-X_bang-X_bottom-49) style:UITableViewStyleGrouped];
     
     _tableView.delegate = self;
     _tableView.dataSource = self;

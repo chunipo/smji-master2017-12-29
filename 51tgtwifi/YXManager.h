@@ -12,11 +12,13 @@
 
 @interface YXManager : NSObject
 + (instancetype)share;
+@property (strong, nonatomic)NSMutableArray *MutArr;//
 @property (assign, nonatomic)BOOL isActiveSuc;//判断是否激活成功设备
 @property (assign, nonatomic)BOOL isActive;//判断设备是否已经激活
-@property (assign, nonatomic)BOOL isBind;//判断命令是绑定设备还是不绑定
+@property (assign, nonatomic)BOOL isBind;//判断命令是连接设备还是不连接
 @property (assign, nonatomic)BOOL isLight;//判断是否开启闪光灯
 @property (assign, nonatomic)BOOL isScan;//判断是否扫描完成
+@property (assign, nonatomic)BOOL isStarAcan;//判断是否正在扫描
 @property (assign, nonatomic)BOOL isOpenBluetooth;//判断是否开启蓝牙
 @property (assign, nonatomic)BOOL isConnectInfo;//连接wifi的指令
 @property (assign, nonatomic)BOOL isConnectWifi;//判断是否是接上了热点，

@@ -182,11 +182,13 @@
 }
 // 开始扫描
 - (void)startScanQrCode {
+     [YXManager share].isStarAcan = YES;
     [_session startRunning];
     timer = [NSTimer scheduledTimerWithTimeInterval:.01 target:self selector:@selector(qrLineAnimation) userInfo:nil repeats:YES];
 }
 // 停止扫描
 - (void)stopScanQrCode {
+    [YXManager share].isStarAcan = NO;
     [_session stopRunning];
     [timer invalidate];
 }
@@ -220,13 +222,20 @@
         NSLog(@"%@===metadataObjects==%@",metadataObject.stringValue,metadataObjects);
         //扫描二维码使用的~
         NSString *str = metadataObject.stringValue;
+        NSString *strTest = @"";
         if ([[metadataObject type] isEqualToString:AVMetadataObjectTypeQRCode]) {
             str = [str stringByReplacingOccurrencesOfString:@"sn=" withString:@"***"];
+            strTest = @"***";
             str = [str stringByReplacingOccurrencesOfString:@"&wmac" withString:@"###"];
             NSRange star = [str rangeOfString:@"***"];//匹配得到的下标
             NSRange end = [str rangeOfString:@"###"];//匹配得到的下标
-            NSLog(@"===str==%@",str);
-            str = [str substringWithRange:NSMakeRange(star.location+3,14)];//截取范围内的字符串
+            NSLog(@"===str==%@===",str);
+            if ([str rangeOfString:strTest].location== NSNotFound) {
+                 str = @"";
+            }else{
+                str = [str substringWithRange:NSMakeRange(star.location+3,14)];//截取范围内的字符串
+            }
+            
             if (self.delegate != nil && [self.delegate respondsToSelector:@selector(getResponse:)]) {
                 [self.delegate getResponse:str];
             }
@@ -236,7 +245,9 @@
                     [self.delegate getResponse:str];
                 }
             }else{
-                
+                if (self.delegate != nil && [self.delegate respondsToSelector:@selector(getResponse:)]) {
+                    [self.delegate getResponse:@""];
+                }
             }
         }
         

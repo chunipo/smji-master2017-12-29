@@ -25,7 +25,7 @@
 #define X_bottom (CGSizeEqualToSize(CGSizeMake(375, 812), [[UIScreen mainScreen]bounds].size)?34.0:0.0)
 
 /*******是否测试******/
-#define isBeta YES
+#define isBeta NO
 //判断设备激活状态
 #define isActiveUrl @"http://as2.51tgt.com/FyjApp/GetDeviceStatus?ssid=%@"
 //激活设备接口
@@ -35,7 +35,7 @@
 //流量商城
 #define DoorOpen @"http://as2.51tgt.com/FyjApp/GetFlowProducts?ssid=%@&type=RMB"
 #define PicHead  @"http://as2.51tgt.com"
-#define url(a) [@"http://as2.51tgt.com" stringByAppendingString:a]
+#define url(a) [PicHead stringByAppendingString:a]
 
 #import "UIImage+Extension.h"
 #import "UIView+Extension.h"

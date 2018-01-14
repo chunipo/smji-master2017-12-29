@@ -11,6 +11,7 @@
 #import "MainNavVc.h"
 #import "QRScanViewController.h"
 #import "YXManager.h"
+#import "NetNotifiVc.h"
 
 
 
@@ -56,24 +57,43 @@
 
     //判断是否登陆过设备，有就不用扫描
     YXManager *manager = [YXManager share];
-    //创建
+//    manager.MutArr = [NSMutableArray arrayWithCapacity:0];
+//    //创建
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    // 读取账户
+//    NSString * ScanID;
+//    NSMutableArray *_arr = [NSMutableArray arrayWithCapacity:0];
+//    NSMutableArray *mutableCopyArr = [NSMutableArray arrayWithCapacity:0];
+//    if ([userDefaults objectForKey:@"DeviceSN"]) {
+//        mutableCopyArr = [userDefaults objectForKey:@"DeviceSN"];
+//        _arr = [ mutableCopyArr mutableCopy];
+//        manager.MutArr = _arr;
+//        NSLog(@"===设备号%@==DeviceSN%@",_arr,[userDefaults objectForKey:@"DeviceSN"]);
+//        ScanID  = _arr.lastObject;
+//        manager.isScan = YES;
+//        manager.ScanID = ScanID;
+//    }else{
+//        NSLog(@"==没有历史记录==");
+//    }
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    // 读取账户
-    NSString * ScanID;
-    if ([userDefaults objectForKey:@"DeviceSN"]&&![[userDefaults objectForKey:@"DeviceSN"] isEqualToString:@""]) {
-        ScanID  = [userDefaults objectForKey:@"DeviceSN"];
+    NSString *deviceStr = @"";
+    if (![userDefaults objectForKey:@"Device"]) {
+       
+    }else
+    {
+        deviceStr = [userDefaults objectForKey:@"Device"];
+        NSArray  *array = [deviceStr componentsSeparatedByString:@"*"];
         manager.isScan = YES;
-        manager.ScanID = ScanID;
+        manager.ScanID = array[array.count-2];
     }
-   
-    
-    
-    
+
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     
     [self.window makeKeyWindow];
-    
-    self.window.rootViewController = [[MainNavVc alloc]initWithRootViewController:[[MainTabbarController alloc]init]];
+    NetNotifiVc *netVc = [[NetNotifiVc alloc]init];
+    self.window.rootViewController = netVc;
+//    self.window.rootViewController = [[MainNavVc alloc]initWithRootViewController:[[MainTabbarController alloc]init]];
     
    // self.window.rootViewController = [[MainNavVc alloc]initWithRootViewController:[[QRScanViewController alloc]init]];
     

@@ -101,11 +101,17 @@
 		D76FF0A02004B805008250A6 /* show-write.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF09F2004B805008250A6 /* show-write.png */; };
 		D76FF0A72004C758008250A6 /* SingletonView.m in Sources */ = {isa = PBXBuildFile; fileRef = D76FF0A62004C758008250A6 /* SingletonView.m */; };
 		D76FF0A92004CB10008250A6 /* currect.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0A82004CB10008250A6 /* currect.png */; };
-		D76FF0AB2004CB80008250A6 /* 22222.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0AA2004CB80008250A6 /* 22222.png */; };
 		D76FF0AD2004CBFF008250A6 /* fasle.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0AC2004CBFF008250A6 /* fasle.png */; };
-		D76FF0AF2004CC56008250A6 /* 333.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0AE2004CC56008250A6 /* 333.png */; };
 		D76FF0B12005FE87008250A6 /* dislikeicon_textpage.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0B02005FE87008250A6 /* dislikeicon_textpage.png */; };
 		D76FF0B320060FA7008250A6 /* activity_fill.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0B220060FA7008250A6 /* activity_fill.png */; };
+		D76FF0B720074204008250A6 /* netError.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0B620074204008250A6 /* netError.png */; };
+		D76FF0BA20099D7D008250A6 /* history.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0B920099D7D008250A6 /* history.png */; };
+		D76FF0BD2009A2B4008250A6 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D76FF0BC2009A2B4008250A6 /* HistoryViewController.m */; };
+		D76FF0BF2009BC4D008250A6 /* deviceImg2.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0BE2009BC4D008250A6 /* deviceImg2.png */; };
+		D76FF0C32009BCF6008250A6 /* deviceImg.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0C22009BCF5008250A6 /* deviceImg.png */; };
+		D76FF0C72009C168008250A6 /* NetNotifiVc.m in Sources */ = {isa = PBXBuildFile; fileRef = D76FF0C62009C168008250A6 /* NetNotifiVc.m */; };
+		D76FF0C92009CB24008250A6 /* saomiao.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0C82009CB24008250A6 /* saomiao.png */; };
+		D76FF0CF2009D4B9008250A6 /* WechatIMG8.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0CE2009D4B9008250A6 /* WechatIMG8.png */; };
 		D7A512F51FEA90CD001C8158 /* YXManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A512F41FEA90CD001C8158 /* YXManager.m */; };
 		D7A512F81FEA9382001C8158 /* ic_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7A512F71FEA9382001C8158 /* ic_bg.jpg */; };
 		D7A512FB1FEA93D2001C8158 /* HomeVc.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A512FA1FEA93D2001C8158 /* HomeVc.m */; };
@@ -341,11 +347,19 @@
 		D76FF0A52004C758008250A6 /* SingletonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingletonView.h; sourceTree = "<group>"; };
 		D76FF0A62004C758008250A6 /* SingletonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingletonView.m; sourceTree = "<group>"; };
 		D76FF0A82004CB10008250A6 /* currect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = currect.png; sourceTree = "<group>"; };
-		D76FF0AA2004CB80008250A6 /* 22222.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 22222.png; sourceTree = "<group>"; };
 		D76FF0AC2004CBFF008250A6 /* fasle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fasle.png; sourceTree = "<group>"; };
-		D76FF0AE2004CC56008250A6 /* 333.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 333.png; sourceTree = "<group>"; };
 		D76FF0B02005FE87008250A6 /* dislikeicon_textpage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dislikeicon_textpage.png; sourceTree = "<group>"; };
 		D76FF0B220060FA7008250A6 /* activity_fill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = activity_fill.png; sourceTree = "<group>"; };
+		D76FF0B620074204008250A6 /* netError.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = netError.png; sourceTree = "<group>"; };
+		D76FF0B920099D7D008250A6 /* history.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = history.png; sourceTree = "<group>"; };
+		D76FF0BB2009A2B4008250A6 /* HistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		D76FF0BC2009A2B4008250A6 /* HistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		D76FF0BE2009BC4D008250A6 /* deviceImg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deviceImg2.png; sourceTree = "<group>"; };
+		D76FF0C22009BCF5008250A6 /* deviceImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deviceImg.png; sourceTree = "<group>"; };
+		D76FF0C52009C168008250A6 /* NetNotifiVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetNotifiVc.h; sourceTree = "<group>"; };
+		D76FF0C62009C168008250A6 /* NetNotifiVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetNotifiVc.m; sourceTree = "<group>"; };
+		D76FF0C82009CB24008250A6 /* saomiao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = saomiao.png; sourceTree = "<group>"; };
+		D76FF0CE2009D4B9008250A6 /* WechatIMG8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WechatIMG8.png; sourceTree = "<group>"; };
 		D7A512F31FEA90CD001C8158 /* YXManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXManager.h; sourceTree = "<group>"; };
 		D7A512F41FEA90CD001C8158 /* YXManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXManager.m; sourceTree = "<group>"; };
 		D7A512F71FEA9382001C8158 /* ic_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ic_bg.jpg; sourceTree = "<group>"; };
@@ -634,6 +648,7 @@
 		1AF3C0C11F8FBB7B00A35AFC /* 51tgtwifi */ = {
 			isa = PBXGroup;
 			children = (
+				D76FF0C42009C12C008250A6 /* 网络监测界面 */,
 				D7A513291FF0D2FF001C8158 /* 二维码扫描 */,
 				D7E5615A1FEA6AC100AA5A48 /* images */,
 				12D6B8A11FA327BE006B6B38 /* 51tgtwifi.entitlements */,
@@ -700,6 +715,7 @@
 		1AF3C0F61F8FBBAA00A35AFC /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				D76FF0D0200A90B9008250A6 /* 数据库 */,
 				129AE1E51F9DA37E0019192D /* 疯子 */,
 				120B877D1F95AF090053B5A5 /* Selfing */,
 				12EAC6C71F905AA50034978E /* Category */,
@@ -759,6 +775,9 @@
 		D76FF0911FFF53C0008250A6 /* 扫一扫 */ = {
 			isa = PBXGroup;
 			children = (
+				D76FF0C22009BCF5008250A6 /* deviceImg.png */,
+				D76FF0BE2009BC4D008250A6 /* deviceImg2.png */,
+				D76FF0B920099D7D008250A6 /* history.png */,
 				D76FF08D1FFE3601008250A6 /* light.png */,
 				D76FF08F1FFE361A008250A6 /* click.png */,
 				D76FF0971FFF53CC008250A6 /* ScanQR1@2x.png */,
@@ -774,9 +793,28 @@
 			name = "扫一扫";
 			sourceTree = "<group>";
 		};
+		D76FF0C42009C12C008250A6 /* 网络监测界面 */ = {
+			isa = PBXGroup;
+			children = (
+				D76FF0CE2009D4B9008250A6 /* WechatIMG8.png */,
+				D76FF0C82009CB24008250A6 /* saomiao.png */,
+				D76FF0C52009C168008250A6 /* NetNotifiVc.h */,
+				D76FF0C62009C168008250A6 /* NetNotifiVc.m */,
+			);
+			name = "网络监测界面";
+			sourceTree = "<group>";
+		};
+		D76FF0D0200A90B9008250A6 /* 数据库 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "数据库";
+			sourceTree = "<group>";
+		};
 		D7A512F61FEA9373001C8158 /* 首页 */ = {
 			isa = PBXGroup;
 			children = (
+				D76FF0B620074204008250A6 /* netError.png */,
 				D76FF0B220060FA7008250A6 /* activity_fill.png */,
 				D76FF0B02005FE87008250A6 /* dislikeicon_textpage.png */,
 				D76FF0911FFF53C0008250A6 /* 扫一扫 */,
@@ -797,9 +835,7 @@
 		D7A513171FEBF8FA001C8158 /* 设置 */ = {
 			isa = PBXGroup;
 			children = (
-				D76FF0AE2004CC56008250A6 /* 333.png */,
 				D76FF0AC2004CBFF008250A6 /* fasle.png */,
-				D76FF0AA2004CB80008250A6 /* 22222.png */,
 				D76FF0A82004CB10008250A6 /* currect.png */,
 				D7A513481FF25279001C8158 /* 1.png */,
 				D7A5133E1FF2512B001C8158 /* ic_connect_wifi.png */,
@@ -840,6 +876,8 @@
 				D7A513301FF0D3C7001C8158 /* QRScanViewController.m */,
 				D7A5132E1FF0D380001C8158 /* ScanView.h */,
 				D7A5132D1FF0D380001C8158 /* ScanView.m */,
+				D76FF0BB2009A2B4008250A6 /* HistoryViewController.h */,
+				D76FF0BC2009A2B4008250A6 /* HistoryViewController.m */,
 			);
 			name = "二维码扫描";
 			sourceTree = "<group>";
@@ -1048,6 +1086,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D76FF0BF2009BC4D008250A6 /* deviceImg2.png in Resources */,
 				D7A513161FEBBD76001C8158 /* ic_home_s@3x.png in Resources */,
 				129AE2201F9DA65F0019192D /* close@3x.png in Resources */,
 				129AE2161F9DA65F0019192D /* back@3x.png in Resources */,
@@ -1063,6 +1102,7 @@
 				D7A5130F1FEBBD6D001C8158 /* ic_setting_s@2x.png in Resources */,
 				D7A5130A1FEBBD03001C8158 /* ic_setting_u@3x.png in Resources */,
 				D7A513101FEBBD6D001C8158 /* ic_home_s@2x.png in Resources */,
+				D76FF0BA20099D7D008250A6 /* history.png in Resources */,
 				D7A513451FF2512C001C8158 /* ic_setting_blacklist.png in Resources */,
 				1AF3C0D21F8FBB7B00A35AFC /* LaunchScreen.storyboard in Resources */,
 				129AE2261F9DA65F0019192D /* icon_Ticking@3x.png in Resources */,
@@ -1072,11 +1112,14 @@
 				129AE2331F9DB3980019192D /* Icon-Paypal@2x.png in Resources */,
 				D7A513431FF2512C001C8158 /* ic_connect_wifi.png in Resources */,
 				D7A513411FF2512C001C8158 /* ic_setting_modify_password.png in Resources */,
+				D76FF0C92009CB24008250A6 /* saomiao.png in Resources */,
 				D76FF0881FFC7D08008250A6 /* ScanQR3@3x.png in Resources */,
 				D7A513381FF1FAC1001C8158 /* ic_arrow_back_white.png in Resources */,
+				D76FF0C32009BCF6008250A6 /* deviceImg.png in Resources */,
 				129AE24F1F9EE1330019192D /* InfoPlist.strings in Resources */,
 				129AE22D1F9DA65F0019192D /* icon_zhifubao_white@2x.png in Resources */,
 				D7A513041FEBBCF9001C8158 /* ic_mall_u@2x.png in Resources */,
+				D76FF0B720074204008250A6 /* netError.png in Resources */,
 				129AE22A1F9DA65F0019192D /* icon_yinlian@3x.png in Resources */,
 				D7A513261FED1662001C8158 /* ic_tuge_icon2.png in Resources */,
 				129AE21E1F9DA65F0019192D /* button_bg_red@3x.png in Resources */,
@@ -1092,6 +1135,7 @@
 				D76FF0B12005FE87008250A6 /* dislikeicon_textpage.png in Resources */,
 				D76FF0831FFC7D08008250A6 /* ScanQR2@2x.png in Resources */,
 				129AE21F1F9DA65F0019192D /* close@2x.png in Resources */,
+				D76FF0CF2009D4B9008250A6 /* WechatIMG8.png in Resources */,
 				129AE2281F9DA65F0019192D /* icon_weixin_white@3x.png in Resources */,
 				D7A513031FEBBCF9001C8158 /* ic_home_u@2x.png in Resources */,
 				D7A5131A1FEBF913001C8158 /* ic_show_password.png in Resources */,
@@ -1103,10 +1147,8 @@
 				129AE2291F9DA65F0019192D /* icon_yinlian@2x.png in Resources */,
 				129AE2151F9DA65F0019192D /* back@2x.png in Resources */,
 				129AE22E1F9DA65F0019192D /* icon_zhifubao_white@3x.png in Resources */,
-				D76FF0AB2004CB80008250A6 /* 22222.png in Resources */,
 				129AE2301F9DA65F0019192D /* iocn_weixin_green@3x.png in Resources */,
 				129AE21A1F9DA65F0019192D /* button_bg_green@3x.png in Resources */,
-				D76FF0AF2004CC56008250A6 /* 333.png in Resources */,
 				D76FF0851FFC7D08008250A6 /* ScanQR3@2x.png in Resources */,
 				D76FF04D1FF4D924008250A6 /* toast_keywords_option@2x.png in Resources */,
 				129AE2421F9ED97C0019192D /* MBProgressHUD.bundle in Resources */,
@@ -1225,6 +1267,7 @@
 				129AE1F11F9DA5310019192D /* QLCustomButton.m in Sources */,
 				D7A512FE1FEBAA3E001C8158 /* BLEToolsbar.m in Sources */,
 				12D6B87C1FA1984C006B6B38 /* BluetrueViewController.m in Sources */,
+				D76FF0C72009C168008250A6 /* NetNotifiVc.m in Sources */,
 				07BC2A5F1FB2B59F00735894 /* NSStringTool.m in Sources */,
 				1AF3C0C71F8FBB7B00A35AFC /* AppDelegate.m in Sources */,
 				D7A5134D1FF38C42001C8158 /* HWCircleView.m in Sources */,
@@ -1248,6 +1291,7 @@
 				12D6B8871FA2E5DD006B6B38 /* DetailVc.m in Sources */,
 				129AE1EB1F9DA4600019192D /* UIImageView+Extension.m in Sources */,
 				07CD042D1FB4054A009081EE /* BLETool.m in Sources */,
+				D76FF0BD2009A2B4008250A6 /* HistoryViewController.m in Sources */,
 				1AF3C10A1F8FC28200A35AFC /* HomeViewController.m in Sources */,
 				129AE2611F9F23B80019192D /* LanguageViewController.m in Sources */,
 				D7A5131F1FEC99FA001C8158 /* PackagInfoModel.m in Sources */,
@@ -1464,6 +1508,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1489,6 +1534,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -26,7 +26,7 @@
 #pragma mark - 创建标题栏
 -(void)HeadTitle{
     UIView *_TitleView = [[UIView alloc]init];
-    _TitleView.frame =CGRectMake(0, 0, XScreenWidth, 60+X_bang+20);
+    _TitleView.frame =CGRectMake(0, 0, XScreenWidth, 44+X_bang+20);
     
     _TitleView.backgroundColor = [UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];
     [self.view addSubview:_TitleView];
@@ -49,7 +49,7 @@
         make.centerX.equalTo(_TitleView);
         make.centerY.mas_equalTo(_TitleView.mas_centerY).with.offset(X_bang/2.0+10);
     }];
-    TitleText.font = [UIFont systemFontOfSize:24];
+    //TitleText.font = [UIFont systemFontOfSize:20];
     TitleText.textAlignment = 1;
     
     
@@ -87,7 +87,7 @@
     logo.image = [UIImage imageNamed:@"ic_tuge_icon.png"];
     
     UILabel *appname = [[UILabel alloc]initWithFrame:CGRectMake(logo.x, logo.maxY+10, Klogo, 80)];
-    appname.text = @"途鸽翻译机\n1.0";
+    appname.text = @"WiFi翻译机\n版本 1.1";
     appname.textColor = [UIColor grayColor];
     [self.view addSubview:appname];
     appname.font = [UIFont systemFontOfSize:16];
@@ -96,7 +96,7 @@
     
     UILabel *bottom = [UILabel new];
     [self.view addSubview:bottom];
-    bottom.text = @"深圳市途鸽信息有限公司\nCopyright  ©2014-2017";
+    bottom.text = @"深圳市途鸽信息有限公司\nCopyright  ©2014-2018";
     [bottom mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.bottom.equalTo(self.view).with.offset(-10);
