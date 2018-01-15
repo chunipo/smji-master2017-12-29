@@ -15,6 +15,7 @@
 #import "AboutMeViewController.h"
 #import "DeviceConnectWifiViewC.h"
 #import "SingletonView.h"
+#import "HistoryOrderVc.h"
 
 #define Name_Device [UIScreen mainScreen].bounds.size.width<375?14:17
 
@@ -257,8 +258,8 @@
     UILabel *TitleText = [UILabel new];
     [_TitleView addSubview:TitleText];
     
-    //TitleText.text = SetLange(@"setTitle");
-    TitleText.text = @"设 置";
+    TitleText.text = NSLocalizedString(@"setTitle",nil);
+    //TitleText.text = @"设 置";
     TitleText.textColor = [UIColor whiteColor];
     TitleText.font = [UIFont systemFontOfSize:19];
     [TitleText mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -286,23 +287,24 @@
 //    _arr = @[@[@"关闭设备热点",@"修改设备热点",@"设置APN",@"连接Wifi",@"设置翻译语言",@"设置提示语言",@"多语言"],@[@"设置热点访问黑名单",@"设备自检",@"软件版本检测",@"历史流量订单"]];
     
     NSString *str1 = SetLange(@"guanbishebeiredian");
-    NSString *str2 = SetLange(@"xiugaishebeiredian");
-    NSString *str3 = SetLange(@"shezhivpn");
-    NSString *str4 = SetLange(@"lianjieWifi");
+    NSString *str2 = NSLocalizedString(@"xiugaishebeiredian",nil);
+    NSString *str3 = NSLocalizedString(@"shezhivpn",nil);
+    NSString *str4 = NSLocalizedString(@"lianjieWifi",nil);
     NSString *str5 = SetLange(@"shezhifanyiyuyan");
     NSString *str6 = SetLange(@"shezhitishiyuyan");
     NSString *str7 = SetLange(@"duoyuyan");
-  
-    NSString *str8 = SetLange(@"shezhiredianfangwenmingdan");
+
+    NSString *str8 = NSLocalizedString(@"shezhiredianfangwenmingdan",nil);
     NSString *str9 = SetLange(@"shebeizijian");
-    NSString *str10 = SetLange(@"ruanjianbanbenjiance");
-    NSString *str11 = SetLange(@"lishiliuliangdingdan");
+    NSString *str10 = NSLocalizedString(@"ruanjianbanbenjiance",nil);
+    NSString *str11 = NSLocalizedString(@"lishiliuliangdingdan",nil);
+    NSString *str12 = NSLocalizedString(@"guanyuwomen",nil);
     
     
     
     
-     _arr = @[@[@"修改设备热点密码",@"设置APN",@"连接WIFI"],@[@"设置热点访问黑名单",@"当前设备软件版本号"],@[@"关于我们"]];
-     _arrImg = @[@[@"ic_setting_modify_password.png",@"ic_setting_apn.png",@"ic_connect_wifi.png"],@[@"ic_setting_blacklist.png",@"ic_setting_blacklist.png"],@[@"ic_setting_tip_language.png"]];
+     _arr = @[@[str2,str3,str4],@[str8,str10,str11],@[str12]];
+     _arrImg = @[@[@"ic_setting_modify_password.png",@"ic_setting_apn.png",@"ic_connect_wifi.png"],@[@"ic_setting_blacklist.png",@"ic_setting_blacklist.png",@"ic_setting_blacklist.png"],@[@"ic_setting_tip_language.png"]];
     _tableView.tableHeaderView =[self headView] ;
 
 }
@@ -445,6 +447,10 @@
             [hud hideAnimated:YES afterDelay:1];
         }
 
+    }else if (indexPath.section==1&&indexPath.row==2){//历史流量订单
+        HistoryOrderVc *HisVc = [[HistoryOrderVc alloc]init];
+        [self.navigationController pushViewController:HisVc animated:YES];
+        
     }
 }
 
@@ -919,12 +925,12 @@
     CGFloat kMagin = 20.0;
     //宽度
     CGFloat kWidth = XScreenWidth - 2*kMagin;
-    _view_APN = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 410)];
+    _view_APN = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 410+40+20)];
     _view_APN.layer.cornerRadius = 5;
     _view_APN.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_view_APN];
     
-    //修改热点密码
+    //设置APN
     UILabel *chageTitle = [UILabel new];
     [_view_APN addSubview:chageTitle];
     [chageTitle mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -950,12 +956,26 @@
         
     }];
     
+    UILabel *lab = [UILabel new];
+    [_view_APN addSubview:lab];
+    lab.textColor = [UIColor grayColor];
+    lab.text = @"给实卡设置APN使之生效";
+    lab.numberOfLines = 0;
+    lab.font = [UIFont systemFontOfSize:15];
+    [lab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_view_APN).with.offset(10);
+        make.right.equalTo(_view_APN).with.offset(10);
+        make.top.equalTo(firstLine.mas_bottom).with.offset(10);
+        make.height.mas_equalTo(@40);
+        
+    }];
+    
     UIScrollView *_scrollView = [UIScrollView new];
     [_view_APN addSubview:_scrollView];
     [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_view_APN).with.offset(0);
         make.right.equalTo(_view_APN).with.offset(0);
-        make.top.equalTo(firstLine.mas_bottom).with.offset(10);
+        make.top.equalTo(lab.mas_bottom).with.offset(10);
         make.height.mas_equalTo(@270);
     }];
     _scrollView.backgroundColor = [UIColor clearColor];

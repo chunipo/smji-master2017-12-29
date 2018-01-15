@@ -112,6 +112,8 @@
 		D76FF0C72009C168008250A6 /* NetNotifiVc.m in Sources */ = {isa = PBXBuildFile; fileRef = D76FF0C62009C168008250A6 /* NetNotifiVc.m */; };
 		D76FF0C92009CB24008250A6 /* saomiao.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0C82009CB24008250A6 /* saomiao.png */; };
 		D76FF0CF2009D4B9008250A6 /* WechatIMG8.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0CE2009D4B9008250A6 /* WechatIMG8.png */; };
+		D76FF0D5200C8448008250A6 /* HistoryOrderVc.m in Sources */ = {isa = PBXBuildFile; fileRef = D76FF0D4200C8448008250A6 /* HistoryOrderVc.m */; };
+		D76FF0DC200CB0EA008250A6 /* baidu-tuge.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0DB200CB0EA008250A6 /* baidu-tuge.png */; };
 		D7A512F51FEA90CD001C8158 /* YXManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A512F41FEA90CD001C8158 /* YXManager.m */; };
 		D7A512F81FEA9382001C8158 /* ic_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7A512F71FEA9382001C8158 /* ic_bg.jpg */; };
 		D7A512FB1FEA93D2001C8158 /* HomeVc.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A512FA1FEA93D2001C8158 /* HomeVc.m */; };
@@ -360,6 +362,9 @@
 		D76FF0C62009C168008250A6 /* NetNotifiVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetNotifiVc.m; sourceTree = "<group>"; };
 		D76FF0C82009CB24008250A6 /* saomiao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = saomiao.png; sourceTree = "<group>"; };
 		D76FF0CE2009D4B9008250A6 /* WechatIMG8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WechatIMG8.png; sourceTree = "<group>"; };
+		D76FF0D3200C8448008250A6 /* HistoryOrderVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryOrderVc.h; sourceTree = "<group>"; };
+		D76FF0D4200C8448008250A6 /* HistoryOrderVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryOrderVc.m; sourceTree = "<group>"; };
+		D76FF0DB200CB0EA008250A6 /* baidu-tuge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "baidu-tuge.png"; path = "../../../Desktop/working/途鸽翻译机图标/baidu-tuge.png"; sourceTree = "<group>"; };
 		D7A512F31FEA90CD001C8158 /* YXManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXManager.h; sourceTree = "<group>"; };
 		D7A512F41FEA90CD001C8158 /* YXManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXManager.m; sourceTree = "<group>"; };
 		D7A512F71FEA9382001C8158 /* ic_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ic_bg.jpg; sourceTree = "<group>"; };
@@ -613,12 +618,12 @@
 		12EAC6D01F908C0F0034978E /* 设置 */ = {
 			isa = PBXGroup;
 			children = (
-				D7A513331FF1E2A9001C8158 /* 连接wifi */,
-				129AE25D1F9F05E60019192D /* 多语言 */,
 				12EAC6D11F908C4C0034978E /* SetViewController.h */,
 				12EAC6D21F908C4C0034978E /* SetViewController.m */,
-				D7A513211FED13EF001C8158 /* AboutMeViewController.h */,
-				D7A513221FED13EF001C8158 /* AboutMeViewController.m */,
+				D76FF0D2200C8428008250A6 /* 关于我们 */,
+				D76FF0D1200C840C008250A6 /* 历史流量订单 */,
+				D7A513331FF1E2A9001C8158 /* 连接wifi */,
+				129AE25D1F9F05E60019192D /* 多语言 */,
 			);
 			name = "设置";
 			sourceTree = "<group>";
@@ -740,11 +745,11 @@
 		1AF3C1071F8FC26200A35AFC /* 首页 */ = {
 			isa = PBXGroup;
 			children = (
-				07635CEB1FB9323400057FC8 /* 测试 */,
 				12D6B87A1FA1984C006B6B38 /* BluetrueViewController.h */,
 				12D6B87B1FA1984C006B6B38 /* BluetrueViewController.m */,
 				D7A512F91FEA93D2001C8158 /* HomeVc.h */,
 				D7A512FA1FEA93D2001C8158 /* HomeVc.m */,
+				07635CEB1FB9323400057FC8 /* 测试 */,
 				D76FF09A200321EA008250A6 /* HomeDemoVc.h */,
 				D76FF09B200321EA008250A6 /* HomeDemoVc.m */,
 			);
@@ -796,6 +801,7 @@
 		D76FF0C42009C12C008250A6 /* 网络监测界面 */ = {
 			isa = PBXGroup;
 			children = (
+				D76FF0DB200CB0EA008250A6 /* baidu-tuge.png */,
 				D76FF0CE2009D4B9008250A6 /* WechatIMG8.png */,
 				D76FF0C82009CB24008250A6 /* saomiao.png */,
 				D76FF0C52009C168008250A6 /* NetNotifiVc.h */,
@@ -809,6 +815,33 @@
 			children = (
 			);
 			name = "数据库";
+			sourceTree = "<group>";
+		};
+		D76FF0D1200C840C008250A6 /* 历史流量订单 */ = {
+			isa = PBXGroup;
+			children = (
+				D76FF0D3200C8448008250A6 /* HistoryOrderVc.h */,
+				D76FF0D4200C8448008250A6 /* HistoryOrderVc.m */,
+			);
+			name = "历史流量订单";
+			sourceTree = "<group>";
+		};
+		D76FF0D2200C8428008250A6 /* 关于我们 */ = {
+			isa = PBXGroup;
+			children = (
+				D7A513211FED13EF001C8158 /* AboutMeViewController.h */,
+				D7A513221FED13EF001C8158 /* AboutMeViewController.m */,
+			);
+			name = "关于我们";
+			sourceTree = "<group>";
+		};
+		D76FF0D6200C8754008250A6 /* 绑定设备清单 */ = {
+			isa = PBXGroup;
+			children = (
+				D76FF0BB2009A2B4008250A6 /* HistoryViewController.h */,
+				D76FF0BC2009A2B4008250A6 /* HistoryViewController.m */,
+			);
+			path = "绑定设备清单";
 			sourceTree = "<group>";
 		};
 		D7A512F61FEA9373001C8158 /* 首页 */ = {
@@ -872,12 +905,11 @@
 		D7A513291FF0D2FF001C8158 /* 二维码扫描 */ = {
 			isa = PBXGroup;
 			children = (
+				D76FF0D6200C8754008250A6 /* 绑定设备清单 */,
 				D7A513311FF0D3C7001C8158 /* QRScanViewController.h */,
 				D7A513301FF0D3C7001C8158 /* QRScanViewController.m */,
 				D7A5132E1FF0D380001C8158 /* ScanView.h */,
 				D7A5132D1FF0D380001C8158 /* ScanView.m */,
-				D76FF0BB2009A2B4008250A6 /* HistoryViewController.h */,
-				D76FF0BC2009A2B4008250A6 /* HistoryViewController.m */,
 			);
 			name = "二维码扫描";
 			sourceTree = "<group>";
@@ -1122,6 +1154,7 @@
 				D76FF0B720074204008250A6 /* netError.png in Resources */,
 				129AE22A1F9DA65F0019192D /* icon_yinlian@3x.png in Resources */,
 				D7A513261FED1662001C8158 /* ic_tuge_icon2.png in Resources */,
+				D76FF0DC200CB0EA008250A6 /* baidu-tuge.png in Resources */,
 				129AE21E1F9DA65F0019192D /* button_bg_red@3x.png in Resources */,
 				129AE21C1F9DA65F0019192D /* button_bg_red_short@3x.png in Resources */,
 				1AF3C0CF1F8FBB7B00A35AFC /* Assets.xcassets in Resources */,
@@ -1273,6 +1306,7 @@
 				D7A5134D1FF38C42001C8158 /* HWCircleView.m in Sources */,
 				129AE1E21F9DA26A0019192D /* PayView.m in Sources */,
 				129AE1DF1F9DA20C0019192D /* PayViewController.m in Sources */,
+				D76FF0D5200C8448008250A6 /* HistoryOrderVc.m in Sources */,
 				D76FF0A72004C758008250A6 /* SingletonView.m in Sources */,
 				D7A512F51FEA90CD001C8158 /* YXManager.m in Sources */,
 				D7A5133B1FF22C1A001C8158 /* DisconnectViewController.m in Sources */,

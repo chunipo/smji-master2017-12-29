@@ -5,105 +5,55 @@
   Created by TGT on 2017/10/24.
   Copyright © 2017年 weiyuxiang. All rights reserved.
 */
-////商城标题
-//"title" = "交通モール";
-//
-//
-////tabbar按钮
-//"shouye" = "ホーム";
-//"shangcheng" = "モール";
-//"shezhi" = "セットアップ";
-//
-////设置界面
-//
-//"setTitle" = "セットアップ";
-//
-////列表名
-//"jibenshezhi" = "基本設定";
-//"devicedName" = "データがありません";
-//"guanbishebeiredian" = "デバイスのホットスポットを無効にする";
-//"xiugaishebeiredian" = "デバイスのホットスポットを変更する";
-//"shezhivpn" = "APNを設定する";
-//"lianjieWifi" = "Wi-Fiを接続する";
-//"shezhifanyiyuyan" = "翻訳言語を設定する";
-//"shezhitishiyuyan" = "プロンプト言語を設定する";
-//"duoyuyan" = "多言語";
-//
-//"gaojishezhi" = "詳細設定";
-//"shezhiredianfangwenmingdan" = "ホットスポットアクセスブラックリストを設定する";
-//"shebeizijian" = "自己診断装置";
-//"ruanjianbanbenjiance" = "ソフトウェアのバージョン検出";
-//"lishiliuliangdingdan" = "過去のフロー指図";
-//
-//
-///* 首页 */
-//"shebeissid" = "デバイスSSID:";
-//"Wifimima" = "Wifiパスワード:";
-//"fanyiyuzhong" = "翻訳言語:";
-//"shengyudianliang" = "残り容量:";
-//"shebeilianjieshu" = "デバイス接続の数:";
-//"xinhaoqiangdu" = "信号強度:";
-//"shebeibanben"  = "デバイスのバージョン:";
-//
-//"fanyidingdan" = "注文を翻訳する";
-//"zongliuliang" = "総トラフィック:";
-//"shengyuliuliag" = "残りのトラフィック:";
-//"shiyongguojia" = "国を使用する:";
-//"kaishishjian" = "開始時間:";
-//"jieshushijian" = "終了時刻:";
-
-
 //商城标题
-"title" = "流量商城";
+"title" = "交通モール";
 
 
 //tabbar按钮
-"shouye" = "首页";
-"shangcheng" = "商城";
-"shezhi" = "设置";
-
-
-
-
+"shouye" = "ホーム";
+"shangcheng" = "モール";
+"shezhi" = "セットアップ";
 
 //设置界面
 
+"setTitle" = "セットアップ";
 
-// 头标题
-"setTitle" = "设置";
 //列表名
-"jibenshezhi" = "基本设置";
-"devicedName" = "暂无数据";
-"guanbishebeiredian" = "关闭设备热点";
-"xiugaishebeiredian" = "修改设备热点";
-"shezhivpn" = "设置APN";
-"lianjieWifi" = "连接Wifi";
-"shezhifanyiyuyan" = "设置翻译语言";
-"shezhitishiyuyan" = "设置提示语言";
-"duoyuyan" = "多语言";
+"jibenshezhi" = "基本設定";
+"devicedName" = "データがありません";
+"guanbishebeiredian" = "デバイスのホットスポットを無効にする";
+"xiugaishebeiredian" = "デバイスのホットスポットを変更する";
+"shezhivpn" = "APNを設定する";
+"lianjieWifi" = "Wi-Fiを接続する";
+"shezhifanyiyuyan" = "翻訳言語を設定する";
+"shezhitishiyuyan" = "プロンプト言語を設定する";
+"duoyuyan" = "多言語";
 
-"gaojishezhi" = "高级设置";
-"shezhiredianfangwenmingdan" = "设置热点访问黑名单";
-"shebeizijian" = "设备自检";
-"ruanjianbanbenjiance" = "软件版本检测";
-"lishiliuliangdingdan" = "历史流量订单";
-
+"gaojishezhi" = "詳細設定";
+"shezhiredianfangwenmingdan" = "ホットスポットアクセスブラックリストを設定する";
+"shebeizijian" = "自己診断装置";
+"ruanjianbanbenjiance" = "デバイスソフトウェアのバージョン番号";
+"lishiliuliangdingdan" = "過去のフロー指図";
+"guanyuwomen" = "私たちについて";
 
 
 /* 首页 */
-"shebeissid" = "设备SSID:";
-"Wifimima" = "Wifi密码:";
-"fanyiyuzhong" = "翻译语种:";
-"shengyudianliang" = "剩余电量:";
-"shebeilianjieshu" = "设备连接数:";
-"xinhaoqiangdu" = "信号强度:";
-"shebeibanben"  = "设备版本:";
+"shebeissid" = "デバイスSSID:";
+"Wifimima" = "Wifiパスワード:";
+"fanyiyuzhong" = "翻訳言語:";
+"shengyudianliang" = "残り容量:";
+"shebeilianjieshu" = "デバイス接続の数:";
+"xinhaoqiangdu" = "信号強度:";
+"shebeibanben"  = "デバイスのバージョン:";
 
-"fanyidingdan" = "翻译订单";
-"zongliuliang" = "总流量:";
-"shengyuliuliag" = "剩余流量:";
-"shiyongguojia" = "使用国家:";
-"kaishishjian" = "开始时间:";
-"jieshushijian" = "结束时间:";
+"fanyidingdan" = "注文を翻訳する";
+"zongliuliang" = "総トラフィック:";
+"shengyuliuliag" = "残りのトラフィック:";
+"shiyongguojia" = "国を使用する:";
+"kaishishjian" = "開始時間:";
+"jieshushijian" = "終了時刻:";
+"lianjieshebei" = "デバイスを接続する";
+"jiechubangding" = "アンバインド";
+
 
 

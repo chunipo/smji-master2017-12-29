@@ -323,7 +323,10 @@ dispatch_async(dispatch_get_main_queue(), ^{
         }else{//激活设备
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"设备未激活，是否激活设备?"] preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                [_scanView startScanQrCode];
+                if (!_manager.isStarAcan) {
+                    [_scanView startScanQrCode];
+                }
+                
             }]];
             [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [self activationDevice:str];
@@ -365,7 +368,7 @@ dispatch_async(dispatch_get_main_queue(), ^{
         }
         
         if (_manager.isActiveSuc) {//激活成功
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"激活成功!" message:@"您的共享wifi翻译机已经激活成功，现在可以开机使用了。\n免费的翻译流量从激活之日起三年有效，覆盖国家列表如下:\n月球\n如果您需要使用wifi共享流量，请到商城中购买。各种流量包可供选择，优惠多多!!" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"激活成功!" message:@"您的共享wifi翻译机已经激活成功，现在可以开机使用了。\n免费的翻译流量从激活之日起三年有效。\n如果您需要使用wifi共享流量，请到商城中购买。各种流量包可供选择，优惠多多!!" preferredStyle:UIAlertControllerStyleAlert];
 //            [alert addAction:[UIAlertAction actionWithTitle:@"绑定设备" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 //
 //                YXManager *manager = [YXManager share];

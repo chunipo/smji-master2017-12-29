@@ -578,6 +578,7 @@
 }
 
 
+
 -(void)action{
     NSLog(@"11111111111111");
 }
@@ -670,6 +671,51 @@
     backgroud.frame = CGRectMake(0, 0, XScreenWidth,XScreenHeight);
     backgroud.image = [UIImage imageNamed:@"ic_bg.jpg"];
     [self.view addSubview:backgroud];
+    //标题
+    UIView *_TitleView = [[UIView alloc]init];
+    _TitleView.frame =CGRectMake(0, 20+X_bang, XScreenWidth, 44);
+    
+    _TitleView.backgroundColor = [UIColor clearColor];
+    
+    [self.view addSubview:_TitleView];
+    
+    UILabel *TitleText = [UILabel new];
+    [_TitleView addSubview:TitleText];
+    
+    //    TitleText.text = SetLange(@"title");
+    TitleText.text = @"WiFi翻译机";
+    //    TitleText.text = NSLocalizedString(@"title", nil);
+    TitleText.textColor = [UIColor whiteColor];
+    TitleText.font = [UIFont systemFontOfSize:19];
+    [TitleText mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.center.equalTo(_TitleView);
+        make.size.mas_equalTo(CGSizeMake(150, 50));
+    }];
+    
+    TitleText.textAlignment = 1;
+    
+    //    取消按钮
+    UIButton *btn = [UIButton new];
+    [_TitleView addSubview:btn];
+    
+    [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(_TitleView).offset(-15);
+        
+        make.centerY.equalTo(TitleText);
+        
+        make.size.mas_equalTo(CGSizeMake(30, 30));
+        
+        
+    }];
+    
+    
+    btn.tag = 101;
+    btn.titleLabel.textAlignment = NSTextAlignmentRight;
+    
+    //    [btn setTitle:@"扫描二维码" forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"saomiao.png"] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)addScrView{
@@ -1073,7 +1119,7 @@
 //    }];
     _cancelBtn.frame = CGRectMake(_view2.x, _view3.maxY+20, kWidth, 50);
 
-    [_cancelBtn setTitle:@"解除连接" forState:UIControlStateNormal];
+    [_cancelBtn setTitle:NSLocalizedString(@"jiechubangding",nil) forState:UIControlStateNormal];
     _cancelBtn.layer.cornerRadius = 10;
     _cancelBtn.backgroundColor =[UIColor colorWithRed:252.0/255.0 green:87.0/255.0 blue:89.0/255.0 alpha:1]; ;
     [_cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -1091,7 +1137,7 @@
     //    }];
     _bindBtn.frame = CGRectMake(_view2.x, XScreenHeight-50-49-30, kWidth, 50);
     
-    [_bindBtn setTitle:@"连接设备" forState:UIControlStateNormal];
+    [_bindBtn setTitle:NSLocalizedString(@"lianjieshebei",nil) forState:UIControlStateNormal];
     _bindBtn.layer.cornerRadius = 10;
     _bindBtn.backgroundColor =[UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];
     [_bindBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -1106,8 +1152,8 @@
 
 #pragma mark button点击事件
 -(void)click:(UIButton *)btn{
-    if (btn.tag==101) {
-        UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"是否要解除连接的设备？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    if (btn.tag==101) {//解除连接设备
+        UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"是否要解除绑定的设备？" message:nil preferredStyle:UIAlertControllerStyleAlert];
         [self presentViewController:alertOne animated:YES completion:nil];
         
         UIAlertAction *certain = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -1142,6 +1188,24 @@
         [alertOne addAction:certain2];
 
     }else if (btn.tag==102){//绑定设备
+        if ([_manager.ScanID isEqualToString:@"TGT24170833091"]) {
+            _manager.model.ssid = @"*TUGE24170833091 百度翻译机";
+            _manager.model.password = @"b0aaa6ad";
+            _manager.model.Power = @"100%";
+            _manager.model.CurrConnections = @"0";
+            _manager.model.Signal2 = @"-110";
+            _manager.model.AppVersion = @"T4_v2.1.17";
+            _manager.isBind = YES;
+            _manager.isReload = NO;
+            _isWrite = NO;//非写入
+            _isRequest = NO;//没请求到
+            _view3.alpha = 0;
+            _view2.alpha = 0;
+            _view.alpha = 0;
+            _bindBtn.alpha = 0;
+            [self createUI];
+            
+        }else{
         _manager.isBind = YES;
         _manager.isReload = NO;
         _isWrite = NO;//非写入
@@ -1154,6 +1218,7 @@
         CBUUID *uuid = [CBUUID UUIDWithString:@"FFF0"];
         [self.cMgr scanForPeripheralsWithServices:@[uuid] options:nil];
         [self showSchdu];
+        }
     }
 }
 
@@ -1453,6 +1518,8 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
     
     //*******************翻译订单**************************//
     OrderLab.text = [model.product_name stringByRemovingPercentEncoding];
+    OrderLab.userInteractionEnabled = YES;
+    [OrderLab addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(translateTap)]];
     //总流量
     UILabel *_totalFlow_trans = [UILabel new];
     
@@ -1635,6 +1702,78 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
     _GlobalendTime.numberOfLines = 0;
     _GlobalendTime.font = [UIFont boldSystemFontOfSize:Name_Device];
     
+}
+#pragma mark 手势点击，显示翻译订单详情
+-(void)translateTap{
+    //弹窗背景
+    _viewBack1 = [[UIView alloc]initWithFrame:CGRectMake(0, XScreenHeight-49-X_bottom, XScreenWidth, 49+X_bottom)];
+    _viewBack1.backgroundColor = [UIColor blackColor];
+    _viewBack1.alpha = 0.3;
+    [[UIApplication sharedApplication].keyWindow addSubview:_viewBack1];
+    // [self.view addSubview:_viewBack];
+    _viewBack2 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, XScreenWidth, XScreenHeight)];
+    _viewBack2.backgroundColor = [UIColor blackColor];
+    _viewBack2.alpha = 0.3;
+    [self.view addSubview:_viewBack2];
+    
+    // 订单说明
+    _useCountyView = [UIView new];
+    [self.view addSubview:_useCountyView];
+    UILabel *label = [UILabel new];
+    [_useCountyView addSubview:label];
+    label.textColor = [UIColor blackColor];
+    label.text = @"翻译流量是指仅供本设备在有效国家范围内支持本设备翻译的流量。";
+    label.numberOfLines = 0;
+//    label.text  = [lab.text stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//    label.numberOfLines = 0;
+//    label.font = [UIFont boldSystemFontOfSize:Name_Device];
+//    CGRect tmpRect = [label.text boundingRectWithSize:CGSizeMake(XScreenWidth-30-30, 1000) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:[NSDictionary dictionaryWithObjectsAndKeys:label.font,NSFontAttributeName, nil] context:nil];
+    
+    [_useCountyView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.view);
+        make.centerX.mas_equalTo(self.view);
+        make.left.mas_offset(20);
+        make.right.mas_offset(-20);
+        make.height.mas_equalTo(150);
+    }];
+    _useCountyView.backgroundColor = [UIColor whiteColor];
+    _useCountyView.layer.cornerRadius = 10;
+    
+    
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_offset(10);
+        make.left.mas_offset(10);
+        make.right.mas_offset(-10);
+        make.bottom.mas_offset(-70);
+        
+    }];
+    
+    //第一条横线
+    UIView *firstLine = [UIView new];
+    [_useCountyView addSubview:firstLine];
+    firstLine.backgroundColor = [UIColor colorWithRed:62.0/255.0 green:110.0/255.0 blue:148.0/255.0 alpha:1];
+    [firstLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_useCountyView).with.offset(0);
+        make.right.equalTo(_useCountyView).with.offset(0);
+        make.top.equalTo(label.mas_bottom).with.offset(10);
+        make.height.mas_equalTo(@1);
+        
+    }];
+    
+    
+    UIButton *imagebtn = [UIButton new];
+    [_useCountyView addSubview:imagebtn];
+    [imagebtn setImage:[UIImage imageNamed:@"dislikeicon_textpage"] forState:UIControlStateNormal];
+    [imagebtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_offset(-10);
+        make.centerX.mas_equalTo(_useCountyView);
+        make.width.mas_equalTo(36);
+        make.height.mas_equalTo(36);
+    }];
+    
+    [imagebtn addTarget:self action:@selector(disView) forControlEvents:UIControlEventTouchUpInside];
+    [_viewBack1 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disView)]];
+    [_viewBack2 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disView)]];
 }
 
 #pragma mark 手势点击，显示详细的可用国家
@@ -1822,7 +1961,7 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
 /*********************懒加载*******************************/
 -(UIScrollView *)scrollView{
     if (!_scrollView) {
-         _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 20+X_bang, XScreenWidth,XScreenHeight-49-X_bottom-20-X_bang)];
+         _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 20+X_bang+44, XScreenWidth,XScreenHeight-49-X_bottom-20-X_bang-44)];
     }
     return _scrollView;
 }

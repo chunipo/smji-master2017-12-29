@@ -156,8 +156,8 @@
     UILabel *TitleText = [UILabel new];
     [_TitleView addSubview:TitleText];
 
-//    TitleText.text = SetLange(@"title");
-    TitleText.text = @"流量商城";
+    TitleText.text = NSLocalizedString(@"title", nil);
+    //TitleText.text = @"流量商城";
 //    TitleText.text = NSLocalizedString(@"title", nil);
     TitleText.textColor = [UIColor whiteColor];
     TitleText.font = [UIFont systemFontOfSize:19];

@@ -81,13 +81,13 @@
     UIImageView *logo = [UIImageView new];
     [self.view addSubview:logo];
     
-    CGFloat Klogo = 95;
+    CGFloat Klogo = 200;
     CGFloat logoX = XScreenWidth/2-Klogo/2;
-    logo.frame = CGRectMake(logoX, XScreenHeight*2/10, Klogo, Klogo);
-    logo.image = [UIImage imageNamed:@"ic_tuge_icon.png"];
+    logo.frame = CGRectMake(logoX, XScreenHeight*2/10, Klogo,Klogo/2 );
+    logo.image = [UIImage imageNamed:@"baidu-tuge.png"];
     
     UILabel *appname = [[UILabel alloc]initWithFrame:CGRectMake(logo.x, logo.maxY+10, Klogo, 80)];
-    appname.text = @"WiFi翻译机\n版本 1.1";
+    appname.text = @"WiFi翻译机\n版本 2.0";
     appname.textColor = [UIColor grayColor];
     [self.view addSubview:appname];
     appname.font = [UIFont systemFontOfSize:16];
