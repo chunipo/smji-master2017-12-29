@@ -56,7 +56,9 @@
 "shebeibanben"  = "デバイスのバージョン:";
 
 "fanyidingdan" = "注文を翻訳する";
+"fanyidingdanshuoming" = "翻訳されたトラフィックは、このデバイスが有効な国の中でこのデバイスの翻訳をサポートするだけのトラフィックです。";
 "youxiaoqi" = "妥当性:";
+"shiyongzhong" = "使用中";
 "zongliuliang" = "総トラフィック:";
 "shengyuliuliag" = "残っている:";
 "shiyongguojia" = "国を使用する:";

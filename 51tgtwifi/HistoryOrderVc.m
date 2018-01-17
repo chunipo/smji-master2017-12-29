@@ -187,21 +187,28 @@
     flowInfo.numberOfLines = 0;
     flowInfo.font = [UIFont boldSystemFontOfSize:Name_Device+2];
     
-    //使用中的标致
-    UILabel *tips = [UILabel new];
-    [cell addSubview:flowInfo];
+        //使用中的标致
+        UILabel *tips = [UILabel new];
+        [cell addSubview:tips];
         // flowInfo.text =SetLange(@"fanyidingdan");
-    [flowInfo mas_makeConstraints:^(MASConstraintMaker *make) {
+        [tips mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(cell).with.offset(-15);
+            make.top.equalTo(flowInfo.mas_bottom).with.offset(Hmargin);
+            make.height.mas_equalTo(@20);
+            make.width.mas_equalTo(@55);
             
-            make.left.equalTo(flowInfoImg.mas_right).with.offset(10);
-            make.right.equalTo(cell).with.offset(-10);
-            make.top.equalTo(cell).with.offset(20);
-            make.height.mas_equalTo(@25);
             
-            
-        }];
-        flowInfo.numberOfLines = 0;
-        flowInfo.font = [UIFont boldSystemFontOfSize:Name_Device+2];
+            }];
+       // tips.text = @"使用中";
+        tips.text = setCountry(@"shiyongzhong");
+        tips.textColor = White_Color;
+        tips.backgroundColor =[UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];
+        tips.numberOfLines = 0;
+        tips.textAlignment = NSTextAlignmentCenter;
+        tips.layer.cornerRadius = 10;
+        tips.clipsToBounds = YES;
+        tips.font = [ UIFont systemFontOfSize:13];
+
     
     //总流量
     UILabel *name_GlobaltotalFlow = [UILabel new];
@@ -216,8 +223,8 @@
         make.height.mas_equalTo(@25);
         
     }];
-    //name_GlobaltotalFlow.text  = SetLange(@"zongliuliang");
-    name_GlobaltotalFlow.text  = @"总流量:";
+    name_GlobaltotalFlow.text  = setCountry(@"zongliuliang");
+   //name_GlobaltotalFlow.text  = @"总流量:";
     name_GlobaltotalFlow.numberOfLines = 0;
     name_GlobaltotalFlow.font = [UIFont boldSystemFontOfSize:Name_Device];
     
@@ -234,8 +241,8 @@
         make.height.mas_equalTo(@25);
         
     }];
-    //name_GlobaleftFlow.text  = SetLange(@"shengyuliuliag");
-    name_GlobaleftFlow.text  = @"剩余流量:";
+    name_GlobaleftFlow.text  = setCountry(@"shengyuliuliag");
+    //name_GlobaleftFlow.text  = @"剩余流量:";
     name_GlobaleftFlow.numberOfLines = 0;
     name_GlobaleftFlow.font = [UIFont boldSystemFontOfSize:Name_Device];
     
@@ -253,8 +260,8 @@
         make.height.mas_equalTo(@25);
         
     }];
-    //name_GlobaluseCountry.text  = SetLange(@"shiyongguojia");
-    name_GlobaluseCountry.text  = @"使用国家:";
+    name_GlobaluseCountry.text  = setCountry(@"shiyongguojia");
+    //name_GlobaluseCountry.text  = @"使用国家:";
     name_GlobaluseCountry.numberOfLines = 0;
     name_GlobaluseCountry.font = [UIFont boldSystemFontOfSize:Name_Device];
     
@@ -271,8 +278,8 @@
         make.height.mas_equalTo(@25);
         
     }];
-    // name_Globalstartime.text  = SetLange(@"kaishishjian");
-    name_Globalstartime.text  = @"开始时间:";
+    name_Globalstartime.text  = setCountry(@"kaishishjian");
+    //name_Globalstartime.text  = @"开始时间:";
     name_Globalstartime.numberOfLines = 0;
     name_Globalstartime.font = [UIFont boldSystemFontOfSize:Name_Device];
     
@@ -289,8 +296,8 @@
         make.height.mas_equalTo(@25);
         
     }];
-    // name_Globalendtime.text  = SetLange(@"jieshushijian");
-    name_Globalendtime.text  = @"结束时间:";
+    name_Globalendtime.text  = setCountry(@"jieshushijian");
+    //name_Globalendtime.text  = @"结束时间:";
     name_Globalendtime.numberOfLines = 0;
     name_Globalendtime.font = [UIFont boldSystemFontOfSize:Name_Device];
    
@@ -387,16 +394,21 @@
     if ([model.product_type integerValue]==104) {//判断为翻译订单
         name_GlobaltotalFlow.alpha = 0;
         _GlobaltotalFlow.alpha = 0;
-        name_GlobaleftFlow.text  = @"有效期:";
+        name_GlobaleftFlow.text  = setCountry(@"youxiaoqi");
         _GloballeftFlow.text  =  @"三年";
     }
-    }}
+        if ([model.flow_status integerValue]==2) {
+            tips.alpha = 1;
+        }else{
+            tips.alpha = 0;
+        }
+    }
+    }
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    
     //   点击闪一闪
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
@@ -405,36 +417,39 @@
 -(void)labelTap:(UIGestureRecognizer *)labTap{
     UILabel *lab =(UILabel *) labTap.view;
     //弹窗背景
-    _viewBack1 = [[UIView alloc]initWithFrame:CGRectMake(0, XScreenHeight-49-X_bottom, XScreenWidth, 49+X_bottom)];
-    _viewBack1.backgroundColor = [UIColor blackColor];
-    _viewBack1.alpha = 0.3;
-    //[[UIApplication sharedApplication].keyWindow addSubview:_viewBack1];
-    // [self.view addSubview:_viewBack];
     _viewBack2 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, XScreenWidth, XScreenHeight)];
     _viewBack2.backgroundColor = [UIColor blackColor];
-    _viewBack2.alpha = 0.3;
+    _viewBack2.alpha = 0;
     [self.view addSubview:_viewBack2];
     
     //使用国家
+    
+    UILabel *labTip = [[UILabel alloc]initWithFrame:CGRectMake(30, 40+X_bang, 200, 30)];
+    [_viewBack2 addSubview:labTip];
+    labTip.text = setCountry(@"shiyongguojia");
+    labTip.textColor = [UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];
+    labTip.backgroundColor = CLEARCOLOR;
+    
+    labTip.font = [UIFont systemFontOfSize:19];
     //国家名字
     _useCountyView = [UIView new];
     [self.view addSubview:_useCountyView];
     UILabel *label = [UILabel new];
     [_useCountyView addSubview:label];
-    label.textColor = [UIColor blackColor];
+    label.textColor = White_Color;
     label.text  = [lab.text stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     label.numberOfLines = 0;
     label.font = [UIFont boldSystemFontOfSize:Name_Device];
     CGRect tmpRect = [label.text boundingRectWithSize:CGSizeMake(XScreenWidth-30-30, 1000) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:[NSDictionary dictionaryWithObjectsAndKeys:label.font,NSFontAttributeName, nil] context:nil];
     
     [_useCountyView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.view);
+        make.top.mas_equalTo(labTip.mas_bottom).width.offset(5);
         make.centerX.mas_equalTo(self.view);
         make.left.mas_offset(20);
         make.right.mas_offset(-20);
-        make.height.mas_equalTo(ceilf(tmpRect.size.height)+80);
+        make.height.mas_equalTo(ceilf(tmpRect.size.height+10));
     }];
-    _useCountyView.backgroundColor = [UIColor whiteColor];
+    _useCountyView.backgroundColor = [UIColor clearColor];
     _useCountyView.layer.cornerRadius = 10;
     
     
@@ -442,40 +457,25 @@
         make.top.mas_offset(10);
         make.left.mas_offset(10);
         make.right.mas_offset(-10);
-        make.bottom.mas_offset(-70);
+        make.bottom.mas_offset(0);
+        
+    }];
+    labTip.alpha = 0;
+    _useCountyView.alpha = 0;
+    [UIView animateWithDuration:0.5 animations:^{
+        _viewBack1.alpha = 0.92;
+        _viewBack2.alpha = 0.92;
+        labTip.alpha = 1;
+        _useCountyView.alpha = 1;
         
     }];
     
-    //第一条横线
-    UIView *firstLine = [UIView new];
-    [_useCountyView addSubview:firstLine];
-    firstLine.backgroundColor = [UIColor colorWithRed:62.0/255.0 green:110.0/255.0 blue:148.0/255.0 alpha:1];
-    [firstLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_useCountyView).with.offset(0);
-        make.right.equalTo(_useCountyView).with.offset(0);
-        make.top.equalTo(label.mas_bottom).with.offset(10);
-        make.height.mas_equalTo(@1);
-        
-    }];
-    
-    
-    UIButton *imagebtn = [UIButton new];
-    [_useCountyView addSubview:imagebtn];
-    [imagebtn setImage:[UIImage imageNamed:@"dislikeicon_textpage"] forState:UIControlStateNormal];
-    [imagebtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_offset(-10);
-        make.centerX.mas_equalTo(_useCountyView);
-        make.width.mas_equalTo(36);
-        make.height.mas_equalTo(36);
-    }];
-    
-    [imagebtn addTarget:self action:@selector(disView) forControlEvents:UIControlEventTouchUpInside];
+   
     [_viewBack1 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disView)]];
     [_viewBack2 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disView)]];
 }
 
 -(void)disView{
-    [_viewBack1 removeFromSuperview];
     [_viewBack2 removeFromSuperview];
     [_useCountyView removeFromSuperview];
 }

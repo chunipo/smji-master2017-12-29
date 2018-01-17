@@ -1362,7 +1362,7 @@
     
     
 
-    _view.alpha = 1.0;
+    
     [_scrollView addSubview:_view];
 //    [self.view addSubview:_scrollView];
 //    _scrollView.alpha = 1;
@@ -1384,7 +1384,7 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
         CGFloat kWidth = XScreenWidth - 2*kMagin;
         [self hideSchdu];
         [self GetDeviceInfo];
-        
+        _view.alpha = 1.0;
         [_scrollView addSubview:_view];
         _scrollView.contentSize = CGSizeMake(0,0);
         _cancelBtn.frame = CGRectMake(_view.x,XScreenHeight-49-50-30-X_bottom, kWidth, 50);
@@ -1403,15 +1403,8 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
      [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSString *Packgurl;
     if (isBeta) {
-        Packgurl = [NSString stringWithFormat:Global_url,@"TGT24170833260"];
+        Packgurl = [NSString stringWithFormat:Global_url,@"TGT24171033978"];
     }else{
-//        NSString *ssid = _manager.model.ssid;
-//        NSLog(@"===前%@==",ssid);
-//        ssid = [ssid stringByReplacingOccurrencesOfString:@"*TUGE" withString:@"TGT"];
-//        NSRange star = [ssid rangeOfString:@"TGT"];//匹配得到的下标
-//        ssid = [ssid substringWithRange:NSMakeRange(star.location,14)];//截取范围内的字符串
-//        NSLog(@"===后%@==",ssid);
-//        _manager.sn = ssid;
         Packgurl = [NSString stringWithFormat:Global_url,_manager.ScanID];
     }
     
@@ -1419,16 +1412,29 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
     [NetWork sendGetNetWorkWithUrl:Packgurl parameters:nil hudView:self.view successBlock:^(id data) {
        // NSLog(@"data==%@==",data);
         NSArray *arr = data[@"device_order"];
-        NSDictionary *dictTranslate = arr[0];
+        NSDictionary *dictTranslate;
+        for (NSDictionary *dict in arr) {
+            if ([dict[@"product_type"] integerValue]==104) {
+                dictTranslate = dict;
+                break;
+            }
+        }
         PackagInfoModel *modelTranslate = [[PackagInfoModel alloc]init];
         [modelTranslate setValuesForKeysWithDictionary:dictTranslate];
         [_manager.modelTranslate setValuesForKeysWithDictionary:dictTranslate];
 //        [self GetTranslateUI:_manager.modelTranslate];
         NSDictionary *dictGlobal;
-        if (arr.count==2) {
-            dictGlobal = arr[1];
+        if (arr.count>1) {
+
+            for (NSDictionary *dict in arr) {
+                if ([dict[@"flow_status"] integerValue]==2&&[dict[@"product_type"] integerValue]!=104) {
+                    dictGlobal = dict;
+                    break;
+                }
+            }
+
         }
-//        NSDictionary *dictGlobal = arr[1];
+        //dictGlobal = arr[1];
         PackagInfoModel *modelGlobal = [[PackagInfoModel alloc]init];
         [modelGlobal setValuesForKeysWithDictionary:dictGlobal];
         [_manager.modelGlobal setValuesForKeysWithDictionary:dictGlobal];
@@ -1546,7 +1552,33 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
     OrderLab.text = [model.product_name stringByRemovingPercentEncoding];
     OrderLab.userInteractionEnabled = YES;
     [OrderLab addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(translateTap)]];
-    //总流量
+    
+    //使用中的标致
+    UILabel *tips = [UILabel new];
+    [_view2 addSubview:tips];
+    // flowInfo.text =SetLange(@"fanyidingdan");
+    [tips mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(_view2).with.offset(-15);
+        make.top.equalTo(OrderLab.mas_bottom).with.offset(Hmargin);
+        make.height.mas_equalTo(@20);
+        make.width.mas_equalTo(@55);
+        
+        
+    }];
+    //tips.text = @"使用中";
+    tips.text = setCountry(@"shiyongzhong");
+    tips.textColor = White_Color;
+    tips.backgroundColor =[UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];
+    tips.numberOfLines = 0;
+    tips.textAlignment = NSTextAlignmentCenter;
+    tips.layer.cornerRadius = 10;
+    tips.clipsToBounds = YES;
+    tips.font = [ UIFont systemFontOfSize:13];
+    tips.alpha = 0;
+    if ([model.flow_status integerValue]==2) {
+        tips.alpha = 1;
+    }
+    //有效期
     UILabel *_totalFlow_trans = [UILabel new];
     
     [_view2 addSubview:_totalFlow_trans];
@@ -1640,6 +1672,31 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
 -(void)GetGlobalUI:(PackagInfoModel*)model{
     
     flowInfo.text = [model.product_name stringByRemovingPercentEncoding];
+    //使用中的标致
+    UILabel *tips = [UILabel new];
+    [_view3 addSubview:tips];
+    // flowInfo.text =SetLange(@"fanyidingdan");
+    [tips mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(_view3).with.offset(-15);
+        make.top.equalTo(flowInfo.mas_bottom).with.offset(Hmargin);
+        make.height.mas_equalTo(@20);
+        make.width.mas_equalTo(@55);
+        
+        
+    }];
+    //tips.text = @"使用中";
+    tips.text = setCountry(@"shiyongzhong");
+    tips.textColor = White_Color;
+    tips.backgroundColor =[UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];
+    tips.numberOfLines = 0;
+    tips.textAlignment = NSTextAlignmentCenter;
+    tips.layer.cornerRadius = 10;
+    tips.clipsToBounds = YES;
+    tips.font = [ UIFont systemFontOfSize:13];
+    tips.alpha = 0;
+    if ([model.flow_status integerValue]==2) {
+        tips.alpha = 1;
+    }
     //总流量
     UILabel *_GlobaltotalFlow = [UILabel new];
     
@@ -1734,12 +1791,12 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
     //弹窗背景
     _viewBack1 = [[UIView alloc]initWithFrame:CGRectMake(0, XScreenHeight-49-X_bottom, XScreenWidth, 49+X_bottom)];
     _viewBack1.backgroundColor = [UIColor blackColor];
-    _viewBack1.alpha = 0.3;
+    _viewBack1.alpha = 0;
     [[UIApplication sharedApplication].keyWindow addSubview:_viewBack1];
     // [self.view addSubview:_viewBack];
     _viewBack2 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, XScreenWidth, XScreenHeight)];
     _viewBack2.backgroundColor = [UIColor blackColor];
-    _viewBack2.alpha = 0.3;
+    _viewBack2.alpha = 0;
     [self.view addSubview:_viewBack2];
     
     // 订单说明
@@ -1747,13 +1804,12 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
     [self.view addSubview:_useCountyView];
     UILabel *label = [UILabel new];
     [_useCountyView addSubview:label];
-    label.textColor = [UIColor blackColor];
-    label.text = @"翻译流量是指仅供本设备在有效国家范围内支持本设备翻译的流量。";
+    label.textColor = [UIColor whiteColor];
+    label.text = setCountry(@"fanyidingdanshuoming");
+    //label.text = @"翻译流量是指仅供本设备在有效国家范围内支持本设备翻译的流量。";
     label.numberOfLines = 0;
-//    label.text  = [lab.text stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//    label.numberOfLines = 0;
-//    label.font = [UIFont boldSystemFontOfSize:Name_Device];
-//    CGRect tmpRect = [label.text boundingRectWithSize:CGSizeMake(XScreenWidth-30-30, 1000) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:[NSDictionary dictionaryWithObjectsAndKeys:label.font,NSFontAttributeName, nil] context:nil];
+    
+
     
     [_useCountyView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(self.view);
@@ -1762,7 +1818,7 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
         make.right.mas_offset(-20);
         make.height.mas_equalTo(150);
     }];
-    _useCountyView.backgroundColor = [UIColor whiteColor];
+    _useCountyView.backgroundColor = [UIColor clearColor];
     _useCountyView.layer.cornerRadius = 10;
     
     
@@ -1770,34 +1826,17 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
         make.top.mas_offset(10);
         make.left.mas_offset(10);
         make.right.mas_offset(-10);
-        make.bottom.mas_offset(-70);
-        
-    }];
-    
-    //第一条横线
-    UIView *firstLine = [UIView new];
-    [_useCountyView addSubview:firstLine];
-    firstLine.backgroundColor = [UIColor colorWithRed:62.0/255.0 green:110.0/255.0 blue:148.0/255.0 alpha:1];
-    [firstLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_useCountyView).with.offset(0);
-        make.right.equalTo(_useCountyView).with.offset(0);
-        make.top.equalTo(label.mas_bottom).with.offset(10);
-        make.height.mas_equalTo(@1);
-        
-    }];
-    
-    
-    UIButton *imagebtn = [UIButton new];
-    [_useCountyView addSubview:imagebtn];
-    [imagebtn setImage:[UIImage imageNamed:@"dislikeicon_textpage"] forState:UIControlStateNormal];
-    [imagebtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_offset(-10);
-        make.centerX.mas_equalTo(_useCountyView);
-        make.width.mas_equalTo(36);
-        make.height.mas_equalTo(36);
+        
     }];
-    
-    [imagebtn addTarget:self action:@selector(disView) forControlEvents:UIControlEventTouchUpInside];
+    _useCountyView.alpha = 0;
+    [UIView animateWithDuration:0.5 animations:^{
+        _viewBack1.alpha = 0.92;
+        _viewBack2.alpha = 0.92;
+        _useCountyView.alpha = 1;
+        
+    }];
+ 
     [_viewBack1 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disView)]];
     [_viewBack2 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disView)]];
 }
@@ -1808,34 +1847,41 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
     //弹窗背景
     _viewBack1 = [[UIView alloc]initWithFrame:CGRectMake(0, XScreenHeight-49-X_bottom, XScreenWidth, 49+X_bottom)];
     _viewBack1.backgroundColor = [UIColor blackColor];
-    _viewBack1.alpha = 0.3;
+    _viewBack1.alpha = 0;
     [[UIApplication sharedApplication].keyWindow addSubview:_viewBack1];
     // [self.view addSubview:_viewBack];
     _viewBack2 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, XScreenWidth, XScreenHeight)];
     _viewBack2.backgroundColor = [UIColor blackColor];
-    _viewBack2.alpha = 0.3;
+    _viewBack2.alpha = 0;
     [self.view addSubview:_viewBack2];
-    
     //使用国家
+    
+    UILabel *labTip = [[UILabel alloc]initWithFrame:CGRectMake(30, 40+X_bang, 200, 30)];
+    [_viewBack2 addSubview:labTip];
+    labTip.text = setCountry(@"shiyongguojia");
+    labTip.textColor = [UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];
+    labTip.backgroundColor = CLEARCOLOR;
+    
+    labTip.font = [UIFont systemFontOfSize:19];
     //国家名字
     _useCountyView = [UIView new];
     [self.view addSubview:_useCountyView];
     UILabel *label = [UILabel new];
-    [_useCountyView addSubview:label];
-    label.textColor = [UIColor blackColor];
+   [_useCountyView addSubview:label];
+    label.textColor = White_Color;
     label.text  = [lab.text stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     label.numberOfLines = 0;
     label.font = [UIFont boldSystemFontOfSize:Name_Device];
     CGRect tmpRect = [label.text boundingRectWithSize:CGSizeMake(XScreenWidth-30-30, 1000) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:[NSDictionary dictionaryWithObjectsAndKeys:label.font,NSFontAttributeName, nil] context:nil];
     
     [_useCountyView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.view);
+        make.top.mas_equalTo(labTip.mas_bottom).width.offset(5);
         make.centerX.mas_equalTo(self.view);
         make.left.mas_offset(20);
         make.right.mas_offset(-20);
-        make.height.mas_equalTo(ceilf(tmpRect.size.height)+80);
+        make.height.mas_equalTo(ceilf(tmpRect.size.height+10));
     }];
-    _useCountyView.backgroundColor = [UIColor whiteColor];
+    _useCountyView.backgroundColor = [UIColor clearColor];
     _useCountyView.layer.cornerRadius = 10;
     
     
@@ -1843,34 +1889,20 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
         make.top.mas_offset(10);
         make.left.mas_offset(10);
         make.right.mas_offset(-10);
-        make.bottom.mas_offset(-70);
+        make.bottom.mas_offset(0);
         
     }];
-    
-    //第一条横线
-    UIView *firstLine = [UIView new];
-    [_useCountyView addSubview:firstLine];
-    firstLine.backgroundColor = [UIColor colorWithRed:62.0/255.0 green:110.0/255.0 blue:148.0/255.0 alpha:1];
-    [firstLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_useCountyView).with.offset(0);
-        make.right.equalTo(_useCountyView).with.offset(0);
-        make.top.equalTo(label.mas_bottom).with.offset(10);
-        make.height.mas_equalTo(@1);
-        
+
+    labTip.alpha = 0;
+    _useCountyView.alpha = 0;
+    [UIView animateWithDuration:0.5 animations:^{
+        _viewBack1.alpha = 0.92;
+        _viewBack2.alpha = 0.92;
+        labTip.alpha = 1;
+        _useCountyView.alpha = 1;
+
     }];
-    
-    
-    UIButton *imagebtn = [UIButton new];
-    [_useCountyView addSubview:imagebtn];
-    [imagebtn setImage:[UIImage imageNamed:@"dislikeicon_textpage"] forState:UIControlStateNormal];
-    [imagebtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_offset(-10);
-        make.centerX.mas_equalTo(_useCountyView);
-        make.width.mas_equalTo(36);
-        make.height.mas_equalTo(36);
-    }];
-    
-    [imagebtn addTarget:self action:@selector(disView) forControlEvents:UIControlEventTouchUpInside];
+
     [_viewBack1 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disView)]];
     [_viewBack2 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disView)]];
 }

@@ -673,7 +673,7 @@
        
     }
     else if (btn.tag==103){
-        if ([oldText.text isEqualToString:_manager.password] && newText.text) {
+        if ([oldText.text isEqualToString:_manager.password] && newText.text.length>7) {
              [self showSchdu];
              [[NSNotificationCenter defaultCenter] postNotificationName:@"changePwd" object:newText.text userInfo:nil];
         }
@@ -685,7 +685,15 @@
             
             [alertOne addAction:certain];
             
-        }else{
+        }else if([oldText.text isEqualToString:_manager.password] && newText.text.length<8){
+            UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"要修改的密码位数不能小于八位" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            [self presentViewController:alertOne animated:YES completion:nil];
+            
+            UIAlertAction *certain = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+            
+            [alertOne addAction:certain];
+        }
+        else{
             UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"新密码不能为空" message:nil preferredStyle:UIAlertControllerStyleAlert];
             [self presentViewController:alertOne animated:YES completion:nil];
             

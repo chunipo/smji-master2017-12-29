@@ -58,7 +58,9 @@
 "shebeibanben"  = "Device version:";
 
 "fanyidingdan" = "Translate the order";
+"fanyidingdanshuoming" = "Translated traffic is the traffic that this device may only support for the translation of this device within the country of validity。";
 "youxiaoqi" = "Validity:";
+"shiyongzhong" = "Using";
 "zongliuliang" = "Total traffic:";
 "shengyuliuliag" = "Remaining traffic:";
 "shiyongguojia" = "Use country:";

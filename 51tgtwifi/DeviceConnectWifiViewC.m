@@ -193,7 +193,7 @@
     _wifiPwd.textAlignment = NSTextAlignmentLeft;
     //_wifiPwd.font = [UIFont systemFontOfSize:20];
     _wifiPwd.borderStyle = UITextBorderStyleNone;
-    _wifiPwd.placeholder = @"输入手机热点密码";
+    _wifiPwd.placeholder = @"输入热点密码";
     _wifiPwd.secureTextEntry = YES;
     _wifiPwd.keyboardType = UIKeyboardTypeNamePhonePad;
     

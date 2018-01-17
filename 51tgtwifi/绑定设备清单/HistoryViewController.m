@@ -149,7 +149,7 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     //   点击闪一闪
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    NSString *str = [cell.textLabel.text stringByReplacingOccurrencesOfString:@"百度翻译机    " withString:@""];
+    NSString *str = [cell.textLabel.text stringByReplacingOccurrencesOfString:@"共享WiFi翻译机    " withString:@""];
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"是否重新连接该设备机?"] preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {

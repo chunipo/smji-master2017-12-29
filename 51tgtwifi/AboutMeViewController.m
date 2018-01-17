@@ -37,7 +37,7 @@
     
     
     
-    TitleText.text = @"关于我们";
+    TitleText.text = setCountry(@"guanyuwomen");
     //    TitleText.text = NSLocalizedString(@"title", nil);
     
     
@@ -87,7 +87,9 @@
     logo.image = [UIImage imageNamed:@"baidu-tuge.png"];
     
     UILabel *appname = [[UILabel alloc]initWithFrame:CGRectMake(logo.x, logo.maxY+10, Klogo, 80)];
-    appname.text = @"WiFi翻译机\n版本 2.0.1";
+    //appname.text = @"WiFi翻译机\n2.0.1";
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    appname.text = [NSString stringWithFormat:@"%@\n%@",[infoDictionary  objectForKey:@"CFBundleDisplayName"],[infoDictionary objectForKey:@"CFBundleShortVersionString"]];
     appname.textColor = [UIColor grayColor];
     [self.view addSubview:appname];
     appname.font = [UIFont systemFontOfSize:16];

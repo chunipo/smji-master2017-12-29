@@ -59,13 +59,15 @@
 "shebeibanben"  = "设备版本:";
 
 "fanyidingdan" = "翻译订单";
+"fanyidingdanshuoming" = "翻译流量是指仅供本设备在有效国家范围内支持本设备翻译的流量。";
 "youxiaoqi" = "有效期:";
+"shiyongzhong" = "使用中";
 "zongliuliang" = "总流量:";
 "shengyuliuliag" = "剩余流量:";
 "shiyongguojia" = "使用国家:";
 "kaishishjian" = "开始时间:";
 "jieshushijian" = "结束时间:";
-"gengduotaocanxinxi" = "更多已购套餐信息";
+"gengduotaocanxinxi" = "查看全部已购套餐";
 "lianjieshebei" = "连接设备";
 "jiechubangding" = "解除绑定";
 

@@ -58,7 +58,9 @@
 "shebeibanben"  = "設備版本:";
 
 "fanyidingdan" = "翻譯訂單";
+"fanyidingdanshuoming" = "翻譯流量是指僅供本設備在有效國家範圍內支持本設備翻譯的流量。";
 "youxiaoqi" = "有效期:";
+"shiyongzhong" = "使用中";
 "zongliuliang" = "總流量:";
 "shengyuliuliag" = "剩餘流量:";
 "shiyongguojia" = "使用國家:";
