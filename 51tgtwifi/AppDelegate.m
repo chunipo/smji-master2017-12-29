@@ -24,31 +24,36 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+      YXManager *manager = [YXManager share];
 /****    判断机子语言     ****/
-//    NSArray *langArr1 = [[NSUserDefaults standardUserDefaults] valueForKey:@"AppleLanguages"];
-//    NSString *language1 = langArr1.firstObject;
-//    for (NSString *str  in langArr1) {
-//        NSLog(@"模拟器语言=：%@",str);
-//    }
-//    NSLog(@"模拟器语言第一个=##%@##",language1);
+    NSArray *langArr1 = [[NSUserDefaults standardUserDefaults] valueForKey:@"AppleLanguages"];
+    NSString *language1 = langArr1.firstObject;
+    for (NSString *str  in langArr1) {
+        NSLog(@"模拟器语言=：%@",str);
+    }
+    NSLog(@"模拟器语言第一个=##%@##",language1);
 //    //
-//    if ([language1 containsString:@"zh-Hans-"]||[language1 containsString:@"zh-Hans"]) {
-//        NSArray *lans = @[@"zh-Hans"];
-//        [[NSUserDefaults standardUserDefaults] setObject:lans forKey:@"AppleLanguages"];
-//    }else if ([language1 containsString:@"zh-Hant-"]||[language1 containsString:@"zh-Hant"]){
+    if ([language1 containsString:@"zh-Hans-"]||[language1 containsString:@"zh-Hans"]) {//简体中文
+        manager.LanguageStr = @"RMB";
+       // NSArray *lans = @[@"zh-Hans"];
+       // [[NSUserDefaults standardUserDefaults] setObject:lans forKey:@"AppleLanguages"];
+    }else if ([language1 containsString:@"zh-Hant-"]||[language1 containsString:@"zh-Hant"]){//繁体中文
+        manager.LanguageStr = @"RMB";
 //        NSArray *lans = @[@"zh-Hant"];
 //        [[NSUserDefaults standardUserDefaults] setObject:lans forKey:@"AppleLanguages"];
-//    }else if ([language1 containsString:@"en-"]||[language1 containsString:@"en"]){
+    }else if ([language1 containsString:@"en-"]||[language1 containsString:@"en"]){//英文
+        manager.LanguageStr = @"USD";
 //        NSArray *lans = @[@"en"];
 //        [[NSUserDefaults standardUserDefaults] setObject:lans forKey:@"AppleLanguages"];
-//    }else if ([language1 containsString:@"ja-"]||[language1 containsString:@"ja"]){
+    }else if ([language1 containsString:@"ja-"]||[language1 containsString:@"ja"]){//日语
+        manager.LanguageStr = @"JPY";
 //        NSArray *lans = @[@"ja"];
 //        [[NSUserDefaults standardUserDefaults] setObject:lans forKey:@"AppleLanguages"];
-//    }else {
+    }else {
+        manager.LanguageStr = @"USD";
 //        NSArray *lans = @[@"en"];
 //        [[NSUserDefaults standardUserDefaults] setObject:lans forKey:@"AppleLanguages"];
-//    }
+    }
     
     
 //    paypal支付
@@ -56,25 +61,7 @@
     
 
     //判断是否登陆过设备，有就不用扫描
-    YXManager *manager = [YXManager share];
-//    manager.MutArr = [NSMutableArray arrayWithCapacity:0];
-//    //创建
-//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//    // 读取账户
-//    NSString * ScanID;
-//    NSMutableArray *_arr = [NSMutableArray arrayWithCapacity:0];
-//    NSMutableArray *mutableCopyArr = [NSMutableArray arrayWithCapacity:0];
-//    if ([userDefaults objectForKey:@"DeviceSN"]) {
-//        mutableCopyArr = [userDefaults objectForKey:@"DeviceSN"];
-//        _arr = [ mutableCopyArr mutableCopy];
-//        manager.MutArr = _arr;
-//        NSLog(@"===设备号%@==DeviceSN%@",_arr,[userDefaults objectForKey:@"DeviceSN"]);
-//        ScanID  = _arr.lastObject;
-//        manager.isScan = YES;
-//        manager.ScanID = ScanID;
-//    }else{
-//        NSLog(@"==没有历史记录==");
-//    }
+  
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *deviceStr = @"";

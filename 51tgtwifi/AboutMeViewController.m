@@ -87,7 +87,7 @@
     logo.image = [UIImage imageNamed:@"baidu-tuge.png"];
     
     UILabel *appname = [[UILabel alloc]initWithFrame:CGRectMake(logo.x, logo.maxY+10, Klogo, 80)];
-    appname.text = @"WiFi翻译机\n版本 2.0";
+    appname.text = @"WiFi翻译机\n版本 2.0.1";
     appname.textColor = [UIColor grayColor];
     [self.view addSubview:appname];
     appname.font = [UIFont systemFontOfSize:16];

@@ -20,7 +20,7 @@
 #define Device_Info [UIScreen mainScreen].bounds.size.width<375?12:15
 #define Hmargin  16
 
-#define Global_url @"http://as2.51tgt.com/wxapp/GetDeviceInfoByQrCode?device_no=TGT24170833260"
+
 
 @interface HomeDemoVc ()<UIScrollViewDelegate,CBCentralManagerDelegate,CBPeripheralDelegate,UIGestureRecognizerDelegate>
 {

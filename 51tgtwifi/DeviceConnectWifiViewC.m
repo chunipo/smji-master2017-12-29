@@ -106,7 +106,8 @@
     UILabel *TitleText = [UILabel new];
     [_TitleView addSubview:TitleText];
     
-    TitleText.text = @"连接WIFI";
+    //TitleText.text = @"连接WIFI";
+    TitleText.text = setCountry(@"lianjieWifi");
     TitleText.textColor = [UIColor whiteColor];
     TitleText.numberOfLines = 0;
     

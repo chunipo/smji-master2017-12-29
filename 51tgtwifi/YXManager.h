@@ -12,7 +12,7 @@
 
 @interface YXManager : NSObject
 + (instancetype)share;
-@property (strong, nonatomic)NSMutableArray *MutArr;//
+
 @property (assign, nonatomic)BOOL isActiveSuc;//判断是否激活成功设备
 @property (assign, nonatomic)BOOL isActive;//判断设备是否已经激活
 @property (assign, nonatomic)BOOL isBind;//判断命令是连接设备还是不连接
@@ -25,6 +25,7 @@
 @property (strong, nonatomic)NSString *WIFIpwd;//外设热点密码
 @property (strong, nonatomic)NSString *WIFIname;//外设热点密码
 
+@property (strong, nonatomic)NSString *LanguageStr;//国家语言
 @property (strong, nonatomic)NSString *ScanID;//扫描二维码得到的
 @property (strong, nonatomic)NSString *str;
 

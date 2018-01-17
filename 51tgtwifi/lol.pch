@@ -25,16 +25,22 @@
 #define X_bottom (CGSizeEqualToSize(CGSizeMake(375, 812), [[UIScreen mainScreen]bounds].size)?34.0:0.0)
 
 /*******是否测试******/
-#define isBeta NO
+#define isBeta YES
 //判断设备激活状态
-#define isActiveUrl @"http://as2.51tgt.com/FyjApp/GetDeviceStatus?ssid=%@"
+#define isActiveUrl @"http://as2.51tgt.com/FyjApp/GetDeviceStatus?ssid=%@"//测试
+//#define isActiveUrl @"http://mall.51tgt.com/FyjApp/GetDeviceStatus?ssid=%@"
 //激活设备接口
-#define ActiveDeviceUrl @"http://as2.51tgt.com//FyjApp/DeviceActive?ssid=%@"
+#define ActiveDeviceUrl @"http://as2.51tgt.com//FyjApp/DeviceActive?ssid=%@"//测试
+//#define ActiveDeviceUrl @"http://mall.51tgt.com//FyjApp/DeviceActive?ssid=%@"
 //翻译流量套餐接口
-#define Global_url @"http://as2.51tgt.com/wxapp/GetDeviceInfoByQrCode?device_no=%@"
+#define Global_url @"http://as2.51tgt.com/wxapp/GetDeviceInfoByQrCode?device_no=%@"//测试
+//#define Global_url @"http://mall.51tgt.com/wxapp/GetDeviceInfoByQrCode?device_no=%@"
 //流量商城
-#define DoorOpen @"http://as2.51tgt.com/FyjApp/GetFlowProducts?ssid=%@&type=RMB"
-#define PicHead  @"http://as2.51tgt.com"
+#define DoorOpen @"http://as2.51tgt.com/FyjApp/GetFlowProducts?ssid=%@&type=%@"//测试
+//#define DoorOpen @"http://mall.51tgt.com/FyjApp/GetFlowProducts?ssid=%@&type=RMB"
+
+#define PicHead  @"http://as2.51tgt.com"//测试
+//#define PicHead  @"http://mall.51tgt.com"
 #define url(a) [PicHead stringByAppendingString:a]
 
 #import "UIImage+Extension.h"
@@ -51,6 +57,7 @@
 #import "NetWork.h"
 
 /***  多语言  ***/
+#define setCountry(name) NSLocalizedString(name, nil)
 
 #define SetLange(name)  [[NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource: ((NSArray *)[[NSUserDefaults standardUserDefaults] valueForKey:@"AppleLanguages"]).firstObject ofType:@"lproj"]] localizedStringForKey:name value:nil table:@"Localizable"];
 

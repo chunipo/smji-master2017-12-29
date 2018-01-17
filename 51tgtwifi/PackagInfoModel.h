@@ -16,6 +16,8 @@
 @property(nonatomic,strong)NSString *countryName;//使用国家
 @property(nonatomic,strong)NSString *startTime;//开始时间
 @property(nonatomic,strong)NSString *endTime;//结束时间
+@property(nonatomic,strong)NSNumber *product_type;//翻译套餐为104
+@property(nonatomic,strong)NSString *flow_status;//2是表示该套餐正在使用
 
 /**************设备信息****************/
 @property(nonatomic,strong)NSString *ssid;//设备ssid

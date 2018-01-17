@@ -55,7 +55,7 @@
     
     
     
-    TitleText.text = @"历史流量订单";
+    TitleText.text = self.titleStr;
     //    TitleText.text = NSLocalizedString(@"title", nil);
     
     
@@ -92,10 +92,24 @@
     [btn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
 }
 
+-(void)click:(UIButton *)btn{
+    //返回
+    if (btn.tag==101) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+
+
 #pragma mark 网络请求获取数据
 -(void)requestOrder:(NSString *)DeviceId{
     _tableArr = [NSMutableArray arrayWithCapacity:0];
-    NSString *url = [NSString stringWithFormat:Global_url,_manager.ScanID];
+    NSString *url=@"";
+    if (isBeta) {
+        url = [NSString stringWithFormat:Global_url,@"TGT24171033978"];
+    }else{
+    url = [NSString stringWithFormat:Global_url,_manager.ScanID];
+    }
     [NetWork sendGetNetWorkWithUrl:url parameters:nil hudView:self.view successBlock:^(id data) {
         NSArray *arr = [NSArray array];
         arr = data[@"device_order"];
@@ -139,9 +153,13 @@
     
     if (!cell) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:str];
-    }
-    PackagInfoModel *model = _tableArr[indexPath.row];
     
+    //如果数据为空
+    
+    PackagInfoModel *model = _tableArr[indexPath.row];
+    if (!model.end_time||[model.end_time isEqualToString:@""]) {
+        
+    }else{//不为空才读写
     //小图标
     UIImageView *flowInfoImg = [UIImageView new];
     [cell addSubview:flowInfoImg];
@@ -168,6 +186,22 @@
     }];
     flowInfo.numberOfLines = 0;
     flowInfo.font = [UIFont boldSystemFontOfSize:Name_Device+2];
+    
+    //使用中的标致
+    UILabel *tips = [UILabel new];
+    [cell addSubview:flowInfo];
+        // flowInfo.text =SetLange(@"fanyidingdan");
+    [flowInfo mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(flowInfoImg.mas_right).with.offset(10);
+            make.right.equalTo(cell).with.offset(-10);
+            make.top.equalTo(cell).with.offset(20);
+            make.height.mas_equalTo(@25);
+            
+            
+        }];
+        flowInfo.numberOfLines = 0;
+        flowInfo.font = [UIFont boldSystemFontOfSize:Name_Device+2];
     
     //总流量
     UILabel *name_GlobaltotalFlow = [UILabel new];
@@ -350,12 +384,13 @@
 
     //赋值
     flowInfo.text = [model.product_name stringByRemovingPercentEncoding];
-    if ([flowInfo.text isEqualToString:@"翻译订单"]) {
+    if ([model.product_type integerValue]==104) {//判断为翻译订单
         name_GlobaltotalFlow.alpha = 0;
         _GlobaltotalFlow.alpha = 0;
         name_GlobaleftFlow.text  = @"有效期:";
         _GloballeftFlow.text  =  @"三年";
     }
+    }}
     return cell;
 }
 

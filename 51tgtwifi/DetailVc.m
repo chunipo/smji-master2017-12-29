@@ -229,7 +229,7 @@
     
     [_priceLab mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(_typeLab).offset(35);
+        make.left.equalTo(_typeLab).offset(39);
         make.centerY.equalTo(view);
         make.size.mas_equalTo(CGSizeMake(80, 40));
         

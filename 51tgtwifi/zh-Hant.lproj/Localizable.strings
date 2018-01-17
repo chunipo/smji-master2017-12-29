@@ -15,7 +15,7 @@
 "shezhi" = "設置";
 
 
-//设置界面
+/*设置界面*/
 
 "setTitle" = "設置";
 
@@ -23,8 +23,18 @@
 "jibenshezhi" = "基本設置";
 "devicedName" = "暫無數據";
 "guanbishebeiredian" = "關閉設備熱點";
-"xiugaishebeiredian" = "修改設備熱點";
+//修改热点密码
+"xiugaishebeiredian" = "修改設備熱點密碼";
+"xiugairedianmima" = "修改熱點密碼";
+"shurujiumima" = "輸入舊密碼";
+"shuruxinmima" = "輸入新密碼";
+"queding" = "好的";
+"quxiao" = "取消";
+
+//设置APN
 "shezhivpn" = "設置APN";
+"apnDetail" = "給實卡設置APN使之生效";
+
 "lianjieWifi" = "連接Wifi";
 "shezhifanyiyuyan" = "設置翻譯語言";
 "shezhitishiyuyan" = "設置提示語言";
@@ -48,11 +58,13 @@
 "shebeibanben"  = "設備版本:";
 
 "fanyidingdan" = "翻譯訂單";
+"youxiaoqi" = "有效期:";
 "zongliuliang" = "總流量:";
 "shengyuliuliag" = "剩餘流量:";
 "shiyongguojia" = "使用國家:";
 "kaishishjian" = "開始時間:";
 "jieshushijian" = "終了時刻:";
+"gengduotaocanxinxi" = "更多已購套餐信息";
 "lianjieshebei" = "連接設備";
 "jiechubangding" = "解除綁定";
 

@@ -15,7 +15,7 @@
 "shezhi" = "Set up";
 
 
-//设置界面
+/*设置界面*/
 
 "setTitle" = "Set up";
 
@@ -23,8 +23,18 @@
 "jibenshezhi" = "basic settings";
 "devicedName" = "No data";
 "guanbishebeiredian" = "Turn off device hotspots";
-"xiugaishebeiredian" = "Modify the device hotspot";
+//修改热点密码
+"xiugaishebeiredian" = "Change device hot password";
+"xiugairedianmima" = "Change hot password";
+"shurujiumima" = "Enter the old password";
+"shuruxinmima" = "Enter a new password";
+"queding" = "Ok";
+"quxiao" = "cancel";
+//设置APN
 "shezhivpn" = "Set up APN";
+"apnDetail" = "Set APN for real card to take effect";
+
+
 "lianjieWifi" = "Connect Wifi";
 "shezhifanyiyuyan" = "Set the translation language";
 "shezhitishiyuyan" = "Set the prompt language";
@@ -43,16 +53,18 @@
 "Wifimima" = "Wifi password:";
 "fanyiyuzhong" = "Translation language:";
 "shengyudianliang" = "remaining battery:";
-"shebeilianjieshu" = "Number of device connections:";
+"shebeilianjieshu" = "connections:";
 "xinhaoqiangdu" = "Signal strength:";
 "shebeibanben"  = "Device version:";
 
 "fanyidingdan" = "Translate the order";
+"youxiaoqi" = "Validity:";
 "zongliuliang" = "Total traffic:";
 "shengyuliuliag" = "Remaining traffic:";
 "shiyongguojia" = "Use country:";
 "kaishishjian" = "Starting time:";
 "jieshushijian" = "End Time:";
+"gengduotaocanxinxi" = "More package information has been purchased";
 "lianjieshebei" = "Connect the device";
 "jiechubangding" = "Unbind";
 

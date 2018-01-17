@@ -102,9 +102,9 @@
     [self showSchdu];
     NSString *str ;
     if (isBeta) {
-        str = [NSString stringWithFormat:DoorOpen,@"TGT23170126536"];
+        str = [NSString stringWithFormat:DoorOpen,@"TGT23170126536",@"RMB"];
     }else{
-        str = [NSString stringWithFormat:DoorOpen,_manager.ScanID];
+        str = [NSString stringWithFormat:DoorOpen,_manager.ScanID,_manager.LanguageStr];
     }
     
     [NetWork sendGetNetWorkWithUrl:str parameters:nil hudView:self.view successBlock:^(id data) {
@@ -113,7 +113,7 @@
         NSArray *arr = dic1[@"products"];
         NSLog(@"data==================%@",arr);
             for (NSDictionary *dic in arr) {
-                ProductMo *ProModel = [[ ProductMo alloc]init];
+                ProductMo *ProModel = [[ProductMo alloc]init];
                 
                 [ProModel setValuesForKeysWithDictionary:dic];
                 [ProModel setValue:dic[@"id"] forKey:@"ProductId"];
@@ -219,7 +219,8 @@
     
     vc.DetailUrl =  ((ProductMo *)_arr[indexPath.row]).url;
     vc.DetailTitle =  ((ProductMo *)_arr[indexPath.row]).title;
-    vc.type =  ((ProductMo *)_arr[indexPath.row]).price_type;
+    //vc.type =  ((ProductMo *)_arr[indexPath.row]).price_type;
+    vc.type = @"RMB";
     vc.price = [NSString stringWithFormat:@"%@",[NSNumber numberWithInteger:cell.model.price]];
     
     [self.navigationController pushViewController:vc animated:YES];

@@ -96,6 +96,7 @@
     _tableView.delegate = self;
     _tableView.rowHeight = 60;
     _tableView.tableFooterView = [[UIView alloc] init];
+    
     _arr = [NSArray array];
     NSString *deviceStr  = @"";
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -131,9 +132,9 @@
     }
     
     //     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.backgroundColor =[UIColor colorWithRed:244.0/255.0 green:244.0/255.0 blue:244.0/255.0 alpha:1];
     
-    
-    cell.textLabel.text =[NSString stringWithFormat:@"百度翻译机    %@",_arr[indexPath.row]];
+    cell.textLabel.text =[NSString stringWithFormat:@"共享WiFi翻译机    %@",_arr[indexPath.row]];
     cell.textLabel.font = [UIFont systemFontOfSize:17];
     cell.imageView.image = [UIImage imageNamed:@"deviceImg.png"];
     

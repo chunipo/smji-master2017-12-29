@@ -15,17 +15,19 @@
 #import "YXManager.h"
 #import "QRScanViewController.h"
 #import "LFRoundProgressView.h"
+#import "HistoryOrderVc.h"
 //#import "NetNotifiVc.h"
 #define Name_Device [UIScreen mainScreen].bounds.size.width<375?13:17
 #define Device_Info [UIScreen mainScreen].bounds.size.width<375?12:15
 #define Hmargin  16
 
-#define Global_url @"http://as2.51tgt.com/wxapp/GetDeviceInfoByQrCode?device_no=%@"
+
 
 @interface HomeVc ()<UIScrollViewDelegate,CBCentralManagerDelegate,CBPeripheralDelegate,UIGestureRecognizerDelegate>
 {
     MBProgressHUD     *hud;
     YXManager         *_manager;
+    UIButton          *Scanbtn;//扫码按钮
     UIScrollView      *_scrollView;
     UIView            *_view;//第一张背景
     UIView            *_view2;//第二张
@@ -695,11 +697,11 @@
     
     TitleText.textAlignment = 1;
     
-    //    取消按钮
-    UIButton *btn = [UIButton new];
-    [_TitleView addSubview:btn];
+    //二维码按钮
+    Scanbtn = [UIButton new];
+    [_TitleView addSubview:Scanbtn];
     
-    [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [Scanbtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(_TitleView).offset(-15);
         
         make.centerY.equalTo(TitleText);
@@ -710,12 +712,12 @@
     }];
     
     
-    btn.tag = 101;
-    btn.titleLabel.textAlignment = NSTextAlignmentRight;
+    Scanbtn.tag = 101;
+    Scanbtn.titleLabel.textAlignment = NSTextAlignmentRight;
     
     //    [btn setTitle:@"扫描二维码" forState:UIControlStateNormal];
-    [btn setImage:[UIImage imageNamed:@"saomiao.png"] forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
+    [Scanbtn setImage:[UIImage imageNamed:@"saomiao.png"] forState:UIControlStateNormal];
+    [Scanbtn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void)addScrView{
@@ -747,8 +749,8 @@
     //设备ssid
     UILabel *name_ssid = [UILabel new];
     [_view addSubview:name_ssid];
-    //name_ssid.text =SetLange(@"shebeissid");
-    name_ssid.text = @"设备SSID:";
+    name_ssid.text =setCountry(@"shebeissid");
+    //name_ssid.text = @"设备SSID:";
     [name_ssid mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(_view).with.offset(10);
@@ -772,8 +774,8 @@
         make.height.mas_equalTo(@25);
         
     }];
-    //name_passWord.text  = SetLange(@"Wifimima");
-    name_passWord.text  = @"WIFI密码:";
+    name_passWord.text  = setCountry(@"Wifimima");
+   // name_passWord.text  = @"WIFI密码:";
     name_passWord.numberOfLines = 0;
     name_passWord.font = [UIFont boldSystemFontOfSize:Name_Device];
     
@@ -790,8 +792,8 @@
         make.height.mas_equalTo(@25);
         
     }];
-    //name_leftPower.text  = SetLange(@"shengyudianliang");
-    name_leftPower.text  = @"剩余电量:";
+    name_leftPower.text  = setCountry(@"shengyudianliang");
+    //name_leftPower.text  = @"剩余电量:";
     name_leftPower.numberOfLines = 0;
     name_leftPower.font = [UIFont boldSystemFontOfSize:Name_Device];
     
@@ -808,8 +810,8 @@
         make.height.mas_equalTo(@25);
         
     }];
-    //name_deviceConnectNum.text  = SetLange(@"shebeilianjieshu");
-    name_deviceConnectNum.text  = @"设备连接数:";
+    name_deviceConnectNum.text  = setCountry(@"shebeilianjieshu");
+    //name_deviceConnectNum.text  = @"设备连接数:";
     name_deviceConnectNum.numberOfLines = 0;
     name_deviceConnectNum.font = [UIFont boldSystemFontOfSize:Name_Device];
     
@@ -826,8 +828,8 @@
         make.height.mas_equalTo(@25);
         
     }];
-   // name_signStrong.text  = SetLange(@"xinhaoqiangdu");
-    name_signStrong.text  = @"信号强度:";
+    name_signStrong.text  = setCountry(@"xinhaoqiangdu");
+   // name_signStrong.text  = @"信号强度:";
     name_signStrong.numberOfLines = 0;
     name_signStrong.font = [UIFont boldSystemFontOfSize:Name_Device];
     
@@ -844,8 +846,8 @@
         make.height.mas_equalTo(@25);
         
     }];
-   // name_deviceVersion.text  = SetLange(@"shebeibanben");
-    name_deviceVersion.text  = @"设备版本:";
+    name_deviceVersion.text  = setCountry(@"shebeibanben");
+    //name_deviceVersion.text  = @"设备版本:";
     name_deviceVersion.numberOfLines = 0;
     name_deviceVersion.font = [UIFont boldSystemFontOfSize:Name_Device];
     
@@ -907,8 +909,8 @@
         make.height.mas_equalTo(@25);
         
     }];
-    //name_totalFlow.text  = SetLange(@"zongliuliang");
-    name_totalFlow.text  = @"有效期:";
+    name_totalFlow.text  =setCountry(@"youxiaoqi");
+    //name_totalFlow.text  = @"有效期:";
     name_totalFlow.numberOfLines = 0;
     name_totalFlow.font = [UIFont boldSystemFontOfSize:Name_Device];
     
@@ -943,8 +945,8 @@
         make.height.mas_equalTo(@25);
         
     }];
-   // name_useContry.text  = SetLange(@"shiyongguojia");
-    name_useContry.text  = @"使用国家:";
+    name_useContry.text  = setCountry(@"shiyongguojia");
+    //name_useContry.text  = @"使用国家:";
     name_useContry.numberOfLines = 0;
     name_useContry.font = [UIFont boldSystemFontOfSize:Name_Device];
     
@@ -961,8 +963,8 @@
         make.height.mas_equalTo(@25);
         
     }];
-   // name_starTime.text  = SetLange(@"kaishishjian");
-    name_starTime.text  = @"开始时间:";
+    name_starTime.text  = setCountry(@"kaishishjian");
+    //name_starTime.text  = @"开始时间:";
     name_starTime.numberOfLines = 0;
     name_starTime.font = [UIFont boldSystemFontOfSize:Name_Device];
     
@@ -979,13 +981,13 @@
         make.height.mas_equalTo(@25);
         
     }];
-    //name_endTime.text  = SetLange(@"jieshushijian");
-    name_endTime.text  = @"结束时间:";
+    name_endTime.text  = setCountry(@"jieshushijian");
+    //name_endTime.text  = @"结束时间:";
     name_endTime.numberOfLines = 0;
     name_endTime.font = [UIFont boldSystemFontOfSize:Name_Device];
     
     //***************************全球流量信息*********************************************//
-    _view3 = [[UIView alloc]initWithFrame:CGRectMake(kMagin, _view2.maxY+30, kWidth, 300)];
+    _view3 = [[UIView alloc]initWithFrame:CGRectMake(kMagin, _view2.maxY+30, kWidth, 350)];
     _view3.layer.cornerRadius = 10;
     _view3.backgroundColor = [UIColor whiteColor];
     [_scrollView addSubview:_view3];
@@ -1030,8 +1032,8 @@
         make.height.mas_equalTo(@25);
         
     }];
-    //name_GlobaltotalFlow.text  = SetLange(@"zongliuliang");
-    name_GlobaltotalFlow.text  = @"总流量:";
+    name_GlobaltotalFlow.text  = setCountry(@"zongliuliang");
+    //name_GlobaltotalFlow.text  = @"总流量:";
     name_GlobaltotalFlow.numberOfLines = 0;
     name_GlobaltotalFlow.font = [UIFont boldSystemFontOfSize:Name_Device];
     
@@ -1048,8 +1050,8 @@
         make.height.mas_equalTo(@25);
         
     }];
-    //name_GlobaleftFlow.text  = SetLange(@"shengyuliuliag");
-    name_GlobaleftFlow.text  = @"剩余流量:";
+    name_GlobaleftFlow.text  = setCountry(@"shengyuliuliag");
+    //name_GlobaleftFlow.text  = @"剩余流量:";
     name_GlobaleftFlow.numberOfLines = 0;
     name_GlobaleftFlow.font = [UIFont boldSystemFontOfSize:Name_Device];
     
@@ -1067,8 +1069,8 @@
         make.height.mas_equalTo(@25);
         
     }];
-    //name_GlobaluseCountry.text  = SetLange(@"shiyongguojia");
-    name_GlobaluseCountry.text  = @"使用国家:";
+    name_GlobaluseCountry.text  = setCountry(@"shiyongguojia");
+    //name_GlobaluseCountry.text  = @"使用国家:";
     name_GlobaluseCountry.numberOfLines = 0;
     name_GlobaluseCountry.font = [UIFont boldSystemFontOfSize:Name_Device];
     
@@ -1085,8 +1087,8 @@
         make.height.mas_equalTo(@25);
         
     }];
-   // name_Globalstartime.text  = SetLange(@"kaishishjian");
-    name_Globalstartime.text  = @"开始时间:";
+    name_Globalstartime.text  = setCountry(@"kaishishjian");
+    //name_Globalstartime.text  = @"开始时间:";
     name_Globalstartime.numberOfLines = 0;
     name_Globalstartime.font = [UIFont boldSystemFontOfSize:Name_Device];
     
@@ -1103,10 +1105,30 @@
         make.height.mas_equalTo(@25);
         
     }];
-   // name_Globalendtime.text  = SetLange(@"jieshushijian");
-    name_Globalendtime.text  = @"结束时间:";
+    name_Globalendtime.text  = setCountry(@"jieshushijian");
+    //name_Globalendtime.text  = @"结束时间:";
     name_Globalendtime.numberOfLines = 0;
     name_Globalendtime.font = [UIFont boldSystemFontOfSize:Name_Device];
+    
+    //更多套餐信息按钮
+    UIButton *_PackgBtn = [UIButton new];
+    [_view3 addSubview:_PackgBtn];
+        [_PackgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(name_Globalendtime.mas_bottom).with.offset(20);
+            make.centerX.equalTo(_view3);
+            make.height.mas_equalTo(@30);
+            make.width.mas_equalTo(@250);
+        }];
+    //_PackgBtn.frame = CGRectMake((XScreenWidth-150)/2, , 150, 30);
+    _PackgBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    _PackgBtn.titleLabel.numberOfLines = 0;
+    _PackgBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [_PackgBtn setTitle:NSLocalizedString(@"gengduotaocanxinxi",nil) forState:UIControlStateNormal];
+    //_bindBtn.layer.cornerRadius = 10;
+    _PackgBtn.backgroundColor =CLEARCOLOR;
+    [_PackgBtn setTitleColor:[UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1] forState:UIControlStateNormal];
+    [_PackgBtn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
+    _PackgBtn.tag = 201;
     
     //解除绑定的按钮
     _cancelBtn = [UIButton new];
@@ -1219,6 +1241,10 @@
         [self.cMgr scanForPeripheralsWithServices:@[uuid] options:nil];
         [self showSchdu];
         }
+    }else if (btn.tag==201){//查看更多套餐信息
+        HistoryOrderVc *hisVc = [[HistoryOrderVc alloc]init];
+        hisVc.titleStr = setCountry(@"lishiliuliangdingdan");
+        [self.navigationController pushViewController:hisVc animated:YES];
     }
 }
 
@@ -1228,11 +1254,11 @@
     //设备ssid
     _ssid = [UILabel new];
     [_view addSubview:_ssid];
-    _ssid.text =_manager.model.ssid;
+    _ssid.text =_manager.ScanID;
     [_ssid mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        //make.left.equalTo(_view).with.offset(10);
-        make.right.equalTo(_view).with.offset(-10);
+        make.left.mas_equalTo(_view.frame.size.width/2);
+        //make.right.equalTo(_view).with.offset(-10);
         make.top.equalTo(_view).with.offset(10);
         make.height.mas_equalTo(@25);
         //make.width.mas_equalTo(@);
@@ -1447,9 +1473,9 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
                     _view3.alpha = 1;
                     _view.frame = CGRectMake(kMagin, 20+44+X_bang, kWidth, 250);
                     _view2.frame = CGRectMake(kMagin, _view.maxY+30, kWidth, 230);
-                    _view3.frame = CGRectMake(kMagin, _view2.maxY+30, kWidth, 300);
+                    _view3.frame = CGRectMake(kMagin, _view2.maxY+30, kWidth, 350);
                     _cancelBtn.frame = CGRectMake(_view.x,_view3.maxY+30, kWidth, 50);
-                    _scrollView.contentSize = CGSizeMake(0,900+70+80);
+                    _scrollView.contentSize = CGSizeMake(0,900+70+80+50);
                     _bindBtn.alpha = 0;
                     [_scrollView addSubview:_view];
                 }
@@ -1478,9 +1504,9 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
                    _view3.alpha = 1;
                    _bindBtn.alpha = 1;
                    _cancelBtn.alpha = 0;
-                   _view3.frame = CGRectMake(kMagin, _view.maxY+30, kWidth, 230+30);//替换成view2位置
+                   _view3.frame = CGRectMake(kMagin, _view.maxY+30, kWidth, 230+30+50);//替换成view2位置
                    _view2.frame = CGRectMake(kMagin, 20+44+X_bang, kWidth, 250);//替换成view的位置
-                   _scrollView.contentSize = CGSizeMake(0,720);
+                   _scrollView.contentSize = CGSizeMake(0,770);
                    _bindBtn.frame = CGRectMake(_view2.x, _view3.maxY+20, kWidth, 50);
                }
                 
@@ -1887,10 +1913,9 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
     
     [self.view addSubview:self.progressLabel];
     [self.view addSubview:self.largeProgressView];
-    
-    
-    
     [self startAnimation];
+    //隐藏按钮
+    Scanbtn.alpha = 0;
 }
 - (void)startAnimation
 {
@@ -1956,6 +1981,8 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
    
     [self.largeProgressView removeFromSuperview];
     [self.progressLabel removeFromSuperview];
+    //显示按钮
+    Scanbtn.alpha = 1;
 }
 
 /*********************懒加载*******************************/

@@ -111,9 +111,9 @@
 		D76FF0C32009BCF6008250A6 /* deviceImg.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0C22009BCF5008250A6 /* deviceImg.png */; };
 		D76FF0C72009C168008250A6 /* NetNotifiVc.m in Sources */ = {isa = PBXBuildFile; fileRef = D76FF0C62009C168008250A6 /* NetNotifiVc.m */; };
 		D76FF0C92009CB24008250A6 /* saomiao.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0C82009CB24008250A6 /* saomiao.png */; };
-		D76FF0CF2009D4B9008250A6 /* WechatIMG8.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0CE2009D4B9008250A6 /* WechatIMG8.png */; };
 		D76FF0D5200C8448008250A6 /* HistoryOrderVc.m in Sources */ = {isa = PBXBuildFile; fileRef = D76FF0D4200C8448008250A6 /* HistoryOrderVc.m */; };
 		D76FF0DC200CB0EA008250A6 /* baidu-tuge.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0DB200CB0EA008250A6 /* baidu-tuge.png */; };
+		D76FF0E0200DE284008250A6 /* launchS.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0DF200DE283008250A6 /* launchS.png */; };
 		D7A512F51FEA90CD001C8158 /* YXManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A512F41FEA90CD001C8158 /* YXManager.m */; };
 		D7A512F81FEA9382001C8158 /* ic_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7A512F71FEA9382001C8158 /* ic_bg.jpg */; };
 		D7A512FB1FEA93D2001C8158 /* HomeVc.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A512FA1FEA93D2001C8158 /* HomeVc.m */; };
@@ -135,7 +135,6 @@
 		D7A5131F1FEC99FA001C8158 /* PackagInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A5131E1FEC99FA001C8158 /* PackagInfoModel.m */; };
 		D7A513231FED13EF001C8158 /* AboutMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A513221FED13EF001C8158 /* AboutMeViewController.m */; };
 		D7A513261FED1662001C8158 /* ic_tuge_icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = D7A513251FED1662001C8158 /* ic_tuge_icon2.png */; };
-		D7A513281FF0CCEF001C8158 /* ic_splash01.png in Resources */ = {isa = PBXBuildFile; fileRef = D7A513271FF0CCEE001C8158 /* ic_splash01.png */; };
 		D7A5132F1FF0D380001C8158 /* ScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A5132D1FF0D380001C8158 /* ScanView.m */; };
 		D7A513321FF0D3C7001C8158 /* QRScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A513301FF0D3C7001C8158 /* QRScanViewController.m */; };
 		D7A513361FF1E359001C8158 /* DeviceConnectWifiViewC.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A513351FF1E359001C8158 /* DeviceConnectWifiViewC.m */; };
@@ -361,10 +360,10 @@
 		D76FF0C52009C168008250A6 /* NetNotifiVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetNotifiVc.h; sourceTree = "<group>"; };
 		D76FF0C62009C168008250A6 /* NetNotifiVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetNotifiVc.m; sourceTree = "<group>"; };
 		D76FF0C82009CB24008250A6 /* saomiao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = saomiao.png; sourceTree = "<group>"; };
-		D76FF0CE2009D4B9008250A6 /* WechatIMG8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WechatIMG8.png; sourceTree = "<group>"; };
 		D76FF0D3200C8448008250A6 /* HistoryOrderVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryOrderVc.h; sourceTree = "<group>"; };
 		D76FF0D4200C8448008250A6 /* HistoryOrderVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryOrderVc.m; sourceTree = "<group>"; };
 		D76FF0DB200CB0EA008250A6 /* baidu-tuge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "baidu-tuge.png"; path = "../../../Desktop/working/途鸽翻译机图标/baidu-tuge.png"; sourceTree = "<group>"; };
+		D76FF0DF200DE283008250A6 /* launchS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchS.png; sourceTree = "<group>"; };
 		D7A512F31FEA90CD001C8158 /* YXManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXManager.h; sourceTree = "<group>"; };
 		D7A512F41FEA90CD001C8158 /* YXManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXManager.m; sourceTree = "<group>"; };
 		D7A512F71FEA9382001C8158 /* ic_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ic_bg.jpg; sourceTree = "<group>"; };
@@ -391,7 +390,6 @@
 		D7A513211FED13EF001C8158 /* AboutMeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutMeViewController.h; sourceTree = "<group>"; };
 		D7A513221FED13EF001C8158 /* AboutMeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutMeViewController.m; sourceTree = "<group>"; };
 		D7A513251FED1662001C8158 /* ic_tuge_icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_tuge_icon2.png; sourceTree = "<group>"; };
-		D7A513271FF0CCEE001C8158 /* ic_splash01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_splash01.png; sourceTree = "<group>"; };
 		D7A5132D1FF0D380001C8158 /* ScanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanView.m; sourceTree = "<group>"; };
 		D7A5132E1FF0D380001C8158 /* ScanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanView.h; sourceTree = "<group>"; };
 		D7A513301FF0D3C7001C8158 /* QRScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRScanViewController.m; sourceTree = "<group>"; };
@@ -802,7 +800,6 @@
 			isa = PBXGroup;
 			children = (
 				D76FF0DB200CB0EA008250A6 /* baidu-tuge.png */,
-				D76FF0CE2009D4B9008250A6 /* WechatIMG8.png */,
 				D76FF0C82009CB24008250A6 /* saomiao.png */,
 				D76FF0C52009C168008250A6 /* NetNotifiVc.h */,
 				D76FF0C62009C168008250A6 /* NetNotifiVc.m */,
@@ -951,10 +948,10 @@
 		D7E5615A1FEA6AC100AA5A48 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				D76FF0DF200DE283008250A6 /* launchS.png */,
 				D76FF04B1FF4D923008250A6 /* toast_keywords_option@2x.png */,
 				D76FF04C1FF4D923008250A6 /* toast_keywords_option@3x.png */,
 				D7A513371FF1FAC1001C8158 /* ic_arrow_back_white.png */,
-				D7A513271FF0CCEE001C8158 /* ic_splash01.png */,
 				D7A513171FEBF8FA001C8158 /* 设置 */,
 				D7A512F61FEA9373001C8158 /* 首页 */,
 				D7E5615B1FEA6ACF00AA5A48 /* tabbar */,
@@ -1126,7 +1123,6 @@
 				129AE2341F9DB3980019192D /* Icon-Paypal@3x.png in Resources */,
 				D7A513491FF25279001C8158 /* 1.png in Resources */,
 				D76FF0AD2004CBFF008250A6 /* fasle.png in Resources */,
-				D7A513281FF0CCEF001C8158 /* ic_splash01.png in Resources */,
 				D76FF0841FFC7D08008250A6 /* ScanQR2@3x.png in Resources */,
 				D7A513081FEBBD03001C8158 /* ic_home_u@3x.png in Resources */,
 				129AE2221F9DA65F0019192D /* head-portrait@3x.png in Resources */,
@@ -1168,7 +1164,6 @@
 				D76FF0B12005FE87008250A6 /* dislikeicon_textpage.png in Resources */,
 				D76FF0831FFC7D08008250A6 /* ScanQR2@2x.png in Resources */,
 				129AE21F1F9DA65F0019192D /* close@2x.png in Resources */,
-				D76FF0CF2009D4B9008250A6 /* WechatIMG8.png in Resources */,
 				129AE2281F9DA65F0019192D /* icon_weixin_white@3x.png in Resources */,
 				D7A513031FEBBCF9001C8158 /* ic_home_u@2x.png in Resources */,
 				D7A5131A1FEBF913001C8158 /* ic_show_password.png in Resources */,
@@ -1194,6 +1189,7 @@
 				129AE2571F9EE3C20019192D /* Localizable.strings in Resources */,
 				D7A5131C1FEBFD05001C8158 /* ic_logo.png in Resources */,
 				129AE2241F9DA65F0019192D /* icon_Ticking_gray@3x.png in Resources */,
+				D76FF0E0200DE284008250A6 /* launchS.png in Resources */,
 				D7A513991FF48B1B001C8158 /* wifi_signal_5.png in Resources */,
 				129AE21D1F9DA65F0019192D /* button_bg_red@2x.png in Resources */,
 				D7A5130E1FEBBD6D001C8158 /* ic_mall_s@2x.png in Resources */,
@@ -1538,11 +1534,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/51tgtwifi",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tgt.iPhoneWIFI.Test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tgt.iPhoneWIFI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1564,11 +1560,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/51tgtwifi",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tgt.iPhoneWIFI.Test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tgt.iPhoneWIFI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

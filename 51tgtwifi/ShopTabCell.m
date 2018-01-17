@@ -9,7 +9,7 @@
 #import "ShopTabCell.h"
 #import "ProductMo.h"
 
-#define PicHead  @"http://as2.51tgt.com"
+
 
 @interface ShopTabCell ()
 {
@@ -84,8 +84,8 @@
     //解码
     _title.text = [model.title stringByRemovingPercentEncoding];
     
-    _type.text = model.price_type;
-
+    //_type.text = model.price_type;
+    _type.text =@"RMB";
     _price.text = [NSString stringWithFormat:@"%@",[NSNumber numberWithInt:model.price]];
     
     

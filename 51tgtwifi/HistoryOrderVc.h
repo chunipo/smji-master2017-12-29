@@ -10,4 +10,6 @@
 
 @interface HistoryOrderVc : UIViewController
 
+@property(nonatomic,strong)NSString *titleStr;//标题
+
 @end

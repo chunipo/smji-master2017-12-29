@@ -14,7 +14,7 @@
 "shangcheng" = "モール";
 "shezhi" = "セットアップ";
 
-//设置界面
+/*设置界面*/
 
 "setTitle" = "セットアップ";
 
@@ -22,8 +22,17 @@
 "jibenshezhi" = "基本設定";
 "devicedName" = "データがありません";
 "guanbishebeiredian" = "デバイスのホットスポットを無効にする";
-"xiugaishebeiredian" = "デバイスのホットスポットを変更する";
+//修改设备热点密码
+"xiugaishebeiredian" = "デバイスのホットパスワードを変更する";
+"xiugairedianmima" = "パスワードを変更する";
+"shurujiumima" = "古いパスワード";
+"shuruxinmima" = "新しいパスワード";
+"queding" = "よかった";
+"quxiao" = "キャンセル";
+//设置APN
 "shezhivpn" = "APNを設定する";
+"apnDetail" = "リアルカードのAPNを有効にする";
+
 "lianjieWifi" = "Wi-Fiを接続する";
 "shezhifanyiyuyan" = "翻訳言語を設定する";
 "shezhitishiyuyan" = "プロンプト言語を設定する";
@@ -42,16 +51,18 @@
 "Wifimima" = "Wifiパスワード:";
 "fanyiyuzhong" = "翻訳言語:";
 "shengyudianliang" = "残り容量:";
-"shebeilianjieshu" = "デバイス接続の数:";
+"shebeilianjieshu" = "接続数:";
 "xinhaoqiangdu" = "信号強度:";
 "shebeibanben"  = "デバイスのバージョン:";
 
 "fanyidingdan" = "注文を翻訳する";
+"youxiaoqi" = "妥当性:";
 "zongliuliang" = "総トラフィック:";
-"shengyuliuliag" = "残りのトラフィック:";
+"shengyuliuliag" = "残っている:";
 "shiyongguojia" = "国を使用する:";
 "kaishishjian" = "開始時間:";
 "jieshushijian" = "終了時刻:";
+"gengduotaocanxinxi" = "より多くのパッケージ情報が購入されました";
 "lianjieshebei" = "デバイスを接続する";
 "jiechubangding" = "アンバインド";
 

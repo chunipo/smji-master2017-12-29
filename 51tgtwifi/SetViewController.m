@@ -449,6 +449,7 @@
 
     }else if (indexPath.section==1&&indexPath.row==2){//历史流量订单
         HistoryOrderVc *HisVc = [[HistoryOrderVc alloc]init];
+        HisVc.titleStr  = cell.textLabel.text;
         [self.navigationController pushViewController:HisVc animated:YES];
         
     }
@@ -512,8 +513,9 @@
     }];
     chageTitle.textAlignment = NSTextAlignmentCenter;
     chageTitle.textColor = [UIColor colorWithRed:62.0/255.0 green:110.0/255.0 blue:148.0/255.0 alpha:1];
-    chageTitle.text = @"修改热点密码";
-    chageTitle.font = [UIFont systemFontOfSize:28];
+//    chageTitle.text = @"修改热点密码";
+    chageTitle.text =NSLocalizedString(@"xiugairedianmima", nil);
+    chageTitle.font = [UIFont systemFontOfSize:26];
     
     
     //第一条横线
@@ -542,7 +544,8 @@
     oldText.textAlignment = NSTextAlignmentLeft;
     oldText.font = [UIFont systemFontOfSize:20];
     oldText.borderStyle = UITextBorderStyleNone;
-    oldText.placeholder = @"输入旧密码";
+//    oldText.placeholder = @"输入旧密码";
+    oldText.placeholder = NSLocalizedString(@"shurujiumima", nil);
     oldText.secureTextEntry = YES;
     oldText.keyboardType = UIKeyboardTypeNamePhonePad;
     
@@ -583,7 +586,8 @@
     newText.textAlignment = NSTextAlignmentLeft;
     newText.font = [UIFont systemFontOfSize:19];
     newText.borderStyle = UITextBorderStyleNone;
-    newText.placeholder = @"输入新密码";
+   // newText.placeholder = @"输入新密码";
+    newText.placeholder = NSLocalizedString(@"shuruxinmima", nil);
     newText.secureTextEntry = YES;
     newText.keyboardType = UIKeyboardTypeNamePhonePad;
     
@@ -620,7 +624,7 @@
         make.width.mas_equalTo(_view.frame.size.width*0.5);
     }];
     confirmBtn.tag = 103;
-    [confirmBtn setTitle:@"确定" forState:UIControlStateNormal ];
+    [confirmBtn setTitle:setCountry(@"queding") forState:UIControlStateNormal ];
     [confirmBtn setTitleColor:[UIColor colorWithRed:62.0/255.0 green:110.0/255.0 blue:148.0/255.0 alpha:1] forState:UIControlStateNormal];
     confirmBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     //
@@ -634,7 +638,7 @@
         make.width.mas_equalTo(_view.frame.size.width*0.5);
     }];
     cancelBtn.tag = 104;
-    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal ];
+    [cancelBtn setTitle:setCountry(@"quxiao") forState:UIControlStateNormal ];
     [cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     cancelBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     [confirmBtn addTarget:self action:@selector(show:) forControlEvents:UIControlEventTouchUpInside];
@@ -941,7 +945,8 @@
     }];
     chageTitle.textAlignment = NSTextAlignmentCenter;
     chageTitle.textColor = [UIColor colorWithRed:62.0/255.0 green:110.0/255.0 blue:148.0/255.0 alpha:1];
-    chageTitle.text = @"设置APN";
+    //chageTitle.text = @"设置APN";
+    chageTitle.text = setCountry(@"shezhivpn");
     chageTitle.font = [UIFont systemFontOfSize:28];
     
     //第一条横线
@@ -959,7 +964,8 @@
     UILabel *lab = [UILabel new];
     [_view_APN addSubview:lab];
     lab.textColor = [UIColor grayColor];
-    lab.text = @"给实卡设置APN使之生效";
+//    lab.text = @"给实卡设置APN使之生效";
+    lab.text = setCountry(@"apnDetail");
     lab.numberOfLines = 0;
     lab.font = [UIFont systemFontOfSize:15];
     [lab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1008,7 +1014,7 @@
     _APN_name.textAlignment = NSTextAlignmentLeft;
     _APN_name.font = [UIFont systemFontOfSize:20];
     _APN_name.borderStyle = UITextBorderStyleNone;
-    _APN_name.placeholder = @"名称(必填)";
+    _APN_name.placeholder = @"name(必填)";
     _APN_name.secureTextEntry = NO;
     _APN_name.keyboardType = UIKeyboardTypeDefault;
     //外框
@@ -1187,7 +1193,7 @@
         make.width.mas_equalTo(_view_APN.frame.size.width*0.5);
     }];
     confirmBtn.tag = 303;
-    [confirmBtn setTitle:@"确定" forState:UIControlStateNormal ];
+    [confirmBtn setTitle:setCountry(@"queding") forState:UIControlStateNormal ];
     [confirmBtn setTitleColor:[UIColor colorWithRed:62.0/255.0 green:110.0/255.0 blue:148.0/255.0 alpha:1] forState:UIControlStateNormal];
     confirmBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     //
@@ -1201,7 +1207,7 @@
         make.width.mas_equalTo(_view_APN.frame.size.width*0.5);
     }];
     cancelBtn.tag = 304;
-    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal ];
+    [cancelBtn setTitle:setCountry(@"quxiao") forState:UIControlStateNormal ];
     [cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     cancelBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     [confirmBtn addTarget:self action:@selector(show:) forControlEvents:UIControlEventTouchUpInside];
