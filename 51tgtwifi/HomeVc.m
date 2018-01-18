@@ -1175,10 +1175,10 @@
 #pragma mark button点击事件
 -(void)click:(UIButton *)btn{
     if (btn.tag==101) {//解除连接设备
-        UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"是否要解除绑定的设备？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:setCountry(@"shifoujiebang") message:nil preferredStyle:UIAlertControllerStyleAlert];
         [self presentViewController:alertOne animated:YES completion:nil];
         
-        UIAlertAction *certain = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *certain = [UIAlertAction actionWithTitle:setCountry(@"queding") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
             hud.mode = MBProgressHUDModeIndeterminate;
             hud.removeFromSuperViewOnHide = YES;
@@ -1204,7 +1204,7 @@
                  });
         }];
         
-        UIAlertAction *certain2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+        UIAlertAction *certain2 = [UIAlertAction actionWithTitle:setCountry(@"quxiao") style:UIAlertActionStyleDefault handler:nil];
         
         [alertOne addAction:certain];
         [alertOne addAction:certain2];
@@ -1403,9 +1403,9 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
      [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSString *Packgurl;
     if (isBeta) {
-        Packgurl = [NSString stringWithFormat:Global_url,@"TGT24171033978"];
+        Packgurl = [NSString stringWithFormat:Global_url,PicHead,@"TGT24171033978"];
     }else{
-        Packgurl = [NSString stringWithFormat:Global_url,_manager.ScanID];
+        Packgurl = [NSString stringWithFormat:Global_url,PicHead,_manager.ScanID];
     }
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -1862,7 +1862,7 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
     labTip.textColor = [UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];
     labTip.backgroundColor = CLEARCOLOR;
     
-    labTip.font = [UIFont systemFontOfSize:19];
+    labTip.font = [UIFont systemFontOfSize:23];
     //国家名字
     _useCountyView = [UIView new];
     [self.view addSubview:_useCountyView];
@@ -1935,6 +1935,7 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
     self.view.backgroundColor = [UIColor blueColor];
     self.largeProgressView = [[LFRoundProgressView alloc]initWithFrame:CGRectMake(XScreenWidth/2-75,XScreenHeight/2-75, 150, 150)];
     self.progressLabel = [[UILabel alloc]initWithFrame:CGRectMake(XScreenWidth/2-200, self.largeProgressView.maxY+20, 400, 60)];
+    self.progressLabel.numberOfLines = 0;
     self.progressLabel.textAlignment = NSTextAlignmentCenter;
     self.largeProgressView.annularLineCapStyle = kCGLineCapRound;
     self.largeProgressView.annularLineWith = 4.f;
@@ -1976,10 +1977,10 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
             progressView.progress = 0.f;
             [self.timer invalidate];
             self.timer = nil;
-            UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"连接设备:%@      失败，请重新扫描设备二维码/条形码尝试",_manager.ScanID] message:nil preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:setCountry(@"lianjieshebeishibai"),_manager.ScanID] message:nil preferredStyle:UIAlertControllerStyleAlert];
                                         [self presentViewController:alertOne animated:YES completion:nil];
             
-            UIAlertAction *certain = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertAction *certain = [UIAlertAction actionWithTitle:setCountry(@"queding") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 _manager.isScan = NO;
                 if (self.peripheral) {
                     [self.cMgr cancelPeripheralConnection:self.peripheral];
@@ -1992,7 +1993,7 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
                                         [alertOne addAction:certain];
         }
         
-        self.progressLabel.text = [NSString stringWithFormat:@"连接设备中，请保持蓝牙状态打开..."];
+        self.progressLabel.text = [NSString stringWithFormat:setCountry(@"zhengzailianjieshebei")];
     }
     
 //    _timeNum +=1;

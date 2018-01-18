@@ -351,7 +351,7 @@
     NSString *str1 = SetLange(@"jibenshezhi");
     NSString *str2 = SetLange(@"gaojishezhi");
     
-    NSArray *arr = @[@"基本设置",@"高级设置",@""];
+    NSArray *arr = @[setCountry(@"jibenshezhi"),setCountry(@"gaojishezhi"),@""];
 
     return arr[section];
 }
@@ -386,7 +386,8 @@
         }else{
             MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.label.text = @"请打开蓝牙开关";
+            //hud.label.text = @"请打开蓝牙开关";
+            hud.label.text = setCountry(@"qingdakailanyakaiguan");
             hud.removeFromSuperViewOnHide = YES;
             [hud hideAnimated:YES afterDelay:1];
         }
@@ -400,7 +401,8 @@
         }else{
             MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.label.text = @"请打开蓝牙开关";
+            //hud.label.text = @"请打开蓝牙开关";
+            hud.label.text = setCountry(@"qingdakailanyakaiguan");
             hud.removeFromSuperViewOnHide = YES;
             [hud hideAnimated:YES afterDelay:1];
         }
@@ -414,7 +416,8 @@
         }else{
             MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.label.text = @"请打开蓝牙开关";
+            //hud.label.text = @"请打开蓝牙开关";
+            hud.label.text = setCountry(@"qingdakailanyakaiguan");
             hud.removeFromSuperViewOnHide = YES;
             [hud hideAnimated:YES afterDelay:1];
         }
@@ -426,7 +429,7 @@
         UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"设备版本信息" message:str preferredStyle:UIAlertControllerStyleAlert];
         [self presentViewController:alertOne animated:YES completion:nil];
         
-        UIAlertAction *certain = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+        UIAlertAction *certain = [UIAlertAction actionWithTitle:setCountry(@"queding") style:UIAlertActionStyleDefault handler:nil];
         
         [alertOne addAction:certain];
     }
@@ -442,7 +445,8 @@
         }else{
             MBProgressHUD *hud =[MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.label.text = @"请打开蓝牙开关";
+            //hud.label.text = @"请打开蓝牙开关";
+            hud.label.text = setCountry(@"qingdakailanyakaiguan");
             hud.removeFromSuperViewOnHide = YES;
             [hud hideAnimated:YES afterDelay:1];
         }
@@ -681,7 +685,7 @@
             UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"输入密码错误" message:nil preferredStyle:UIAlertControllerStyleAlert];
             [self presentViewController:alertOne animated:YES completion:nil];
             
-            UIAlertAction *certain = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+            UIAlertAction *certain = [UIAlertAction actionWithTitle:setCountry(@"queding") style:UIAlertActionStyleDefault handler:nil];
             
             [alertOne addAction:certain];
             
@@ -689,7 +693,7 @@
             UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"要修改的密码位数不能小于八位" message:nil preferredStyle:UIAlertControllerStyleAlert];
             [self presentViewController:alertOne animated:YES completion:nil];
             
-            UIAlertAction *certain = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+            UIAlertAction *certain = [UIAlertAction actionWithTitle:setCountry(@"queding") style:UIAlertActionStyleDefault handler:nil];
             
             [alertOne addAction:certain];
         }
@@ -697,7 +701,7 @@
             UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"新密码不能为空" message:nil preferredStyle:UIAlertControllerStyleAlert];
             [self presentViewController:alertOne animated:YES completion:nil];
             
-            UIAlertAction *certain = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+            UIAlertAction *certain = [UIAlertAction actionWithTitle:setCountry(@"queding") style:UIAlertActionStyleDefault handler:nil];
             
             [alertOne addAction:certain];
         }
@@ -811,7 +815,8 @@
     }];
     chageTitle.textAlignment = NSTextAlignmentCenter;
     chageTitle.textColor = [UIColor colorWithRed:62.0/255.0 green:110.0/255.0 blue:148.0/255.0 alpha:1];
-    chageTitle.text = @"设置热点访问黑名单";
+    //chageTitle.text = @"设置热点访问黑名单";
+    chageTitle.text =setCountry(@"shezhiredianfangwenmingdan");
     chageTitle.font = [UIFont systemFontOfSize:28];
     
     
@@ -885,7 +890,7 @@
         make.width.mas_equalTo(_view_wifi.frame.size.width*0.5);
     }];
     confirmBtn.tag = 203;
-    [confirmBtn setTitle:@"确定" forState:UIControlStateNormal ];
+    [confirmBtn setTitle:setCountry(@"queding") forState:UIControlStateNormal ];
     [confirmBtn setTitleColor:[UIColor colorWithRed:62.0/255.0 green:110.0/255.0 blue:148.0/255.0 alpha:1] forState:UIControlStateNormal];
     confirmBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     //
@@ -899,7 +904,7 @@
         make.width.mas_equalTo(_view_wifi.frame.size.width*0.5);
     }];
     cancelBtn.tag = 204;
-    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal ];
+    [cancelBtn setTitle:setCountry(@"quxiao") forState:UIControlStateNormal ];
     [cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     cancelBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     [confirmBtn addTarget:self action:@selector(show:) forControlEvents:UIControlEventTouchUpInside];

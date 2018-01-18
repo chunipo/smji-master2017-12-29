@@ -45,8 +45,8 @@
     
     
     
-    TitleText.text = @"我的历史设备";
-    //    TitleText.text = NSLocalizedString(@"title", nil);
+    //TitleText.text = @"我的历史设备";
+    TitleText.text = setCountry(@"wodelishishebei");
     
     
     TitleText.textColor = [UIColor whiteColor];
@@ -136,7 +136,7 @@
     
     cell.textLabel.text =[NSString stringWithFormat:@"共享WiFi翻译机    %@",_arr[indexPath.row]];
     cell.textLabel.font = [UIFont systemFontOfSize:17];
-    cell.imageView.image = [UIImage imageNamed:@"deviceImg.png"];
+    cell.imageView.image = [UIImage imageNamed:@"historyImg.png"];
     
     
     //    设置右边箭头
@@ -151,11 +151,12 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     NSString *str = [cell.textLabel.text stringByReplacingOccurrencesOfString:@"共享WiFi翻译机    " withString:@""];
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"是否重新连接该设备机?"] preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:setCountry(@"shifouchongxinlianjieshebei")] preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:setCountry(@"quxiao") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"连接设备" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    //连接设备
+    [alert addAction:[UIAlertAction actionWithTitle:setCountry(@"lianjieshebei") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         YXManager *manager = [YXManager share];
         manager.ScanID = str;
@@ -164,7 +165,7 @@
         [self.navigationController popToRootViewControllerAnimated:YES];
         
     }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"不连接设备，直接进入" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [alert addAction:[UIAlertAction actionWithTitle:setCountry(@"bulianjieshebei") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         YXManager *manager = [YXManager share];
         manager.isBind = NO;
         manager.isScan = YES;

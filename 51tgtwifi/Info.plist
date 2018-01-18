@@ -21,7 +21,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0.2</string>
+	<string>2.0.3</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -71,13 +71,13 @@
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>是否允许此App使用蓝牙？</string>
 	<key>NSCameraUsageDescription</key>
-	<string>是否允许此App使用相机来扫描百度翻译机设备条形码/二维码？</string>
+	<string>是否允许此App使用相机来扫描百度共享WiFi翻译机设备条形码/二维码？</string>
 	<key>NSContactsUsageDescription</key>
 	<string>contactsDesciption</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>microphoneDesciption</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>是否允许此App使用相机来扫描百度翻译机设备条形码/二维码？</string>
+	<string>是否允许此App使用相机来扫描百度共享WiFi翻译机设备条形码/二维码？</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

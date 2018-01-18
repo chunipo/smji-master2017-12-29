@@ -114,6 +114,7 @@
 		D76FF0D5200C8448008250A6 /* HistoryOrderVc.m in Sources */ = {isa = PBXBuildFile; fileRef = D76FF0D4200C8448008250A6 /* HistoryOrderVc.m */; };
 		D76FF0DC200CB0EA008250A6 /* baidu-tuge.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0DB200CB0EA008250A6 /* baidu-tuge.png */; };
 		D76FF0E0200DE284008250A6 /* launchS.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0DF200DE283008250A6 /* launchS.png */; };
+		D76FF0E220103669008250A6 /* historyImg.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0E120103669008250A6 /* historyImg.png */; };
 		D7A512F51FEA90CD001C8158 /* YXManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A512F41FEA90CD001C8158 /* YXManager.m */; };
 		D7A512F81FEA9382001C8158 /* ic_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7A512F71FEA9382001C8158 /* ic_bg.jpg */; };
 		D7A512FB1FEA93D2001C8158 /* HomeVc.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A512FA1FEA93D2001C8158 /* HomeVc.m */; };
@@ -364,6 +365,7 @@
 		D76FF0D4200C8448008250A6 /* HistoryOrderVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryOrderVc.m; sourceTree = "<group>"; };
 		D76FF0DB200CB0EA008250A6 /* baidu-tuge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "baidu-tuge.png"; path = "../../../Desktop/working/途鸽翻译机图标/baidu-tuge.png"; sourceTree = "<group>"; };
 		D76FF0DF200DE283008250A6 /* launchS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchS.png; sourceTree = "<group>"; };
+		D76FF0E120103669008250A6 /* historyImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = historyImg.png; sourceTree = "<group>"; };
 		D7A512F31FEA90CD001C8158 /* YXManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXManager.h; sourceTree = "<group>"; };
 		D7A512F41FEA90CD001C8158 /* YXManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXManager.m; sourceTree = "<group>"; };
 		D7A512F71FEA9382001C8158 /* ic_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ic_bg.jpg; sourceTree = "<group>"; };
@@ -778,6 +780,7 @@
 		D76FF0911FFF53C0008250A6 /* 扫一扫 */ = {
 			isa = PBXGroup;
 			children = (
+				D76FF0E120103669008250A6 /* historyImg.png */,
 				D76FF0C22009BCF5008250A6 /* deviceImg.png */,
 				D76FF0BE2009BC4D008250A6 /* deviceImg2.png */,
 				D76FF0B920099D7D008250A6 /* history.png */,
@@ -1151,6 +1154,7 @@
 				129AE22A1F9DA65F0019192D /* icon_yinlian@3x.png in Resources */,
 				D7A513261FED1662001C8158 /* ic_tuge_icon2.png in Resources */,
 				D76FF0DC200CB0EA008250A6 /* baidu-tuge.png in Resources */,
+				D76FF0E220103669008250A6 /* historyImg.png in Resources */,
 				129AE21E1F9DA65F0019192D /* button_bg_red@3x.png in Resources */,
 				129AE21C1F9DA65F0019192D /* button_bg_red_short@3x.png in Resources */,
 				1AF3C0CF1F8FBB7B00A35AFC /* Assets.xcassets in Resources */,

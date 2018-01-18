@@ -106,9 +106,9 @@
     _tableArr = [NSMutableArray arrayWithCapacity:0];
     NSString *url=@"";
     if (isBeta) {
-        url = [NSString stringWithFormat:Global_url,@"TGT24171033978"];
+        url = [NSString stringWithFormat:Global_url,PicHead,@"TGT24171033978"];
     }else{
-    url = [NSString stringWithFormat:Global_url,_manager.ScanID];
+    url = [NSString stringWithFormat:Global_url,PicHead,_manager.ScanID];
     }
     [NetWork sendGetNetWorkWithUrl:url parameters:nil hudView:self.view successBlock:^(id data) {
         NSArray *arr = [NSArray array];
@@ -430,7 +430,7 @@
     labTip.textColor = [UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];
     labTip.backgroundColor = CLEARCOLOR;
     
-    labTip.font = [UIFont systemFontOfSize:19];
+    labTip.font = [UIFont systemFontOfSize:23];
     //国家名字
     _useCountyView = [UIView new];
     [self.view addSubview:_useCountyView];

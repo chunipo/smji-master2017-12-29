@@ -18,11 +18,16 @@
 
 
 //设置界面
+
 // 头标题
 "setTitle" = "设置";
 //列表名
 "jibenshezhi" = "基本设置";
-"devicedName" = "暂无数据";
+"qingdakailanyakaiguan" = "请打开蓝牙开关";
+
+
+
+
 "guanbishebeiredian" = "关闭设备热点";
 //修改热点密码
 "xiugaishebeiredian" = "修改设备热点密码";
@@ -46,7 +51,17 @@
 "ruanjianbanbenjiance" = "当前设备软件版本号";
 "lishiliuliangdingdan" = "历史流量订单";
 "guanyuwomen" = "关于我们";
-
+//连接wifi
+"redianmingcheng" = "热点名称:";
+"redianmima" = "热点密码:";
+"shururedianmingcheng" = "输入热点名称";
+"shururedianmima" = "输入热点密码";
+"jiaru" = "加  入";
+"duankai" = "断  开";
+"lianjietishi" = "连接提示:\n1.确保已开启热点\n2.确保热点密码正确\n";
+"shurumimaweishubugou" = "输入的热点密码小于8位，是否要连接该热点？";
+"lianjie" = "连接";
+"shezhizhong" = "设置中...";
 
 
 /* 首页 */
@@ -70,5 +85,24 @@
 "gengduotaocanxinxi" = "查看全部已购套餐";
 "lianjieshebei" = "连接设备";
 "jiechubangding" = "解除绑定";
+"shifoujiebang" = "是否要解除绑定的设备？";
+"zhengzailianjieshebei" = "连接设备中，请保持蓝牙状态打开...";
+"lianjieshebeishibai" = "连接设备:%@      失败，请重新扫描设备二维码/条形码尝试";
+/*二维码扫描*/
+"xiangce" = "相册";
+"qingchuguanbi" = "轻触关闭";
+"qingchuzhaoliang" = "轻触照亮";
+"saomatixing" = "请将百度翻译机设备二维码/条形码放入框内,即可自动扫描并绑定/激活设备";
+"wodelishishebei" = "我的历史设备";
 
+"chongxinsaomiao" = "重新扫描";
+"shifouchongxinlianjieshebei" = "是否重新连接该设备机?";
+"bulianjieshebei" = "不连接设备，直接进入";
+"tishi" = "提示";
+"shebeiweijihuo" = "设备未激活，是否激活设备?";
+"cuowu" = "错误";
+"haode" = "好的";
+"jihuoshibai" = "激活失败!";
+
+"ningyijingbangdingguoshebei" = "您已经绑定过设备，是否直接进入？";
 

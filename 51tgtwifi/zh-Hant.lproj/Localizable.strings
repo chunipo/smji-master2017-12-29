@@ -21,7 +21,7 @@
 
 //列表名
 "jibenshezhi" = "基本設置";
-"devicedName" = "暫無數據";
+"qingdakailanyakaiguan" = "請打開藍牙開關";
 "guanbishebeiredian" = "關閉設備熱點";
 //修改热点密码
 "xiugaishebeiredian" = "修改設備熱點密碼";
@@ -69,7 +69,23 @@
 "gengduotaocanxinxi" = "更多已購套餐信息";
 "lianjieshebei" = "連接設備";
 "jiechubangding" = "解除綁定";
+"shifoujiebang" = "是否要解除綁定的設備？";
+"zhengzailianjieshebei" = "連接設備中，請保持藍牙狀態打開...";
+"lianjieshebeishibai" = "連接設備:%@      失敗，請重新掃描設備二維碼/條形碼嘗試";
+/*二维码扫描*/
+"xiangce" = "相冊";
+"qingchuguanbi" = "輕觸關閉";
+"qingchuzhaoliang" = "輕觸照亮";
+"saomatixing" = "請將百度翻譯機設備二維碼/條形碼放入框內,即可自動掃描並綁定/激活設備";
+"wodelishishebei" = "我的歷史設備";
 
 
-
-
+"chongxinsaomiao" = "重新掃描";
+"shifouchongxinlianjieshebei" = "是否重新連接該設備機?";
+"bulianjieshebei" = "不連接設備，直接進入";
+"tishi" = "提示";
+"shebeiweijihuo" = "設備未激活，是否激活設備?";
+"cuowu" = "錯誤";
+"haode" = "好的";
+"jihuoshibai" = "激活失敗!";
+"ningyijingbangdingguoshebei" = "您已經綁定過設備，是否直接進入？";

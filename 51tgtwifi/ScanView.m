@@ -64,7 +64,8 @@
     
     UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _qrBgView.maxY + 20, XScreenWidth, 40)];
     tipLabel.font = [UIFont systemFontOfSize:16];
-    tipLabel.text = @"请将百度翻译机设备二维码/条形码放入框内,即可自动扫描并绑定/激活设备";
+    //tipLabel.text = @"请将百度翻译机设备二维码/条形码放入框内,即可自动扫描并绑定/激活设备";
+    tipLabel.text = setCountry(@"saomatixing");
     tipLabel.textColor = [UIColor whiteColor];
     tipLabel.textAlignment = NSTextAlignmentCenter;
     tipLabel.numberOfLines = 0;
@@ -134,8 +135,9 @@
     btn.alpha = 0;
     [btn addTarget:self action:@selector(clickLightBtn:) forControlEvents:UIControlEventTouchUpInside];
     
-    _Openlabel = [[UILabel alloc]initWithFrame:CGRectMake(XScreenWidth/2-50/2, btn.maxY+5, 50, 30)];
-    _Openlabel.text = @"轻触照亮";
+    _Openlabel = [[UILabel alloc]initWithFrame:CGRectMake(XScreenWidth/2-150/2, btn.maxY+5, 150, 30)];
+    //_Openlabel.text = @"轻触照亮";
+    _Openlabel.text = setCountry(@"qingchuzhaoliang");
     _Openlabel.textColor = [UIColor whiteColor];
     _Openlabel.backgroundColor = CLEARCOLOR;
     [self addSubview:_Openlabel];

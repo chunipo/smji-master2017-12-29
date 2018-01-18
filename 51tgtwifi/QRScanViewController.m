@@ -43,7 +43,7 @@
     if (authStatus == AVAuthorizationStatusRestricted || authStatus ==AVAuthorizationStatusDenied) {
         //无权限
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"相机访问权限已关闭" message:@"为方便使用，请前往设置中找到\"途鸽WiFi\"APP,并选择允许访问" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [alert addAction:[UIAlertAction actionWithTitle:setCountry(@"quxiao") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController popToRootViewControllerAnimated:YES];
         }]];
         [alert addAction:[UIAlertAction actionWithTitle:@"去设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -57,9 +57,9 @@
 //    NavBarView *navView = [[NavBarView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 64)];
 //    [self.view addSubview:navView];
 //    [navView initWithTitleName:@"扫描二维码"];
-    
-    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(XScreenWidth-70, 30+X_bang, 70, 40)];
-    [btn setTitle:@"相 册" forState:UIControlStateNormal];
+    //相册
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(XScreenWidth-80, 30+X_bang, 80, 40)];
+    [btn setTitle:setCountry(@"xiangce") forState:UIControlStateNormal];
     [btn setShowsTouchWhenHighlighted:YES];
     // [btn setTintColor:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:20];
@@ -69,16 +69,21 @@
     
     //历史设备
     UIButton *btnHis = [[UIButton alloc]initWithFrame:CGRectMake((XScreenWidth-35)/2, XScreenHeight-49-20-35, 35, 35)];
+    if (isIPHONE5) {
+        btnHis.frame  = CGRectMake((XScreenWidth-35)/2, XScreenHeight-20-35-15, 35, 35);
+    }
     [btnHis setImage:[UIImage imageNamed:@"history.png"] forState:UIControlStateNormal];
     [self.view addSubview:btnHis];
-    UILabel *labHis = [[UILabel alloc]initWithFrame:CGRectMake((XScreenWidth-100)/2, btnHis.maxY+10, 100, 30)];
+    UILabel *labHis = [[UILabel alloc]initWithFrame:CGRectMake((XScreenWidth-200)/2, btnHis.maxY+10, 200, 30)];
     labHis.textAlignment = NSTextAlignmentCenter;
-    labHis.text = @"我的历史设备";
+    labHis.text = setCountry(@"wodelishishebei");
+    //labHis.text = @"我的历史设备";
     labHis.textColor = [UIColor whiteColor];
     labHis.backgroundColor = CLEARCOLOR;
     labHis.font = [UIFont systemFontOfSize:16];
     [self.view addSubview:labHis];
     [btnHis addTarget:self action:@selector(openHistory) forControlEvents:UIControlEventTouchUpInside];
+    
     
 }
 #pragma mark 历史记录
@@ -217,17 +222,19 @@ dispatch_async(dispatch_get_main_queue(), ^{
         if ([device hasTorch] && [device hasFlash]){
             
             [device lockForConfiguration:nil];
-            if (!sender.selected) {
+            if (!sender.selected) {//开着灯
                 [device setTorchMode:AVCaptureTorchModeOn];
                 [device setFlashMode:AVCaptureFlashModeOn];
                 sender.selected = YES;
-                label.text = @"轻触关闭";
+                //label.text = @"轻触关闭";
+                label.text = setCountry(@"qingchuguanbi");
                 [YXManager share].isLight = YES;
-            } else {
+            } else {//没开灯
                 [device setTorchMode:AVCaptureTorchModeOff];
                 [device setFlashMode:AVCaptureFlashModeOff];
                 sender.selected = NO;
-                label.text = @"轻触照亮";
+                //label.text = @"轻触照亮";
+                label.text = setCountry(@"qingchuzhaoliang");
                 [YXManager share].isLight = NO;
             }
             [device unlockForConfiguration];
@@ -275,7 +282,7 @@ dispatch_async(dispatch_get_main_queue(), ^{
 #pragma mark 判断设备是否已激活
 -(BOOL)isActivationDevice:(NSString *)str{
     [self showSchdu];
-    NSString *Actstr = [NSString stringWithFormat:isActiveUrl,str];
+    NSString *Actstr = [NSString stringWithFormat:isActiveUrl,PicHead,str];
     [NetWork sendGetNetWorkWithUrl:Actstr parameters:nil hudView:self.view successBlock:^(id data) {
         [self hideSchdu];
         NSNumber *is_active ;
@@ -295,10 +302,10 @@ dispatch_async(dispatch_get_main_queue(), ^{
         
         if (_manager.isActive) {//激活过
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"扫描到设备：%@", str] preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"重新扫描" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [alert addAction:[UIAlertAction actionWithTitle:setCountry(@"chongxinsaomiao") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {//重新扫描
                 [_scanView startScanQrCode];
             }]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"连接设备" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alert addAction:[UIAlertAction actionWithTitle:setCountry(@"lianjieshebei") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {//连接设备
                 
                 YXManager *manager = [YXManager share];
                 manager.ScanID = str;
@@ -309,7 +316,7 @@ dispatch_async(dispatch_get_main_queue(), ^{
                 [self saveSn];
                 
             }]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"不连接设备，直接进入" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alert addAction:[UIAlertAction actionWithTitle:setCountry(@"bulianjieshebei") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {//不连接设备，直接进入
                 YXManager *manager = [YXManager share];
                 manager.isBind = NO;
                 manager.isScan = YES;
@@ -321,14 +328,16 @@ dispatch_async(dispatch_get_main_queue(), ^{
             }]];
             [self presentViewController:alert animated:true completion:nil];
         }else{//激活设备
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"设备未激活，是否激活设备?"] preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:setCountry(@"tishi") message:[NSString stringWithFormat:setCountry(@"shebeiweijihuo")] preferredStyle:UIAlertControllerStyleAlert];
+            //取消
+            [alert addAction:[UIAlertAction actionWithTitle:setCountry(@"quxiao") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 if (!_manager.isStarAcan) {
                     [_scanView startScanQrCode];
                 }
                 
             }]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //确定
+            [alert addAction:[UIAlertAction actionWithTitle:setCountry(@"queding") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [self activationDevice:str];
             }]];
             [self presentViewController:alert animated:true completion:nil];
@@ -337,8 +346,8 @@ dispatch_async(dispatch_get_main_queue(), ^{
         
     } failureBlock:^(NSString *error) {
         [self hideSchdu];
-         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"错误" message:[NSString stringWithFormat:@"%@",error] preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+         UIAlertController *alert = [UIAlertController alertControllerWithTitle:setCountry(@"cuowu") message:[NSString stringWithFormat:@"%@",error] preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:setCountry(@"haode") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [_scanView startScanQrCode];
         }]];
          [self presentViewController:alert animated:true completion:nil];
@@ -350,7 +359,7 @@ dispatch_async(dispatch_get_main_queue(), ^{
 #pragma mark 激活设备
 -(void)activationDevice:(NSString *)strSN{
     [self showSchdu];
-    NSString *str = [NSString stringWithFormat:ActiveDeviceUrl,strSN];
+    NSString *str = [NSString stringWithFormat:ActiveDeviceUrl,PicHead,strSN];
     [NetWork sendGetNetWorkWithUrl:str parameters:nil hudView:self.view successBlock:^(id data) {
         [self hideSchdu];
         NSNumber *is_active ;
@@ -382,7 +391,7 @@ dispatch_async(dispatch_get_main_queue(), ^{
 //                [[NSUserDefaults standardUserDefaults]synchronize];
 //
 //            }]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alert addAction:[UIAlertAction actionWithTitle:setCountry(@"haode") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 YXManager *manager = [YXManager share];
                 manager.isBind = NO;
                 manager.isScan = YES;
@@ -394,8 +403,8 @@ dispatch_async(dispatch_get_main_queue(), ^{
             }]];
             [self presentViewController:alert animated:true completion:nil];
         }else{
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"激活失败!"] preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:setCountry(@"jihuoshibai")] preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:setCountry(@"queding") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [_scanView startScanQrCode];
 
             }]];
@@ -404,8 +413,8 @@ dispatch_async(dispatch_get_main_queue(), ^{
         
     } failureBlock:^(NSString *error) {
         [self hideSchdu];
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"错误" message:[NSString stringWithFormat:@"%@",error] preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:setCountry(@"cuowu") message:[NSString stringWithFormat:@"%@",error] preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:setCountry(@"haode") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [_scanView startScanQrCode];
         }]];
          [self presentViewController:alert animated:true completion:nil];

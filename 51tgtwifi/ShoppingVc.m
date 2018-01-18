@@ -102,9 +102,9 @@
     [self showSchdu];
     NSString *str ;
     if (isBeta) {
-        str = [NSString stringWithFormat:DoorOpen,@"TGT23170126536",@"RMB"];
+        str = [NSString stringWithFormat:DoorOpen,PicHead,@"TGT23170126536",@"RMB"];
     }else{
-        str = [NSString stringWithFormat:DoorOpen,_manager.ScanID,_manager.LanguageStr];
+        str = [NSString stringWithFormat:DoorOpen,PicHead,_manager.ScanID,_manager.LanguageStr];
     }
     
     [NetWork sendGetNetWorkWithUrl:str parameters:nil hudView:self.view successBlock:^(id data) {

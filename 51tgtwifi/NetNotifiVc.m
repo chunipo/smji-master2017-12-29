@@ -11,6 +11,8 @@
 #import "MainNavVc.h"
 #import "YXManager.h"
 
+#define HomeDetail [UIScreen mainScreen].bounds.size.width<375?12:15
+
 @interface NetNotifiVc ()
 {
     YXManager   *_manager;
@@ -57,8 +59,8 @@
             [errorImg removeFromSuperview];
             [lab removeFromSuperview];
             if (_manager.ScanID) {
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"您已经绑定过设备，是否直接进入？"] preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:setCountry(@"ningyijingbangdingguoshebei")] preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:setCountry(@"quxiao") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                    
                 }]];
 //                [alert addAction:[UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -72,7 +74,7 @@
 //                    [self saveSn];
 //
 //                }]];
-                [alert addAction:[UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [alert addAction:[UIAlertAction actionWithTitle:setCountry(@"haode") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     _manager.isBind = NO;
                     _manager.isScan = YES;
                     
@@ -101,7 +103,7 @@
     labDetai.text = @"        百度共享WiFi翻译机由百度与途鸽联合出品，是一款革新性的智能便携硬件产品。\n        它基于百度语音识别合成及神经网络翻译等人工智能技术，可以在中英、中日等互译模式中自动识别语种，实现“傻瓜式”一键翻译；与此同时，它融合途鸽全球云通信  Cloud SIM自主专利技术，自带80+国家移动数据流量，无需SIM卡，开机即可自动联网 。\n        它能满足您对跨境旅游 、商务沟通、外语学习、过节送礼的多重需求，让您的跨境旅行更精彩，全球沟通更自在。\n下面您可通过扫描百度共享WiFi翻译机二维码/条形码以此绑定/激活设备。注意事项：\n\n1.请保持您的手机网络畅通.\n2.如果需要连接设备，请记得打开您的蓝牙开关.\n3.点击右上方按钮开始扫描二维码.";
     labDetai.textAlignment = NSTextAlignmentLeft;
     labDetai.textColor = [UIColor grayColor];
-    labDetai.font = [UIFont systemFontOfSize:15];
+    labDetai.font = [UIFont systemFontOfSize:HomeDetail];
     labDetai.numberOfLines = 0;
     [self.view addSubview:labDetai];
 }
@@ -175,7 +177,7 @@
     errorImg.image = [UIImage imageNamed:@"netError.png"];
     [self.view addSubview:errorImg];
     
-    lab = [[UILabel alloc]initWithFrame:CGRectMake((XScreenWidth-350)/2, errorImg.maxY+10, 350, 50)];
+    lab = [[UILabel alloc]initWithFrame:CGRectMake((XScreenWidth-320)/2, errorImg.maxY+10, 320, 50)];
     lab.text = @"当前无可用网路,请保持网络畅通再对百度翻译机设备进行二维码扫描";
     lab.textColor = [UIColor grayColor];
     lab.textAlignment = NSTextAlignmentCenter;

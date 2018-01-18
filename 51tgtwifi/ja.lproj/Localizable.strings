@@ -20,7 +20,7 @@
 
 //列表名
 "jibenshezhi" = "基本設定";
-"devicedName" = "データがありません";
+"qingdakailanyakaiguan" = "Bluetoothスイッチをオンにしてください";
 "guanbishebeiredian" = "デバイスのホットスポットを無効にする";
 //修改设备热点密码
 "xiugaishebeiredian" = "デバイスのホットパスワードを変更する";
@@ -44,6 +44,17 @@
 "ruanjianbanbenjiance" = "デバイスソフトウェアのバージョン番号";
 "lishiliuliangdingdan" = "過去のフロー指図";
 "guanyuwomen" = "私たちについて";
+//连接wifi
+"redianmingcheng" = "名前:";
+"redianmima" = "パスワード:";
+"shururedianmingcheng" = "ホットスポット名を入力してください";
+"shururedianmima" = "ホットパスワードを入力してください";
+"jiaru" = "参加する";
+"duankai" = "切断する";
+"lianjietishi" = "接続プロンプト:\n1.ホットスポットがオンになっていることを確認する\n2.ホットスポットのパスワードが正しいことを確認してください\n";
+"shurumimaweishubugou" = "ホットパスワードを入力すると、ホットに接続するかどうか、8未満ですか？";
+"lianjie" = "接続する";
+"shezhizhong" = "セットイン...";
 
 
 /* 首页 */
@@ -67,6 +78,22 @@
 "gengduotaocanxinxi" = "より多くのパッケージ情報が購入されました";
 "lianjieshebei" = "デバイスを接続する";
 "jiechubangding" = "アンバインド";
+"shifoujiebang" = "デバイスのバインドを解除するかどうか？";
+"zhengzailianjieshebei" = "デバイスを接続し、Bluetooth状態を開いたままにしてください...";
+"lianjieshebeishibai" = "デバイスを接続する:%@      失敗、デバイスのQRコード/バーコードを再スキャンしてみてください";
+/*二维码扫描*/
+"xiangce" = "アルバム";
+"qingchuguanbi" = "タッチして閉じる";
+"qingchuzhaoliang" = "タッチライト";
+"saomatixing" = "ボックスに2次元コード/バーコードを入れて、自動的にスキャンすることができます";
+"wodelishishebei" = "私の歴史機器";
 
-
-
+"chongxinsaomiao" = "再スキャン";
+"shifouchongxinlianjieshebei" = "デバイスは再接続されていますか？";
+"bulianjieshebei" = "デバイスを接続せず、直接入力してください";
+"tishi" = "プロンプト";
+"shebeiweijihuo" = "デバイスが非アクティブで、デバイスをアクティブにしていますか？";
+"cuowu" = "間違った";
+"haode" = "よかった";
+"jihuoshibai" = "アクティベーションに失敗しました！";
+"ningyijingbangdingguoshebei" = "あなたは直接入力するかどうか、デバイスをバインドしている？";

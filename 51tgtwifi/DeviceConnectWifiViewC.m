@@ -150,8 +150,9 @@
     view1.backgroundColor = [UIColor clearColor];
     [self.view addSubview:view1];
     
-    UILabel *lab1 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 80, 40)];
-    lab1.text =[NSString stringWithFormat:@"热点名称:"];
+    UILabel *lab1 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 90, 40)];
+    lab1.text =[NSString stringWithFormat:setCountry(@"redianmingcheng")];
+    lab1.textAlignment = NSTextAlignmentRight;
     lab1.textColor = [UIColor blackColor];
     [view1 addSubview:lab1];
     
@@ -163,7 +164,8 @@
     _wifiName.textAlignment = NSTextAlignmentLeft;
     //_wifiPwd.font = [UIFont systemFontOfSize:20];
     _wifiName.borderStyle = UITextBorderStyleNone;
-    _wifiName.placeholder = @"输入热点名称";
+    //_wifiName.placeholder = @"输入热点名称";
+    _wifiName.placeholder = setCountry(@"shururedianmingcheng");
     //_wifiName.secureTextEntry = YES;
     _wifiName.keyboardType = UIKeyboardTypeNamePhonePad;
     
@@ -180,9 +182,10 @@
     view2.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:view2];
     
-    UILabel *lab2 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 80, 40)];
-    lab2.text =[NSString stringWithFormat:@"热点密码:"];
+    UILabel *lab2 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 90, 40)];
+    lab2.text =[NSString stringWithFormat:setCountry(@"redianmima")];
     lab2.textColor = [UIColor blackColor];
+    lab2.textAlignment = NSTextAlignmentRight;
     [view2 addSubview:lab2];
     
     _wifiPwd = [[UITextField alloc]initWithFrame:CGRectMake(lab2.maxX, 10, XScreenWidth-lab2.maxX-20, 40)];;
@@ -193,7 +196,8 @@
     _wifiPwd.textAlignment = NSTextAlignmentLeft;
     //_wifiPwd.font = [UIFont systemFontOfSize:20];
     _wifiPwd.borderStyle = UITextBorderStyleNone;
-    _wifiPwd.placeholder = @"输入热点密码";
+    //_wifiPwd.placeholder = @"输入热点密码";
+    _wifiPwd.placeholder = setCountry(@"shururedianmima");
     _wifiPwd.secureTextEntry = YES;
     _wifiPwd.keyboardType = UIKeyboardTypeNamePhonePad;
     
@@ -218,7 +222,7 @@
 
     }];
     joinBtn.tag = 301;
-    [joinBtn setTitle:@"加  入" forState:UIControlStateNormal];
+    [joinBtn setTitle:setCountry(@"jiaru") forState:UIControlStateNormal];
     joinBtn.backgroundColor = [UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];
     joinBtn.layer.cornerRadius = 5;
     [joinBtn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
@@ -226,7 +230,8 @@
     UILabel *tip = [[UILabel alloc]initWithFrame:CGRectMake(20, view2.maxY+20+joinBtn.height+30, 250, 300)];
     tip.backgroundColor = [UIColor clearColor];
     tip.textColor = [UIColor grayColor];
-    tip.text = @"连接提示:\n1.确保已开启热点\n2.确保热点密码正确\n";
+    //tip.text = @"连接提示:\n1.确保已开启热点\n2.确保热点密码正确\n";
+    tip.text = setCountry(@"lianjietishi");
     [self.view addSubview:tip];
     tip.numberOfLines = 0;
     if (_manager.isConnectWifi == YES) {
@@ -241,7 +246,7 @@
             
         }];
         joinBtn2.tag = 302;
-        [joinBtn2 setTitle:@"断  开" forState:UIControlStateNormal];
+        [joinBtn2 setTitle:setCountry(@"duankai") forState:UIControlStateNormal];
         joinBtn2.backgroundColor = [UIColor colorWithRed:252.0/255.0 green:87.0/255.0 blue:89.0/255.0 alpha:1];
         joinBtn2.layer.cornerRadius = 5;
         [joinBtn2 addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
@@ -288,10 +293,10 @@
             _manager.WIFIname = _wifiName.text;
             _manager.WIFIpwd = _wifiPwd.text;
             if (_wifiPwd.text.length<8 || !_wifiPwd.text) {
-                UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"提示" message:@"输入的热点密码小于8位，是否要连接该热点？" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:setCountry(@"tishi") message:setCountry(@"shurumimaweishubugou") preferredStyle:UIAlertControllerStyleAlert];
                 [self presentViewController:alertOne animated:YES completion:nil];
                 
-                UIAlertAction *certain = [UIAlertAction actionWithTitle:@"连接" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                UIAlertAction *certain = [UIAlertAction actionWithTitle:setCountry(@"lianjie") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     NSDictionary *dict = @{
                                            @"SSID":_manager.WIFIname,
                                            @"PWD":_manager.WIFIpwd
@@ -302,7 +307,7 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"setWIFI" object:nil userInfo:dict];
                     [self showSchdu];
                 }];
-                UIAlertAction *certain2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+                UIAlertAction *certain2 = [UIAlertAction actionWithTitle:setCountry(@"quxiao") style:UIAlertActionStyleDefault handler:nil];
                 
                 [alertOne addAction:certain];
                 [alertOne addAction:certain2];
@@ -340,7 +345,9 @@
     hud =   [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
    // hud.mode = MBProgressHUDModeIndeterminate;
-    hud.label.text = NSLocalizedString(@"设置中...", @"HUD loading title");
+    //NSString *str = @"设置中...";
+    NSString *str = @"设置中...";
+    hud.label.text = NSLocalizedString(str, @"HUD loading title");
     
     hud.color = [UIColor grayColor];
     
