@@ -156,7 +156,7 @@
     UILabel *TitleText = [UILabel new];
     [_TitleView addSubview:TitleText];
 
-    TitleText.text = NSLocalizedString(@"title", nil);
+    TitleText.text = setCountry(@"title");
     //TitleText.text = @"流量商城";
 //    TitleText.text = NSLocalizedString(@"title", nil);
     TitleText.textColor = [UIColor whiteColor];

@@ -9,7 +9,7 @@
 #import "DetailVc.h"
 #import "PayViewController.h"
 #import "LoadingViewForOC.h"
-
+#import "YXManager.h"
 
 
 @interface DetailVc ()<UIWebViewDelegate>
@@ -18,6 +18,7 @@
     UILabel *       TitleText;
     MBProgressHUD   *hud;
     LoadingViewForOC   *_loadView;
+    YXManager        *_manager;
 
 }
 @end
@@ -33,7 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    _manager = [YXManager share];
 
     
     [self HeadTitle];
@@ -144,13 +145,14 @@
         [self.navigationController popViewControllerAnimated:YES];
     }
     else if (btn.tag==102){//点击购买
-//            PayViewController *vc = [[PayViewController alloc]init];
-//            [self.navigationController pushViewController:vc animated:YES];
-        UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"暂不支持购买" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        [self presentViewController:alertOne animated:YES completion:nil];
-        
-        UIAlertAction *certain = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
-        [alertOne addAction:certain];
+            PayViewController *vc = [[PayViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+            _manager.OrderName = self.DetailTitle;
+//        UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"暂不支持购买" message:nil preferredStyle:UIAlertControllerStyleAlert];
+//        [self presentViewController:alertOne animated:YES completion:nil];
+//        
+//        UIAlertAction *certain = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+//        [alertOne addAction:certain];
     
     }
 }

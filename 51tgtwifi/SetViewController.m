@@ -258,7 +258,7 @@
     UILabel *TitleText = [UILabel new];
     [_TitleView addSubview:TitleText];
     
-    TitleText.text = NSLocalizedString(@"setTitle",nil);
+    TitleText.text = setCountry(@"setTitle");
     //TitleText.text = @"设 置";
     TitleText.textColor = [UIColor whiteColor];
     TitleText.font = [UIFont systemFontOfSize:19];
@@ -287,24 +287,24 @@
 //    _arr = @[@[@"关闭设备热点",@"修改设备热点",@"设置APN",@"连接Wifi",@"设置翻译语言",@"设置提示语言",@"多语言"],@[@"设置热点访问黑名单",@"设备自检",@"软件版本检测",@"历史流量订单"]];
     
     NSString *str1 = SetLange(@"guanbishebeiredian");
-    NSString *str2 = NSLocalizedString(@"xiugaishebeiredian",nil);
-    NSString *str3 = NSLocalizedString(@"shezhivpn",nil);
-    NSString *str4 = NSLocalizedString(@"lianjieWifi",nil);
+    NSString *str2 = setCountry(@"xiugaishebeiredian");
+    NSString *str3 = setCountry(@"shezhivpn");
+    NSString *str4 = setCountry(@"lianjieWifi");
     NSString *str5 = SetLange(@"shezhifanyiyuyan");
     NSString *str6 = SetLange(@"shezhitishiyuyan");
-    NSString *str7 = SetLange(@"duoyuyan");
+    NSString *str7 = setCountry(@"duoyuyan");
 
-    NSString *str8 = NSLocalizedString(@"shezhiredianfangwenmingdan",nil);
+    NSString *str8 = setCountry(@"shezhiredianfangwenmingdan");
     NSString *str9 = SetLange(@"shebeizijian");
-    NSString *str10 = NSLocalizedString(@"ruanjianbanbenjiance",nil);
-    NSString *str11 = NSLocalizedString(@"lishiliuliangdingdan",nil);
-    NSString *str12 = NSLocalizedString(@"guanyuwomen",nil);
+    NSString *str10 = setCountry(@"ruanjianbanbenjiance");
+    NSString *str11 = setCountry(@"lishiliuliangdingdan");
+    NSString *str12 = setCountry(@"guanyuwomen");
     
     
     
     
-     _arr = @[@[str2,str3,str4],@[str8,str10,str11],@[str12]];
-     _arrImg = @[@[@"ic_setting_modify_password.png",@"ic_setting_apn.png",@"ic_connect_wifi.png"],@[@"ic_setting_blacklist.png",@"ic_setting_blacklist.png",@"ic_setting_blacklist.png"],@[@"ic_setting_tip_language.png"]];
+     _arr = @[@[str2,str3,str4],@[str8,str10,str11,str7],@[str12]];
+     _arrImg = @[@[@"ic_setting_modify_password.png",@"ic_setting_apn.png",@"ic_connect_wifi.png"],@[@"ic_setting_blacklist.png",@"ic_setting_blacklist.png",@"ic_setting_blacklist.png",@"ic_setting_blacklist.png"],@[@"ic_setting_tip_language.png"]];
     _tableView.tableHeaderView =[self headView] ;
 
 }
@@ -372,7 +372,7 @@
 //   点击闪一闪
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 //    app语言切换
-    if (indexPath.section==0&&indexPath.row==3) {
+    if (indexPath.section==1&&indexPath.row==3) {
         
         LanguageViewController *vc = [[LanguageViewController alloc]init];
         
@@ -426,7 +426,7 @@
     //当前版本
     else if (indexPath.section==1&&indexPath.row==1){
         NSString *str = [NSString stringWithFormat:@"当前版本 %@",_manager.appVersion];
-        UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"设备版本信息" message:str preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:setCountry(@"dangqianbanbenxinxi") message:str preferredStyle:UIAlertControllerStyleAlert];
         [self presentViewController:alertOne animated:YES completion:nil];
         
         UIAlertAction *certain = [UIAlertAction actionWithTitle:setCountry(@"queding") style:UIAlertActionStyleDefault handler:nil];
@@ -501,7 +501,7 @@
     CGFloat kMagin = 20.0;
     //宽度
     CGFloat kWidth = XScreenWidth - 2*kMagin;
-    _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 280)];
+    _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 395)];
     _view.layer.cornerRadius = 5;
     _view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_view];
@@ -518,7 +518,7 @@
     chageTitle.textAlignment = NSTextAlignmentCenter;
     chageTitle.textColor = [UIColor colorWithRed:62.0/255.0 green:110.0/255.0 blue:148.0/255.0 alpha:1];
 //    chageTitle.text = @"修改热点密码";
-    chageTitle.text =NSLocalizedString(@"xiugairedianmima", nil);
+    chageTitle.text =setCountry(@"xiugairedianmima");
     chageTitle.font = [UIFont systemFontOfSize:26];
     
     
@@ -534,13 +534,44 @@
         
     }];
     
+    //温馨提醒
+    UILabel *lab = [UILabel new];
+    [_view addSubview:lab];
+    lab.textColor = [UIColor grayColor];
+    //lab.text = @"1.请确保设备热点已开启.\n2.修改成功后重启设备方可生效.\n3.仅免费翻译流量下，当设备购买其他流量套餐后密码修改自动生效.";
+    lab.text = setCountry(@"xiugaimimatixing");
+    //lab.text = setCountry(@"apnDetail");
+    lab.numberOfLines = 0;
+    lab.font = [UIFont systemFontOfSize:15];
+    [lab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_view).with.offset(10);
+        make.right.equalTo(_view).with.offset(-10);
+        make.top.equalTo(firstLine.mas_bottom).with.offset(10);
+        make.height.mas_equalTo(@110);
+        
+    }];
+    
+    //提醒下的横线
+    UIView *labLine = [UIView new];
+    [_view addSubview:labLine];
+    labLine.backgroundColor = [UIColor blueColor];
+    [labLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_view).with.offset(0);
+        make.right.equalTo(_view).with.offset(0);
+        make.top.equalTo(lab.mas_bottom).with.offset(5);
+        make.height.mas_equalTo(@1);
+        
+    }];
+    labLine.backgroundColor = [UIColor grayColor];
+    labLine.alpha = 0.2;
+    
     //原密码
     oldText = [UITextField new];
     [_view addSubview:oldText];
     [oldText mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_view).with.offset(7);
         make.right.equalTo(_view).with.offset(-15);
-        make.top.equalTo(firstLine.mas_bottom).with.offset(5);
+        make.top.equalTo(labLine.mas_bottom).with.offset(5);
         make.height.mas_equalTo(@60);
     }];
     oldText.delegate = self;
@@ -549,7 +580,7 @@
     oldText.font = [UIFont systemFontOfSize:20];
     oldText.borderStyle = UITextBorderStyleNone;
 //    oldText.placeholder = @"输入旧密码";
-    oldText.placeholder = NSLocalizedString(@"shurujiumima", nil);
+    oldText.placeholder = setCountry(@"shurujiumima");
     oldText.secureTextEntry = YES;
     oldText.keyboardType = UIKeyboardTypeNamePhonePad;
     
@@ -591,7 +622,7 @@
     newText.font = [UIFont systemFontOfSize:19];
     newText.borderStyle = UITextBorderStyleNone;
    // newText.placeholder = @"输入新密码";
-    newText.placeholder = NSLocalizedString(@"shuruxinmima", nil);
+    newText.placeholder = setCountry(@"shuruxinmima");
     newText.secureTextEntry = YES;
     newText.keyboardType = UIKeyboardTypeNamePhonePad;
     
@@ -1246,7 +1277,9 @@
     hud =   [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     // hud.mode = MBProgressHUDModeIndeterminate;
-    hud.label.text = NSLocalizedString(@"正在设置中...", @"HUD loading title");
+//    NSString *str = @"设置中";
+    NSString *str = setCountry(@"shezhizhong");
+    hud.label.text = NSLocalizedString(str, @"HUD loading title");
     hud.color = [UIColor grayColor];
     [hud showAnimated:YES];
 }

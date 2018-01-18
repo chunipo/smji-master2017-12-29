@@ -63,9 +63,9 @@
     
     //    NSArray *arr1 = @[@"首页",@"商城",@"设置"];
     
-    NSString *str1 = NSLocalizedString(@"shouye",nil);
-    NSString *str2 = NSLocalizedString(@"shangcheng",nil);
-    NSString *str3 = NSLocalizedString(@"shezhi",nil);
+    NSString *str1 = setCountry(@"shouye");
+    NSString *str2 = setCountry(@"shangcheng");
+    NSString *str3 = setCountry(@"shezhi");
     NSArray *arr1 = @[str1,str2,str3];
     NSArray *arr2 = @[@"HomeVc",@"ShoppingVc",@"SetViewController"];
     

@@ -17,7 +17,7 @@
 #import "LFRoundProgressView.h"
 #import "HistoryOrderVc.h"
 //#import "NetNotifiVc.h"
-#define Name_Device [UIScreen mainScreen].bounds.size.width<375?13:17
+#define Name_Device [UIScreen mainScreen].bounds.size.width<375?10:15
 #define Device_Info [UIScreen mainScreen].bounds.size.width<375?12:15
 #define Hmargin  16
 
@@ -684,8 +684,8 @@
     UILabel *TitleText = [UILabel new];
     [_TitleView addSubview:TitleText];
     
-    //    TitleText.text = SetLange(@"title");
-    TitleText.text = @"WiFi翻译机";
+    TitleText.text = setCountry(@"appname");
+    //TitleText.text = @"WiFi翻译机";
     //    TitleText.text = NSLocalizedString(@"title", nil);
     TitleText.textColor = [UIColor whiteColor];
     TitleText.font = [UIFont systemFontOfSize:19];
@@ -1123,7 +1123,7 @@
     _PackgBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     _PackgBtn.titleLabel.numberOfLines = 0;
     _PackgBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-    [_PackgBtn setTitle:NSLocalizedString(@"gengduotaocanxinxi",nil) forState:UIControlStateNormal];
+    [_PackgBtn setTitle:setCountry(@"gengduotaocanxinxi") forState:UIControlStateNormal];
     //_bindBtn.layer.cornerRadius = 10;
     _PackgBtn.backgroundColor =CLEARCOLOR;
     [_PackgBtn setTitleColor:[UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1] forState:UIControlStateNormal];
@@ -1141,7 +1141,7 @@
 //    }];
     _cancelBtn.frame = CGRectMake(_view2.x, _view3.maxY+20, kWidth, 50);
 
-    [_cancelBtn setTitle:NSLocalizedString(@"jiechubangding",nil) forState:UIControlStateNormal];
+    [_cancelBtn setTitle:setCountry(@"jiechubangding") forState:UIControlStateNormal];
     _cancelBtn.layer.cornerRadius = 10;
     _cancelBtn.backgroundColor =[UIColor colorWithRed:252.0/255.0 green:87.0/255.0 blue:89.0/255.0 alpha:1]; ;
     [_cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -1159,7 +1159,7 @@
     //    }];
     _bindBtn.frame = CGRectMake(_view2.x, XScreenHeight-50-49-30, kWidth, 50);
     
-    [_bindBtn setTitle:NSLocalizedString(@"lianjieshebei",nil) forState:UIControlStateNormal];
+    [_bindBtn setTitle:setCountry(@"lianjieshebei") forState:UIControlStateNormal];
     _bindBtn.layer.cornerRadius = 10;
     _bindBtn.backgroundColor =[UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];
     [_bindBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -1867,6 +1867,8 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
     _useCountyView = [UIView new];
     [self.view addSubview:_useCountyView];
     UILabel *label = [UILabel new];
+    label.userInteractionEnabled = YES;
+    
    [_useCountyView addSubview:label];
     label.textColor = White_Color;
     label.text  = [lab.text stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -1879,7 +1881,7 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
         make.centerX.mas_equalTo(self.view);
         make.left.mas_offset(20);
         make.right.mas_offset(-20);
-        make.height.mas_equalTo(ceilf(tmpRect.size.height+10));
+        make.height.mas_equalTo(ceilf(2*tmpRect.size.height+10));
     }];
     _useCountyView.backgroundColor = [UIColor clearColor];
     _useCountyView.layer.cornerRadius = 10;
@@ -1892,7 +1894,16 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
         make.bottom.mas_offset(0);
         
     }];
-
+    //行间距调整
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:label.text];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    
+    [paragraphStyle setLineSpacing:10];//调整行间距
+    
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [label.text length])];
+    label.attributedText = attributedString;
+    [label sizeToFit];
+    
     labTip.alpha = 0;
     _useCountyView.alpha = 0;
     [UIView animateWithDuration:0.5 animations:^{
@@ -1903,6 +1914,7 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
 
     }];
 
+    [label addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disView)]];
     [_viewBack1 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disView)]];
     [_viewBack2 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disView)]];
 }

@@ -12,6 +12,7 @@
 #import "QRScanViewController.h"
 #import "YXManager.h"
 #import "NetNotifiVc.h"
+#import "WXApi.h"
 
 
 
@@ -33,37 +34,51 @@
     }
     NSLog(@"模拟器语言第一个=##%@##",language1);
 //    //
-    if ([language1 containsString:@"zh-Hans-"]||[language1 containsString:@"zh-Hans"]) {//简体中文
+//    if ([language1 containsString:@"zh-Hans-"]||[language1 containsString:@"zh-Hans"]) {//简体中文
+//        manager.LanguageStr = @"RMB";
+//       // NSArray *lans = @[@"zh-Hans"];
+//       // [[NSUserDefaults standardUserDefaults] setObject:lans forKey:@"AppleLanguages"];
+//    }else if ([language1 containsString:@"zh-Hant-"]||[language1 containsString:@"zh-Hant"]){//繁体中文
+//        manager.LanguageStr = @"RMB";
+////        NSArray *lans = @[@"zh-Hant"];
+////        [[NSUserDefaults standardUserDefaults] setObject:lans forKey:@"AppleLanguages"];
+//    }else if ([language1 containsString:@"en-"]||[language1 containsString:@"en"]){//英文
+//        manager.LanguageStr = @"USD";
+////        NSArray *lans = @[@"en"];
+////        [[NSUserDefaults standardUserDefaults] setObject:lans forKey:@"AppleLanguages"];
+//    }else if ([language1 containsString:@"ja-"]||[language1 containsString:@"ja"]){//日语
+//        manager.LanguageStr = @"JPY";
+////        NSArray *lans = @[@"ja"];
+////        [[NSUserDefaults standardUserDefaults] setObject:lans forKey:@"AppleLanguages"];
+//    }else {
+//        manager.LanguageStr = @"USD";
+////        NSArray *lans = @[@"en"];
+////        [[NSUserDefaults standardUserDefaults] setObject:lans forKey:@"AppleLanguages"];
+//    }
+    if ([language1 containsString:@"TW"]) {
+        manager.LanguageStr = @"TWD";
+    }else if ([language1 containsString:@"CN"]||[language1 containsString:@"zh-Hans"]||[language1 containsString:@"zh-Hant"]){
         manager.LanguageStr = @"RMB";
-       // NSArray *lans = @[@"zh-Hans"];
-       // [[NSUserDefaults standardUserDefaults] setObject:lans forKey:@"AppleLanguages"];
-    }else if ([language1 containsString:@"zh-Hant-"]||[language1 containsString:@"zh-Hant"]){//繁体中文
-        manager.LanguageStr = @"RMB";
-//        NSArray *lans = @[@"zh-Hant"];
-//        [[NSUserDefaults standardUserDefaults] setObject:lans forKey:@"AppleLanguages"];
-    }else if ([language1 containsString:@"en-"]||[language1 containsString:@"en"]){//英文
+    }else if ([language1 containsString:@""]){
         manager.LanguageStr = @"USD";
-//        NSArray *lans = @[@"en"];
-//        [[NSUserDefaults standardUserDefaults] setObject:lans forKey:@"AppleLanguages"];
-    }else if ([language1 containsString:@"ja-"]||[language1 containsString:@"ja"]){//日语
+    }else if ([language1 containsString:@"JP"]){
         manager.LanguageStr = @"JPY";
-//        NSArray *lans = @[@"ja"];
-//        [[NSUserDefaults standardUserDefaults] setObject:lans forKey:@"AppleLanguages"];
-    }else {
+    }else{
         manager.LanguageStr = @"USD";
-//        NSArray *lans = @[@"en"];
-//        [[NSUserDefaults standardUserDefaults] setObject:lans forKey:@"AppleLanguages"];
     }
     
     
 //    paypal支付
     [PayPalMobile initializeWithClientIdsForEnvironments:@{PayPalEnvironmentProduction :PPEnvironmentProduction,PayPalEnvironmentSandbox : PPEnvironmentSandbox}];
-    
+    /*******微信注册******/
+    [WXApi registerApp:@"wx7dcabbfab57ab288" ];
 
     //判断是否登陆过设备，有就不用扫描
   
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:language1 forKey:@"changeLan"];
+    [userDefaults synchronize];
     NSString *deviceStr = @"";
     if (![userDefaults objectForKey:@"Device"]) {
        
@@ -128,7 +143,24 @@
     NSLog(@"模拟器语言第一个=##%@##",language1);
 
 }
+//程序要实现和微信终端交互代理
 
+-(void) onResp:(BaseResp*)resp
+{
+    if ([resp isKindOfClass:[PayResp class]]){
+        PayResp*response=(PayResp*)resp;
+        switch(response.errCode){
+            case WXSuccess:
+                //服务器端查询支付通知或查询API返回的结果再提示成功
+                [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"WXpayNotification" object:nil userInfo:nil]];
+                break;
+            default:
+                //支付失败
+                NSLog(@"支付失败，retcode=%d",resp.errCode);
+                break;
+        }
+    }
+}
 
 #pragma mark 处理 Widget 相关事件
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {

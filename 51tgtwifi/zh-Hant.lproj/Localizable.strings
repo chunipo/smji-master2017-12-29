@@ -26,6 +26,8 @@
 //修改热点密码
 "xiugaishebeiredian" = "修改設備熱點密碼";
 "xiugairedianmima" = "修改熱點密碼";
+"xiugaimimatixing" = "1.密碼位數不能少於8位.\n2.修改成功後重啟設備方可生效.\n3.僅免費翻譯流量下，當設備購買其他流量套餐後密碼修改自動生效.";
+
 "shurujiumima" = "輸入舊密碼";
 "shuruxinmima" = "輸入新密碼";
 "queding" = "好的";
@@ -44,11 +46,13 @@
 "shezhiredianfangwenmingdan" = "設置熱點訪問黑名單";
 "shebeizijian" = "設備自檢";
 "ruanjianbanbenjiance" = "當前設備軟件版本號";
+"dangqianbanbenxinxi" = "當前版本信息";
 "lishiliuliangdingdan" = "歷史流量訂單";
 "guanyuwomen" = "關於我們";
 
 
 /* 首页 */
+"appname" = "翻譯機";
 "shebeissid" = "設備SSID:";
 "Wifimima" = "Wifi密碼:";
 "fanyiyuzhong" = "翻譯語種:";
@@ -89,3 +93,6 @@
 "haode" = "好的";
 "jihuoshibai" = "激活失敗!";
 "ningyijingbangdingguoshebei" = "您已經綁定過設備，是否直接進入？";
+
+/*扫码之前的界面*/
+"gongsixiangqing" = "注意事項：\n\n1.請保持您的手機網絡暢通.\n2.如果需要連接設備，請記得打開您的藍牙開關.\n3.點擊右上方按鈕開始掃描二維碼.";

@@ -9,7 +9,6 @@
 #import "PayViewController.h"
 #import "PayView.h"
 #import "WXApi.h"
-
 #import "WeChatOrderModel.h"
 
 @interface PayViewController ()<PayViewDelegate,PayPalPaymentDelegate,WXApiDelegate>
@@ -49,21 +48,21 @@
 @end
 
 @implementation PayViewController
-
+{
+    BOOL _isReceiveNotification;//是否接收到充值通知
+}
 
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WXpayNotification) name:@"WXpayNotification" object:nil];
     //    标题栏
     [self HeadTitle];
-    
     self.view.backgroundColor =[UIColor whiteColor];
-//    self.title = @"支付订单";
-    
     [self.view addSubview:self.payView];
+    
 }
 
 #pragma mark -- paypal支付
@@ -158,6 +157,18 @@
 
 }
 
+#pragma mark - --微信支付成功回调
+-(void)WXpayNotification
+{
+    if (_isReceiveNotification==NO) {
+        /*订单支付成功 */
+        /**更新UI*/
+        _isReceiveNotification=YES;
+    }else{
+        _isReceiveNotification=YES;
+    }
+}
+
 
 /***1 支付宝支付   2微信支付*/
 -(void)InitiatePaymentWithPayType:(NSInteger)type
@@ -170,57 +181,30 @@
     //    type	string	是	支付类型：0-支付宝 1-微信 2-PayPal 3-内购	0
     //    money	string	是	支付金额	2
     
-    
-    
-    //调取接口，获取支付数据
-    NSLog(@"支付类型%ld",(long)type);
-    
-    NSMutableDictionary * mutDic = @{}.mutableCopy;
-    [mutDic setObject:kUSERID forKey:@"userId"];
-    [mutDic setObject:kTOKEN forKey:@"accessToken"];
-    [mutDic setObject:@"1" forKey:@"busId"];
-    
+
     if (type==1) {
 //        [mutDic setObject:@"0" forKey:@"type"];
         
         [self payPal];
         
     }else if (type==2){
+        [self weixinPay];
 //        [mutDic setObject:@"1" forKey:@"type"];
     }
-//    [mutDic setObject:@"0.1" forKey:@"money"];
-    
-    
-  /*  [NetWork PostNetWorkWithUrl:@"" parameters:mutDic hudView:self.view successBlock:^(id data) {
-        
-        NSLog(@"打印订单信息- ------>>>%@",data);
-        if (type==1) {
-            //self.aliPayOrderStr = [[responseObject objectForKey:@"data"] objectForKey:@"orderStr"];
-            //[self aliPay];
-        }else if (type==2){
-            self.weChatSing = [WeChatOrderModel mj_objectWithKeyValues:[data objectForKey:@"data"]];
-            self.noncestr = self.weChatSing.noncestr;
-            self.package = self.weChatSing.package;
-            self.partnerid = self.weChatSing.partnerid;
-            self.paySign = self.weChatSing.paySign;
-            self.prepayid = self.weChatSing.prepayid;
-            self.timestamp = self.weChatSing.timestamp;
-            [self weixinPay];
-        }
 
-    
-     
-    } failureBlock:^(NSString *error) {
-        NSLog(@"请求错误------->>>%@",error);
-    }];
-   */
-    
 
 }
 
 
 -(void)weixinPay
 {
+    //测试数据
+    self.noncestr = @"xV04rlEmretLE7QsO4zD3BIWcbQQRyig";
+    self.package = @"Sign=WXPay";
+    self.partnerid = @"1447899502";
+    self.paySign = @"B7D0E78A32C47056B8019FE1D7749437";
+    self.prepayid = @"wx201705101116004d23fa269b0224245096";
+    self.timestamp = @"1494386160";
     //获取当前的时间戳
     if([WXApi isWXAppInstalled]) // 判断 用户是否安装微信
     {
@@ -242,6 +226,7 @@
         /**未安装微信*/
         [MBProgressHUD showError:@"您未安装微信"];
     }
+
     
 }
 
@@ -426,7 +411,7 @@
     if (!_payView) {
         _payView = [[PayView alloc]initWithFrame:CGRectMake(0, 60+X_bang, XScreenWidth, XScreenHeight-64)];
         _payView.delegate = self;
-        
+       
     }
     return _payView;
 }

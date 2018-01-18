@@ -346,7 +346,7 @@
     
    // hud.mode = MBProgressHUDModeIndeterminate;
     //NSString *str = @"设置中...";
-    NSString *str = @"设置中...";
+    NSString *str = setCountry(@"shezhizhong");
     hud.label.text = NSLocalizedString(str, @"HUD loading title");
     
     hud.color = [UIColor grayColor];

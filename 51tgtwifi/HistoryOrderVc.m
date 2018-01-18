@@ -9,7 +9,7 @@
 #import "HistoryOrderVc.h"
 #import "PackagInfoModel.h"
 #import "YXManager.h"
-#define Name_Device [UIScreen mainScreen].bounds.size.width<375?13:17
+#define Name_Device [UIScreen mainScreen].bounds.size.width<375?10:15
 #define Device_Info [UIScreen mainScreen].bounds.size.width<375?12:15
 #define Hmargin  16
 
@@ -433,8 +433,10 @@
     labTip.font = [UIFont systemFontOfSize:23];
     //国家名字
     _useCountyView = [UIView new];
+    _useCountyView.userInteractionEnabled =  YES;
     [self.view addSubview:_useCountyView];
     UILabel *label = [UILabel new];
+    label.userInteractionEnabled = YES;
     [_useCountyView addSubview:label];
     label.textColor = White_Color;
     label.text  = [lab.text stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -447,7 +449,7 @@
         make.centerX.mas_equalTo(self.view);
         make.left.mas_offset(20);
         make.right.mas_offset(-20);
-        make.height.mas_equalTo(ceilf(tmpRect.size.height+10));
+        make.height.mas_equalTo(ceilf(2*tmpRect.size.height+10));
     }];
     _useCountyView.backgroundColor = [UIColor clearColor];
     _useCountyView.layer.cornerRadius = 10;
@@ -460,6 +462,16 @@
         make.bottom.mas_offset(0);
         
     }];
+    //行间距调整
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:label.text];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    
+    [paragraphStyle setLineSpacing:10];//调整行间距
+    
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [label.text length])];
+    label.attributedText = attributedString;
+    [label sizeToFit];
+    
     labTip.alpha = 0;
     _useCountyView.alpha = 0;
     [UIView animateWithDuration:0.5 animations:^{
@@ -470,7 +482,7 @@
         
     }];
     
-   
+    [label addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disView)]];
     [_viewBack1 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disView)]];
     [_viewBack2 addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disView)]];
 }

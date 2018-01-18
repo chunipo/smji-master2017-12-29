@@ -25,6 +25,7 @@
 //修改设备热点密码
 "xiugaishebeiredian" = "デバイスのホットパスワードを変更する";
 "xiugairedianmima" = "パスワードを変更する";
+"xiugaimimatixing" = "1.数字の桁数は8桁を超えることはできません.\n2.変更が成功したら、デバイスを再起動して有効にします.\n3.無料の翻訳トラフィックのみ、変更が有効になります.";
 "shurujiumima" = "古いパスワード";
 "shuruxinmima" = "新しいパスワード";
 "queding" = "よかった";
@@ -42,6 +43,7 @@
 "shezhiredianfangwenmingdan" = "ホットスポットアクセスブラックリストを設定する";
 "shebeizijian" = "自己診断装置";
 "ruanjianbanbenjiance" = "デバイスソフトウェアのバージョン番号";
+"dangqianbanbenxinxi" = "最新バージョン情報";
 "lishiliuliangdingdan" = "過去のフロー指図";
 "guanyuwomen" = "私たちについて";
 //连接wifi
@@ -58,6 +60,7 @@
 
 
 /* 首页 */
+"appname" = "翻訳機";
 "shebeissid" = "デバイスSSID:";
 "Wifimima" = "Wifiパスワード:";
 "fanyiyuzhong" = "翻訳言語:";
@@ -97,3 +100,6 @@
 "haode" = "よかった";
 "jihuoshibai" = "アクティベーションに失敗しました！";
 "ningyijingbangdingguoshebei" = "あなたは直接入力するかどうか、デバイスをバインドしている？";
+
+/*扫码之前的界面*/
+"gongsixiangqing" = "予防措置：\n\n1.あなたの電話網を開いたままにしてください.\n2.デバイスを接続する必要がある場合は、Bluetoothスイッチをオンにしてください.\n3.右上のボタンをクリックしてQRコードのスキャンを開始します.";

@@ -26,6 +26,7 @@
 //修改热点密码
 "xiugaishebeiredian" = "Change device hot password";
 "xiugairedianmima" = "Change hot password";
+"xiugaimimatixing" = "1.The number of digits can not be less than 8 digits.\n2.After the modification is successful, restart the device to take effect.\n3.Only free translation traffic, changes will also take effect.";
 "shurujiumima" = "Enter the old password";
 "shuruxinmima" = "Enter a new password";
 "queding" = "Ok";
@@ -43,7 +44,8 @@
 "gaojishezhi" = "advanced settings";
 "shezhiredianfangwenmingdan" = "Set hotspot access blacklist";
 "shebeizijian" = "Self-test equipment";
-"ruanjianbanbenjiance" = "Current device software version number";
+"ruanjianbanbenjiance" = "Current device software version";
+"dangqianbanbenxinxi" = "最新バージョン情報";
 "lishiliuliangdingdan" = "Historical flow orders";
 "guanyuwomen" = "About us";
 //连接wifi
@@ -59,6 +61,7 @@
 "shezhizhong" = "Set in...";
 
 /* 首页 */
+"appname" = "WiFiTranslator";
 "shebeissid" = "Device SSID:";
 "Wifimima" = "Wifi password:";
 "fanyiyuzhong" = "Translation language:";
@@ -98,7 +101,8 @@
 "haode" = "Ok";
 "jihuoshibai" = "Activation fails!";
 "ningyijingbangdingguoshebei" = "You have bound the device, whether to enter directly?";
-
+/*扫码之前的界面*/
+"gongsixiangqing" = "Precautions：\n\n1.Please keep your phone network open.\n2.If you need to connect your device, remember to turn on your Bluetooth switch.\n3.Click the upper right button to start scanning QR code.";
 
 
 

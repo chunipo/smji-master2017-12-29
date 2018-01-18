@@ -59,7 +59,8 @@
 #import "NetWork.h"
 
 /***  多语言  ***/
-#define setCountry(name) NSLocalizedString(name, nil)
+//#define setCountry(name) NSLocalizedString(name, nil)
+#define setCountry(name) [[NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource: [[NSUserDefaults standardUserDefaults] valueForKey:@"changeLan"] ofType:@"lproj"]] localizedStringForKey:name value:nil table:@"Localizable"]
 
 #define SetLange(name)  [[NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource: ((NSArray *)[[NSUserDefaults standardUserDefaults] valueForKey:@"AppleLanguages"]).firstObject ofType:@"lproj"]] localizedStringForKey:name value:nil table:@"Localizable"];
 

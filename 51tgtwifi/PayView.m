@@ -7,6 +7,7 @@
 //
 
 #import "PayView.h"
+#import "YXManager.h"
 
 @implementation PayView
 {
@@ -109,8 +110,9 @@
 #pragma mark --懒加载
 -(UILabel *)titleLabel
 {
+    
     if (!_titleLabel) {
-        _titleLabel = [UILabel labelWithText:@"订单名称：100M流量" atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
+        _titleLabel = [UILabel labelWithText:[NSString stringWithFormat:@"订单名称：%@",[YXManager share].OrderName]  atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
         [self addSubview:_titleLabel];
     }
     return _titleLabel;
@@ -202,5 +204,8 @@
     }
     return _payButton;
 }
+
+
+
 
 @end

@@ -34,7 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.view.backgroundColor = [UIColor colorWithRed:244.0/255.0 green:244.0/255.0 blue:244.0/255.0 alpha:1];
     _isWhatLanguage = 0;
     
     [self createTableview];
@@ -63,10 +63,10 @@
 
 #pragma mark - 创建标题栏
 -(void)HeadTitle{
-    _TitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 20, XScreenWidth, 60)];
+    UIView *_TitleView = [[UIView alloc]init];
+    _TitleView.frame =CGRectMake(0, 0, XScreenWidth, 44+X_bang+20);
     
-    _TitleView.backgroundColor = [UIColor colorWithRed:64.0/255.0 green:84.0/255.0 blue:178.0/255.0 alpha:1];
-    
+    _TitleView.backgroundColor = [UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];
     [self.view addSubview:_TitleView];
     
     UILabel *TitleText = [UILabel new];
@@ -77,8 +77,8 @@
     
     [TitleText mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.center.equalTo(_TitleView);
-        make.size.mas_equalTo(CGSizeMake(140, 140));
+        make.centerX.equalTo(_TitleView);
+        make.centerY.mas_equalTo(_TitleView.mas_centerY).with.offset(X_bang/2.0+10);
  
     }];
     
@@ -92,7 +92,7 @@
     [btn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_TitleView).offset(0);
         
-        make.centerY.equalTo(TitleText);
+        make.centerY.mas_equalTo(_TitleView.mas_centerY).with.offset(X_bang/2.0+10);
         
          make.size.mas_equalTo(CGSizeMake(80, 80));
         
@@ -112,7 +112,7 @@
     [btn2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(_TitleView).offset(0);
         
-        make.centerY.equalTo(TitleText);
+        make.centerY.mas_equalTo(_TitleView.mas_centerY).with.offset(X_bang/2.0+10);
         
         make.size.mas_equalTo(CGSizeMake(80, 80));
         
@@ -168,9 +168,29 @@
 
 #pragma mark - 语言转换开始--
 -(void)changeLanguage:(NSArray *)lans{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *deviceStr = @"";
+    NSString *strMut  = @"";
+    if (![userDefaults objectForKey:@"changeLan"]) {
+        deviceStr = lans.firstObject;
+        NSLog(@"===strmut%@",deviceStr);
+        [[NSUserDefaults standardUserDefaults ]setObject:deviceStr forKey:@"changeLan"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+    }else{
+        deviceStr = [userDefaults objectForKey:@"changeLan"];
+        //        strMut = [deviceStr mutableCopy];
+        NSLog(@"===strmut%@",deviceStr);
+      
+            strMut =lans.firstObject;
+            [userDefaults removeObjectForKey:@"changeLan"];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+            [[NSUserDefaults standardUserDefaults ]setObject:strMut forKey:@"changeLan"];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+            NSLog(@"===strmut%@",[userDefaults objectForKey:@"changeLan"]);
+    }
     //启动语言转换。
     [[NSUserDefaults standardUserDefaults] setObject:lans forKey:@"AppleLanguages"];
-    
+    [[NSUserDefaults standardUserDefaults]synchronize];
     double delayInSeconds = 1.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds *NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -203,15 +223,15 @@
 
 #pragma mark -创建tableview
 -(void)createTableview{
-    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 20+60, XScreenWidth, XScreenHeight-40-64-25) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,44+X_bang+20, XScreenWidth, XScreenHeight-(44+X_bang+20)) style:UITableViewStylePlain];
     
     _tableView.delegate = self;
     _tableView.dataSource = self;
     
     _tableView.rowHeight = 60;
-    
+    _tableView.backgroundColor = [UIColor colorWithRed:244.0/255.0 green:244.0/255.0 blue:244.0/255.0 alpha:1];
     _tableView.sectionHeaderHeight = 20;
-    
+    _tableView.tableFooterView = [[UIView alloc]init];
     [self.view addSubview:_tableView];
     
     _arr = @[@"Simplified Chinese(简体中文)",@"traditional Chinese(繁体中文)",@"English",@"Japanese"];
@@ -247,9 +267,7 @@
 
     }
     
-    
-    
-    
+    cell.backgroundColor = [UIColor colorWithRed:244.0/255.0 green:244.0/255.0 blue:244.0/255.0 alpha:1];
     cell.textLabel.text = _arr[indexPath.row];
     
     

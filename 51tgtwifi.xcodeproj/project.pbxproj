@@ -115,6 +115,10 @@
 		D76FF0DC200CB0EA008250A6 /* baidu-tuge.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0DB200CB0EA008250A6 /* baidu-tuge.png */; };
 		D76FF0E0200DE284008250A6 /* launchS.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0DF200DE283008250A6 /* launchS.png */; };
 		D76FF0E220103669008250A6 /* historyImg.png in Resources */ = {isa = PBXBuildFile; fileRef = D76FF0E120103669008250A6 /* historyImg.png */; };
+		D76FF0E52010A8A0008250A6 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D76FF0E42010A89F008250A6 /* libc++.tbd */; };
+		D76FF0E62010A8A8008250A6 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D76FF0E32010A88D008250A6 /* CoreTelephony.framework */; };
+		D76FF0E82010A8B5008250A6 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D76FF0E72010A8B4008250A6 /* libsqlite3.0.tbd */; };
+		D76FF0EA2010A8BD008250A6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D76FF0E92010A8BD008250A6 /* libz.tbd */; };
 		D7A512F51FEA90CD001C8158 /* YXManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A512F41FEA90CD001C8158 /* YXManager.m */; };
 		D7A512F81FEA9382001C8158 /* ic_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7A512F71FEA9382001C8158 /* ic_bg.jpg */; };
 		D7A512FB1FEA93D2001C8158 /* HomeVc.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A512FA1FEA93D2001C8158 /* HomeVc.m */; };
@@ -366,6 +370,10 @@
 		D76FF0DB200CB0EA008250A6 /* baidu-tuge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "baidu-tuge.png"; path = "../../../Desktop/working/途鸽翻译机图标/baidu-tuge.png"; sourceTree = "<group>"; };
 		D76FF0DF200DE283008250A6 /* launchS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchS.png; sourceTree = "<group>"; };
 		D76FF0E120103669008250A6 /* historyImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = historyImg.png; sourceTree = "<group>"; };
+		D76FF0E32010A88D008250A6 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		D76FF0E42010A89F008250A6 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		D76FF0E72010A8B4008250A6 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		D76FF0E92010A8BD008250A6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		D7A512F31FEA90CD001C8158 /* YXManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YXManager.h; sourceTree = "<group>"; };
 		D7A512F41FEA90CD001C8158 /* YXManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YXManager.m; sourceTree = "<group>"; };
 		D7A512F71FEA9382001C8158 /* ic_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ic_bg.jpg; sourceTree = "<group>"; };
@@ -426,6 +434,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				12491AE61F94482200CA6894 /* SystemConfiguration.framework in Frameworks */,
+				D76FF0E62010A8A8008250A6 /* CoreTelephony.framework in Frameworks */,
+				D76FF0EA2010A8BD008250A6 /* libz.tbd in Frameworks */,
+				D76FF0E52010A8A0008250A6 /* libc++.tbd in Frameworks */,
+				D76FF0E82010A8B5008250A6 /* libsqlite3.0.tbd in Frameworks */,
 				F38DA8B4746D2F740D8F01B3 /* libPods-51tgtwifi.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -759,6 +771,10 @@
 		4A6650C1C001D7BEF8E4210A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D76FF0E92010A8BD008250A6 /* libz.tbd */,
+				D76FF0E72010A8B4008250A6 /* libsqlite3.0.tbd */,
+				D76FF0E42010A89F008250A6 /* libc++.tbd */,
+				D76FF0E32010A88D008250A6 /* CoreTelephony.framework */,
 				12491AE51F94482200CA6894 /* SystemConfiguration.framework */,
 				4AC47AE27872210EEDFF4773 /* libPods-51tgtwifi.a */,
 				12D6B8901FA3245C006B6B38 /* NotificationCenter.framework */,

@@ -22,6 +22,7 @@
 
 /**订单名*/
 @property (nonatomic, strong)UILabel *titleLabel;
+
 /**订单金额*/
 @property (nonatomic, strong)UILabel *priceLabel;
 /**订单金额 $*/

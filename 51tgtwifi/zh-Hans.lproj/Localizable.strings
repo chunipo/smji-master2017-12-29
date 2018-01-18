@@ -32,6 +32,7 @@
 //修改热点密码
 "xiugaishebeiredian" = "修改设备热点密码";
 "xiugairedianmima" = "修改热点密码";
+"xiugaimimatixing" = "1.密码位数不能少于8位.\n2.修改成功后重启设备方可生效.\n3.仅免费翻译流量下，当设备购买其他流量套餐后密码修改自动生效.";
 "shurujiumima" = "输入旧密码";
 "shuruxinmima" = "输入新密码";
 "queding" = "确定";
@@ -49,6 +50,7 @@
 "shezhiredianfangwenmingdan" = "设置热点访问黑名单";
 "shebeizijian" = "设备自检";
 "ruanjianbanbenjiance" = "当前设备软件版本号";
+"dangqianbanbenxinxi" = "当前版本信息";
 "lishiliuliangdingdan" = "历史流量订单";
 "guanyuwomen" = "关于我们";
 //连接wifi
@@ -65,6 +67,7 @@
 
 
 /* 首页 */
+"appname" = "WiFi翻译机";
 "shebeissid" = "设备SSID:";
 "Wifimima" = "Wifi密码:";
 "fanyiyuzhong" = "翻译语种:";
@@ -105,4 +108,7 @@
 "jihuoshibai" = "激活失败!";
 
 "ningyijingbangdingguoshebei" = "您已经绑定过设备，是否直接进入？";
+
+/*扫码之前的界面*/
+"gongsixiangqing" = "注意事项：\n\n1.请保持您的手机网络畅通.\n2.如果需要连接设备，请记得打开您的蓝牙开关.\n3.点击右上方按钮开始扫描二维码.";
 
