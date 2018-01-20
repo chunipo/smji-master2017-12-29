@@ -37,7 +37,7 @@
 "shezhivpn" = "設置APN";
 "apnDetail" = "給實卡設置APN使之生效";
 
-"lianjieWifi" = "連接Wifi";
+"lianjieWifi" = "連接WiFi";
 "shezhifanyiyuyan" = "設置翻譯語言";
 "shezhitishiyuyan" = "設置提示語言";
 "duoyuyan" = "多語言";
@@ -49,12 +49,26 @@
 "dangqianbanbenxinxi" = "當前版本信息";
 "lishiliuliangdingdan" = "歷史流量訂單";
 "guanyuwomen" = "關於我們";
+//连接wifi
+"redianmingcheng" = "熱點名稱:";
+"redianmima" = "熱點密碼:";
+"shururedianmingcheng" = "輸入熱點名稱";
+"shururedianmima" = "輸入熱點密碼";
+"jiaru" = "加 入";
+"duankai" = "斷 開";
+"lianjietishi" = "連接提示:\n1.確保已開啟熱點\n2.確保熱點密碼正確\n";
+"shurumimaweishubugou" = "輸入的熱點密碼小於8位，是否要連接該熱點？";
+"lianjie" = "連接";
+"shezhizhong" = "設置中...";
+//设置语言
+"wancheng" = "完成";
+"shezhiyuyan" = "設置語言";
 
 
 /* 首页 */
-"appname" = "翻譯機";
+"appname" = "WiFi翻譯機";
 "shebeissid" = "設備SSID:";
-"Wifimima" = "Wifi密碼:";
+"Wifimima" = "WiFi密碼:";
 "fanyiyuzhong" = "翻譯語種:";
 "shengyudianliang" = "剩餘電量:";
 "shebeilianjieshu" = "設備連接數:";

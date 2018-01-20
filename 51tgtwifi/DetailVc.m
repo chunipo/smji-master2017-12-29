@@ -124,18 +124,19 @@
     [_TitleView addSubview:btn];
     
     [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_TitleView).offset(0);
+        make.left.equalTo(_TitleView).offset(10);
         
         make.centerY.equalTo(TitleText);
         
-        make.size.mas_equalTo(CGSizeMake(80, 80));
+        make.size.mas_equalTo(CGSizeMake(35, 30));
         
         
     }];
     
     btn.tag = 101;
     btn.titleLabel.textAlignment = NSTextAlignmentLeft;
-    [btn setTitle:@"返回" forState:UIControlStateNormal];
+    //    [btn setTitle:@"返回" forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"ic_arrow_back_white.png"] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
     
 }
@@ -150,7 +151,7 @@
             _manager.OrderName = self.DetailTitle;
 //        UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"暂不支持购买" message:nil preferredStyle:UIAlertControllerStyleAlert];
 //        [self presentViewController:alertOne animated:YES completion:nil];
-//        
+//
 //        UIAlertAction *certain = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
 //        [alertOne addAction:certain];
     

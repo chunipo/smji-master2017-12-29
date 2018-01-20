@@ -51,11 +51,11 @@
 }
 
 -(void)addsubviews{
-    _imageView = [[UIImageView alloc]init];
+    _imageView = [UIImageView new];
     
-    _title = [[UILabel alloc]init];
-    _type = [[UILabel alloc]init];
-    _price = [[UILabel alloc]init];
+    _title = [UILabel new];
+    _type = [UILabel new];
+    _price = [UILabel new];
     
 
     

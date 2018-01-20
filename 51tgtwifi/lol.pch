@@ -41,9 +41,14 @@
 #define DoorOpen @"%@/FyjApp/GetFlowProducts?ssid=%@&type=%@"//测试
 //#define DoorOpen @"http://mall.51tgt.com/FyjApp/GetFlowProducts?ssid=%@&type=RMB"
 
-//#define PicHead  @"http://as2.51tgt.com"//测试
-#define PicHead  @"http://mall.51tgt.com"
+#define PicHead  @"http://as2.51tgt.com"//测试
+//#define PicHead  @"http://mall.51tgt.com"
 #define url(a) [PicHead stringByAppendingString:a]
+
+//第一次支付
+#define payTosever @"%@/FyjApp/WxPurchaseProduct?ssid=%@&product_id=%@"
+//支付成功回调给服务器
+#define returnSeverSuc @"%@/FyjApp/QueryWxOrder?out_order_no=%@"
 
 #import "UIImage+Extension.h"
 #import "UIView+Extension.h"
@@ -64,7 +69,7 @@
 
 #define SetLange(name)  [[NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource: ((NSArray *)[[NSUserDefaults standardUserDefaults] valueForKey:@"AppleLanguages"]).firstObject ofType:@"lproj"]] localizedStringForKey:name value:nil table:@"Localizable"];
 
-//paypal支付
+/*paypal支付*/
 //商用的client id
 
 //正式
@@ -81,10 +86,20 @@
 
 #import "PayPalMobile.h"
 
+/*微信支付*/
+#define WX_appid @"wxfa9d6ecb81f41530"
+
 /*******蓝牙连接接收数据符号******/
 #define END_FLAG @"XVOaVb77FMYHyeTx"
 #define GET_DEVICE_INFO @"CMD_GET_DEVICE_INFO";
 #define GET_PACKAGE_INFO @"CMD_GET_PACKAGE_INFO";
+
+
+
+/*颜色类*/
+#define GrayColorself [UIColor colorWithRed:244.0/255.0 green:244.0/255.0 blue:244.0/255.0 alpha:1]
+#define BlueColor [UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1]
+
 //支付界面参数
 
 #import "UIImageView+Extension.h"
@@ -107,7 +122,7 @@
 //#define kBaseURL @"https://lcf.talkmoney.cn/"
 
 
-#define MY_APP_KEY "da8eadc83396677641a95096"
+
 
 
 //----------------------颜色类---------------------------

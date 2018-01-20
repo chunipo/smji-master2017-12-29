@@ -27,7 +27,11 @@
 
 @property (strong, nonatomic)NSString *LanguageStr;//国家语言
 @property (strong, nonatomic)NSString *ScanID;//扫描二维码得到的
+
 @property (nonatomic, strong)NSString *OrderName;//订单名称
+@property (nonatomic, strong)NSString *Product_id;//订单id
+@property (nonatomic, strong)NSString *out_order_no;//支付成返回给服务器
+
 @property (strong, nonatomic)NSString *str;
 
 @property (strong, nonatomic)NSString *password;

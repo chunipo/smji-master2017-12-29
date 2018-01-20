@@ -41,7 +41,7 @@
 "shezhivpn" = "设置APN";
 "apnDetail" = "给实卡设置APN使之生效";
 
-"lianjieWifi" = "连接Wifi";
+"lianjieWifi" = "连接WiFi";
 "shezhifanyiyuyan" = "设置翻译语言";
 "shezhitishiyuyan" = "设置提示语言";
 "duoyuyan" = "多语言";
@@ -64,12 +64,15 @@
 "shurumimaweishubugou" = "输入的热点密码小于8位，是否要连接该热点？";
 "lianjie" = "连接";
 "shezhizhong" = "设置中...";
+//设置语言
+"wancheng" = "完成";
+"shezhiyuyan" = "设置语言";
 
 
 /* 首页 */
 "appname" = "WiFi翻译机";
 "shebeissid" = "设备SSID:";
-"Wifimima" = "Wifi密码:";
+"Wifimima" = "WiFi密码:";
 "fanyiyuzhong" = "翻译语种:";
 "shengyudianliang" = "剩余电量:";
 "shebeilianjieshu" = "设备连接数:";

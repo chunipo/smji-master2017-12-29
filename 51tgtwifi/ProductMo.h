@@ -14,7 +14,7 @@
 
 @property(nonatomic,strong)NSString *title;
 
-@property(nonatomic,strong)NSString *ProductId;
+@property(nonatomic,assign)NSInteger ProductId;
 
 @property(nonatomic,strong)NSString *money_type; //货币类型
 

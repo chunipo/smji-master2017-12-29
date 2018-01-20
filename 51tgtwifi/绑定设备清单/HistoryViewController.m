@@ -95,6 +95,7 @@
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.rowHeight = 60;
+    _tableView.backgroundColor = [UIColor colorWithRed:244.0/255.0 green:244.0/255.0 blue:244.0/255.0 alpha:1];
     _tableView.tableFooterView = [[UIView alloc] init];
     
     _arr = [NSArray array];

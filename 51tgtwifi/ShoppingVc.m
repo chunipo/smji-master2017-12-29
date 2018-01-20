@@ -176,14 +176,18 @@
     
     [self hideSchdu];
     
-    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 20+44+X_bang, XScreenWidth, XScreenHeight-40-64-25) style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 20+44+X_bang, XScreenWidth, XScreenHeight-44-49-20-X_bang-X_bottom) style:UITableViewStylePlain];
     
     _tableView.delegate = self;
     _tableView.dataSource = self;
     
-    _tableView.rowHeight = 240;
+    _tableView.rowHeight = 225;
     _tableView.tableFooterView = [[UIView alloc]init];
     [self.view addSubview:_tableView];
+    _tableView.alpha = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        _tableView.alpha = 1;
+    }];
     
 
 }
@@ -204,6 +208,7 @@
     
     cell.model = _arr[indexPath.row];
     
+    
     return cell;
 }
 
@@ -222,7 +227,7 @@
     //vc.type =  ((ProductMo *)_arr[indexPath.row]).price_type;
     vc.type = @"RMB";
     vc.price = [NSString stringWithFormat:@"%@",[NSNumber numberWithInteger:cell.model.price]];
-    
+    _manager.Product_id = [NSString stringWithFormat:@"%@",[NSNumber numberWithInteger:cell.model.ProductId]];
     [self.navigationController pushViewController:vc animated:YES];
 
     

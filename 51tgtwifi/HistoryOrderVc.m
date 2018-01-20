@@ -9,11 +9,12 @@
 #import "HistoryOrderVc.h"
 #import "PackagInfoModel.h"
 #import "YXManager.h"
+#import "HisOrderTableViewCell.h"
 #define Name_Device [UIScreen mainScreen].bounds.size.width<375?10:15
 #define Device_Info [UIScreen mainScreen].bounds.size.width<375?12:15
 #define Hmargin  16
 
-@interface HistoryOrderVc ()<UITableViewDelegate,UITableViewDataSource>
+@interface HistoryOrderVc ()<UITableViewDelegate,UITableViewDataSource,HisOrderCellCodeDelegate>
 
 {
     UITableView       *_tableView;
@@ -146,264 +147,269 @@
     
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *str = @"idd";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str];
-    
-    
-    if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:str];
-    
-    //如果数据为空
-    
-    PackagInfoModel *model = _tableArr[indexPath.row];
-    if (!model.end_time||[model.end_time isEqualToString:@""]) {
-        
-    }else{//不为空才读写
-    //小图标
-    UIImageView *flowInfoImg = [UIImageView new];
-    [cell addSubview:flowInfoImg];
-    [flowInfoImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(cell).with.offset(10);
-        
-        make.top.equalTo(cell).with.offset(20);
-        make.height.mas_equalTo(@25);
-        make.width.mas_equalTo(@25);
-    }];
-    flowInfoImg.image = [UIImage imageNamed:@"activity_fill.png"];
-    
-    UILabel *flowInfo = [UILabel new];
-    [cell addSubview:flowInfo];
-    // flowInfo.text =SetLange(@"fanyidingdan");
-    [flowInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(flowInfoImg.mas_right).with.offset(10);
-        make.right.equalTo(cell).with.offset(-10);
-        make.top.equalTo(cell).with.offset(20);
-        make.height.mas_equalTo(@25);
-        
-        
-    }];
-    flowInfo.numberOfLines = 0;
-    flowInfo.font = [UIFont boldSystemFontOfSize:Name_Device+2];
-    
-        //使用中的标致
-        UILabel *tips = [UILabel new];
-        [cell addSubview:tips];
-        // flowInfo.text =SetLange(@"fanyidingdan");
-        [tips mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(cell).with.offset(-15);
-            make.top.equalTo(flowInfo.mas_bottom).with.offset(Hmargin);
-            make.height.mas_equalTo(@20);
-            make.width.mas_equalTo(@55);
-            
-            
-            }];
-       // tips.text = @"使用中";
-        tips.text = setCountry(@"shiyongzhong");
-        tips.textColor = White_Color;
-        tips.backgroundColor =[UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];
-        tips.numberOfLines = 0;
-        tips.textAlignment = NSTextAlignmentCenter;
-        tips.layer.cornerRadius = 10;
-        tips.clipsToBounds = YES;
-        tips.font = [ UIFont systemFontOfSize:13];
-
-    
-    //总流量
-    UILabel *name_GlobaltotalFlow = [UILabel new];
-    
-    [cell addSubview:name_GlobaltotalFlow];
-    
-    [name_GlobaltotalFlow mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(flowInfo.mas_bottom).with.offset(Hmargin);
-        make.right.equalTo(cell).with.offset(-10);
-        make.left.equalTo(cell).with.offset(10);
-        make.height.mas_equalTo(@25);
-        
-    }];
-    name_GlobaltotalFlow.text  = setCountry(@"zongliuliang");
-   //name_GlobaltotalFlow.text  = @"总流量:";
-    name_GlobaltotalFlow.numberOfLines = 0;
-    name_GlobaltotalFlow.font = [UIFont boldSystemFontOfSize:Name_Device];
-    
-    //剩余流量
-    UILabel *name_GlobaleftFlow = [UILabel new];
-    
-    [cell addSubview:name_GlobaleftFlow];
-    
-    [name_GlobaleftFlow mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(name_GlobaltotalFlow.mas_bottom).with.offset(Hmargin);
-        make.right.equalTo(cell).with.offset(-10);
-        make.left.equalTo(cell).with.offset(10);
-        make.height.mas_equalTo(@25);
-        
-    }];
-    name_GlobaleftFlow.text  = setCountry(@"shengyuliuliag");
-    //name_GlobaleftFlow.text  = @"剩余流量:";
-    name_GlobaleftFlow.numberOfLines = 0;
-    name_GlobaleftFlow.font = [UIFont boldSystemFontOfSize:Name_Device];
-    
-    
-    //使用国家
-    UILabel *name_GlobaluseCountry = [UILabel new];
-    
-    [cell addSubview:name_GlobaluseCountry];
-    
-    [name_GlobaluseCountry mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(name_GlobaleftFlow.mas_bottom).with.offset(Hmargin);
-        make.right.equalTo(cell).with.offset(-10);
-        make.left.equalTo(cell).with.offset(10);
-        make.height.mas_equalTo(@25);
-        
-    }];
-    name_GlobaluseCountry.text  = setCountry(@"shiyongguojia");
-    //name_GlobaluseCountry.text  = @"使用国家:";
-    name_GlobaluseCountry.numberOfLines = 0;
-    name_GlobaluseCountry.font = [UIFont boldSystemFontOfSize:Name_Device];
-    
-    //开始时间
-    UILabel *name_Globalstartime = [UILabel new];
-    
-    [cell addSubview:name_Globalstartime];
-    
-    [name_Globalstartime mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(name_GlobaluseCountry.mas_bottom).with.offset(Hmargin);
-        make.right.equalTo(cell).with.offset(-10);
-        make.left.equalTo(cell).with.offset(10);
-        make.height.mas_equalTo(@25);
-        
-    }];
-    name_Globalstartime.text  = setCountry(@"kaishishjian");
-    //name_Globalstartime.text  = @"开始时间:";
-    name_Globalstartime.numberOfLines = 0;
-    name_Globalstartime.font = [UIFont boldSystemFontOfSize:Name_Device];
-    
-    //结束时间
-    UILabel *name_Globalendtime = [UILabel new];
-    
-    [cell addSubview:name_Globalendtime];
-    
-    [name_Globalendtime mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(name_Globalstartime.mas_bottom).with.offset(Hmargin);
-        make.right.equalTo(cell).with.offset(-10);
-        make.left.equalTo(cell).with.offset(10);
-        make.height.mas_equalTo(@25);
-        
-    }];
-    name_Globalendtime.text  = setCountry(@"jieshushijian");
-    //name_Globalendtime.text  = @"结束时间:";
-    name_Globalendtime.numberOfLines = 0;
-    name_Globalendtime.font = [UIFont boldSystemFontOfSize:Name_Device];
-   
-    //总流量
-    UILabel *_GlobaltotalFlow = [UILabel new];
-    
-    [cell addSubview:_GlobaltotalFlow];
-    
-    [_GlobaltotalFlow mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(flowInfo.mas_bottom).with.offset(Hmargin);
-        // make.right.equalTo(_view2).with.offset(-10);
-        make.left.mas_equalTo(cell.frame.size.width/2);
-        make.height.mas_equalTo(@25);
-        
-    }];
-    _GlobaltotalFlow.text  = [NSString stringWithFormat:@"%@M",model.flow_count];
-    _GlobaltotalFlow.numberOfLines = 0;
-    _GlobaltotalFlow.font = [UIFont boldSystemFontOfSize:Name_Device];
-    
-    //剩余流量
-    UILabel *_GloballeftFlow = [UILabel new];
-    
-    [cell addSubview:_GloballeftFlow];
-    
-    [_GloballeftFlow mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(_GlobaltotalFlow.mas_bottom).with.offset(Hmargin);
-        // make.right.equalTo(_view2).with.offset(-10);
-        make.left.mas_equalTo(cell.frame.size.width/2);
-        make.height.mas_equalTo(@25);
-        
-    }];
-    _GloballeftFlow.text  =  [NSString stringWithFormat:@"%@M",model.left_flow_count];
-    _GloballeftFlow.numberOfLines = 0;
-    _GloballeftFlow.font = [UIFont boldSystemFontOfSize:Name_Device];
-    
-    //使用国家
-    UILabel *_Globaleffective_countries = [UILabel new];
-    
-    [cell addSubview:_Globaleffective_countries];
-    
-    [_Globaleffective_countries mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(_GloballeftFlow.mas_bottom).with.offset(Hmargin);
-        make.right.equalTo(cell).with.offset(-10);
-        make.left.mas_equalTo(cell.frame.size.width/2);
-        make.height.mas_equalTo(@25);
-        
-        
-    }];
-    _Globaleffective_countries.text  = [model.effective_countries stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    _Globaleffective_countries.numberOfLines = 0;
-    _Globaleffective_countries.font = [UIFont boldSystemFontOfSize:Name_Device];
-    _Globaleffective_countries.userInteractionEnabled = YES;
-    [_Globaleffective_countries addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTap:)]];
-    
-    //开始时间
-    UILabel *_GlobalstarTime = [UILabel new];
-    
-    [cell addSubview:_GlobalstarTime];
-    
-    [_GlobalstarTime mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(_Globaleffective_countries.mas_bottom).with.offset(Hmargin);
-        // make.right.equalTo(_view2).with.offset(-10);
-        make.left.mas_equalTo(cell.frame.size.width/2);
-        make.height.mas_equalTo(@25);
-        
-    }];
-    _GlobalstarTime.text  = model.start_time;
-    _GlobalstarTime.numberOfLines = 0;
-    _GlobalstarTime.font = [UIFont boldSystemFontOfSize:Name_Device];
-    
-    //结束时间
-    UILabel *_GlobalendTime = [UILabel new];
-    
-    [cell addSubview:_GlobalendTime];
-    
-    [_GlobalendTime mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(_GlobalstarTime.mas_bottom).with.offset(Hmargin);
-        // make.right.equalTo(_view2).with.offset(-10);
-        make.left.mas_equalTo(cell.frame.size.width/2);
-        make.height.mas_equalTo(@25);
-        
-    }];
-    _GlobalendTime.text  =model.end_time;
-    _GlobalendTime.numberOfLines = 0;
-    _GlobalendTime.font = [UIFont boldSystemFontOfSize:Name_Device];
-
-    //赋值
-    flowInfo.text = [model.product_name stringByRemovingPercentEncoding];
-    if ([model.product_type integerValue]==104) {//判断为翻译订单
-        name_GlobaltotalFlow.alpha = 0;
-        _GlobaltotalFlow.alpha = 0;
-        name_GlobaleftFlow.text  = setCountry(@"youxiaoqi");
-        _GloballeftFlow.text  =  @"三年";
-    }
-        if ([model.flow_status integerValue]==2) {
-            tips.alpha = 1;
-        }else{
-            tips.alpha = 0;
-        }
-    }
-    }
+    HisOrderTableViewCell *cell = [HisOrderTableViewCell CellWithtable:tableView];
+    cell.Opendelegat = self;
+    cell.model = _tableArr[indexPath.row];
+//    static NSString *str = @"idd";
+//
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str];
+//
+//
+//    if (!cell) {
+//        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"HAHA"];
+//
+//    }
+//
+//    //如果数据为空
+//
+//    PackagInfoModel *model = _tableArr[indexPath.row];
+//    if (!model.end_time||[model.end_time isEqualToString:@""]) {
+//
+//    }else{//不为空才读写
+//    //小图标
+//    UIImageView *flowInfoImg = [UIImageView new];
+//    [cell addSubview:flowInfoImg];
+//    [flowInfoImg mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(cell).with.offset(10);
+//
+//        make.top.equalTo(cell).with.offset(20);
+//        make.height.mas_equalTo(@25);
+//        make.width.mas_equalTo(@25);
+//    }];
+//    flowInfoImg.image = [UIImage imageNamed:@"activity_fill.png"];
+//
+//    UILabel *flowInfo = [UILabel new];
+//    [cell addSubview:flowInfo];
+//    // flowInfo.text =SetLange(@"fanyidingdan");
+//    [flowInfo mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.equalTo(flowInfoImg.mas_right).with.offset(10);
+//        make.right.equalTo(cell).with.offset(-10);
+//        make.top.equalTo(cell).with.offset(20);
+//        make.height.mas_equalTo(@25);
+//
+//
+//    }];
+//    flowInfo.numberOfLines = 0;
+//    flowInfo.font = [UIFont boldSystemFontOfSize:Name_Device+2];
+//
+//        //使用中的标致
+//        UILabel *tips = [UILabel new];
+//        [cell addSubview:tips];
+//        // flowInfo.text =SetLange(@"fanyidingdan");
+//        [tips mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.right.equalTo(cell).with.offset(-15);
+//            make.top.equalTo(flowInfo.mas_bottom).with.offset(Hmargin);
+//            make.height.mas_equalTo(@20);
+//            make.width.mas_equalTo(@55);
+//
+//
+//            }];
+//       // tips.text = @"使用中";
+//        tips.text = setCountry(@"shiyongzhong");
+//        tips.textColor = White_Color;
+//        tips.backgroundColor =[UIColor colorWithRed:53.0/255.0 green:144.0/255.0 blue:242.0/255.0 alpha:1];
+//        tips.numberOfLines = 0;
+//        tips.textAlignment = NSTextAlignmentCenter;
+//        tips.layer.cornerRadius = 10;
+//        tips.clipsToBounds = YES;
+//        tips.font = [ UIFont systemFontOfSize:13];
+//
+//
+//    //总流量
+//    UILabel *name_GlobaltotalFlow = [UILabel new];
+//
+//    [cell addSubview:name_GlobaltotalFlow];
+//
+//    [name_GlobaltotalFlow mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.equalTo(flowInfo.mas_bottom).with.offset(Hmargin);
+//        make.right.equalTo(cell).with.offset(-10);
+//        make.left.equalTo(cell).with.offset(10);
+//        make.height.mas_equalTo(@25);
+//
+//    }];
+//    name_GlobaltotalFlow.text  = setCountry(@"zongliuliang");
+//   //name_GlobaltotalFlow.text  = @"总流量:";
+//    name_GlobaltotalFlow.numberOfLines = 0;
+//    name_GlobaltotalFlow.font = [UIFont boldSystemFontOfSize:Name_Device];
+//
+//    //剩余流量
+//    UILabel *name_GlobaleftFlow= [UILabel new];
+//
+//    [cell addSubview:name_GlobaleftFlow];
+//
+//    [name_GlobaleftFlow mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.equalTo(name_GlobaltotalFlow.mas_bottom).with.offset(Hmargin);
+//        make.right.equalTo(cell).with.offset(-10);
+//        make.left.equalTo(cell).with.offset(10);
+//        make.height.mas_equalTo(@25);
+//
+//    }];
+//    name_GlobaleftFlow.text  = setCountry(@"shengyuliuliag");
+//    //name_GlobaleftFlow.text  = @"剩余流量:";
+//    name_GlobaleftFlow.numberOfLines = 0;
+//    name_GlobaleftFlow.font = [UIFont boldSystemFontOfSize:Name_Device];
+//
+//
+//    //使用国家
+//    UILabel *name_GlobaluseCountry = [UILabel new];
+//
+//    [cell addSubview:name_GlobaluseCountry];
+//
+//    [name_GlobaluseCountry mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.equalTo(name_GlobaleftFlow.mas_bottom).with.offset(Hmargin);
+//        make.right.equalTo(cell).with.offset(-10);
+//        make.left.equalTo(cell).with.offset(10);
+//        make.height.mas_equalTo(@25);
+//
+//    }];
+//    name_GlobaluseCountry.text  = setCountry(@"shiyongguojia");
+//    //name_GlobaluseCountry.text  = @"使用国家:";
+//    name_GlobaluseCountry.numberOfLines = 0;
+//    name_GlobaluseCountry.font = [UIFont boldSystemFontOfSize:Name_Device];
+//
+//    //开始时间
+//    UILabel *name_Globalstartime = [UILabel new];
+//
+//    [cell addSubview:name_Globalstartime];
+//
+//    [name_Globalstartime mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.equalTo(name_GlobaluseCountry.mas_bottom).with.offset(Hmargin);
+//        make.right.equalTo(cell).with.offset(-10);
+//        make.left.equalTo(cell).with.offset(10);
+//        make.height.mas_equalTo(@25);
+//
+//    }];
+//    name_Globalstartime.text  = setCountry(@"kaishishjian");
+//    //name_Globalstartime.text  = @"开始时间:";
+//    name_Globalstartime.numberOfLines = 0;
+//    name_Globalstartime.font = [UIFont boldSystemFontOfSize:Name_Device];
+//
+//    //结束时间
+//    UILabel *name_Globalendtime = [UILabel new];
+//
+//    [cell addSubview:name_Globalendtime];
+//
+//    [name_Globalendtime mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.equalTo(name_Globalstartime.mas_bottom).with.offset(Hmargin);
+//        make.right.equalTo(cell).with.offset(-10);
+//        make.left.equalTo(cell).with.offset(10);
+//        make.height.mas_equalTo(@25);
+//
+//    }];
+//    name_Globalendtime.text  = setCountry(@"jieshushijian");
+//    //name_Globalendtime.text  = @"结束时间:";
+//    name_Globalendtime.numberOfLines = 0;
+//    name_Globalendtime.font = [UIFont boldSystemFontOfSize:Name_Device];
+//
+//    //总流量
+//    UILabel *_GlobaltotalFlow = [UILabel new];
+//
+//    [cell addSubview:_GlobaltotalFlow];
+//
+//    [_GlobaltotalFlow mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.equalTo(flowInfo.mas_bottom).with.offset(Hmargin);
+//        // make.right.equalTo(_view2).with.offset(-10);
+//        make.left.mas_equalTo(cell.frame.size.width/2);
+//        make.height.mas_equalTo(@25);
+//
+//    }];
+//    _GlobaltotalFlow.text  = [NSString stringWithFormat:@"%@M",model.flow_count];
+//    _GlobaltotalFlow.numberOfLines = 0;
+//    _GlobaltotalFlow.font = [UIFont boldSystemFontOfSize:Name_Device];
+//
+//    //剩余流量
+//    UILabel *_GloballeftFlow = [UILabel new];
+//
+//    [cell addSubview:_GloballeftFlow];
+//
+//    [_GloballeftFlow mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.equalTo(_GlobaltotalFlow.mas_bottom).with.offset(Hmargin);
+//        // make.right.equalTo(_view2).with.offset(-10);
+//        make.left.mas_equalTo(cell.frame.size.width/2);
+//        make.height.mas_equalTo(@25);
+//
+//    }];
+//    _GloballeftFlow.text  =  [NSString stringWithFormat:@"%@M",model.left_flow_count];
+//    _GloballeftFlow.numberOfLines = 0;
+//    _GloballeftFlow.font = [UIFont boldSystemFontOfSize:Name_Device];
+//
+//    //使用国家
+//    UILabel *_Globaleffective_countries = [UILabel new];
+//
+//    [cell addSubview:_Globaleffective_countries];
+//
+//    [_Globaleffective_countries mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.equalTo(_GloballeftFlow.mas_bottom).with.offset(Hmargin);
+//        make.right.equalTo(cell).with.offset(-10);
+//        make.left.mas_equalTo(cell.frame.size.width/2);
+//        make.height.mas_equalTo(@25);
+//
+//
+//    }];
+//    _Globaleffective_countries.text  = [model.effective_countries stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//    _Globaleffective_countries.numberOfLines = 0;
+//    _Globaleffective_countries.font = [UIFont boldSystemFontOfSize:Name_Device];
+//    _Globaleffective_countries.userInteractionEnabled = YES;
+//    [_Globaleffective_countries addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTap:)]];
+//
+//    //开始时间
+//    UILabel *_GlobalstarTime = [UILabel new];
+//
+//    [cell addSubview:_GlobalstarTime];
+//
+//    [_GlobalstarTime mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.equalTo(_Globaleffective_countries.mas_bottom).with.offset(Hmargin);
+//        // make.right.equalTo(_view2).with.offset(-10);
+//        make.left.mas_equalTo(cell.frame.size.width/2);
+//        make.height.mas_equalTo(@25);
+//
+//    }];
+//    _GlobalstarTime.text  = model.start_time;
+//    _GlobalstarTime.numberOfLines = 0;
+//    _GlobalstarTime.font = [UIFont boldSystemFontOfSize:Name_Device];
+//
+//    //结束时间
+//    UILabel *_GlobalendTime = [UILabel new];
+//
+//    [cell addSubview:_GlobalendTime];
+//
+//    [_GlobalendTime mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.top.equalTo(_GlobalstarTime.mas_bottom).with.offset(Hmargin);
+//        // make.right.equalTo(_view2).with.offset(-10);
+//        make.left.mas_equalTo(cell.frame.size.width/2);
+//        make.height.mas_equalTo(@25);
+//
+//    }];
+//    _GlobalendTime.text  =model.end_time;
+//    _GlobalendTime.numberOfLines = 0;
+//    _GlobalendTime.font = [UIFont boldSystemFontOfSize:Name_Device];
+//
+//    //赋值
+//    flowInfo.text = [model.product_name stringByRemovingPercentEncoding];
+//    if ([model.product_type integerValue]==104) {//判断为翻译订单
+//        name_GlobaltotalFlow.alpha = 0;
+//        _GlobaltotalFlow.alpha = 0;
+//        name_GlobaleftFlow.text  = setCountry(@"youxiaoqi");
+//        _GloballeftFlow.text  =  @"三年";
+//    }
+//        if ([model.flow_status integerValue]==2) {
+//            tips.alpha = 1;
+//        }else{
+//            tips.alpha = 0;
+//        }
+//    }
+//
     return cell;
 }
 
@@ -414,8 +420,8 @@
 }
 
 #pragma mark 手势点击，显示详细的可用国家
--(void)labelTap:(UIGestureRecognizer *)labTap{
-    UILabel *lab =(UILabel *) labTap.view;
+-(void)ShowCountry:(NSString *)CountryStr{
+    //UILabel *lab =(UILabel *) labTap.view;
     //弹窗背景
     _viewBack2 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, XScreenWidth, XScreenHeight)];
     _viewBack2.backgroundColor = [UIColor blackColor];
@@ -439,7 +445,7 @@
     label.userInteractionEnabled = YES;
     [_useCountyView addSubview:label];
     label.textColor = White_Color;
-    label.text  = [lab.text stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    label.text  = [CountryStr stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     label.numberOfLines = 0;
     label.font = [UIFont boldSystemFontOfSize:Name_Device];
     CGRect tmpRect = [label.text boundingRectWithSize:CGSizeMake(XScreenWidth-30-30, 1000) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:[NSDictionary dictionaryWithObjectsAndKeys:label.font,NSFontAttributeName, nil] context:nil];

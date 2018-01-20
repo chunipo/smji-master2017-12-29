@@ -40,9 +40,9 @@
 "duoyuyan" = "多言語";
 
 "gaojishezhi" = "詳細設定";
-"shezhiredianfangwenmingdan" = "ホットスポットアクセスブラックリストを設定する";
+"shezhiredianfangwenmingdan" = "ブラックリストを設定する";
 "shebeizijian" = "自己診断装置";
-"ruanjianbanbenjiance" = "デバイスソフトウェアのバージョン番号";
+"ruanjianbanbenjiance" = "現在のデバイスのバージョン";
 "dangqianbanbenxinxi" = "最新バージョン情報";
 "lishiliuliangdingdan" = "過去のフロー指図";
 "guanyuwomen" = "私たちについて";
@@ -57,12 +57,14 @@
 "shurumimaweishubugou" = "ホットパスワードを入力すると、ホットに接続するかどうか、8未満ですか？";
 "lianjie" = "接続する";
 "shezhizhong" = "セットイン...";
-
+//设置语言
+"wancheng" = "完成";
+"shezhiyuyan" = "设置语言";
 
 /* 首页 */
-"appname" = "翻訳機";
+"appname" = "WiFi翻訳機";
 "shebeissid" = "デバイスSSID:";
-"Wifimima" = "Wifiパスワード:";
+"Wifimima" = "WiFiパスワード:";
 "fanyiyuzhong" = "翻訳言語:";
 "shengyudianliang" = "残り容量:";
 "shebeilianjieshu" = "接続数:";

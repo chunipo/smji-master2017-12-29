@@ -167,6 +167,7 @@
 
 #pragma mark 监听修改的数据是否成功的回调
 -(void)closeChangePWD_suc{
+    [UIApplication sharedApplication].statusBarStyle =UIStatusBarStyleLightContent;
     [self hideSchdu];
     [oldText resignFirstResponder];
     [newText resignFirstResponder];
@@ -200,6 +201,7 @@
     
 }
 -(void)closeChangePWD_fai{
+    [UIApplication sharedApplication].statusBarStyle =UIStatusBarStyleLightContent;
     [self hideSchdu];
     [oldText resignFirstResponder];
     [newText resignFirstResponder];
@@ -332,7 +334,7 @@
     
     
     cell.textLabel.text = _arr[indexPath.section][indexPath.row];
-    
+    cell.textLabel.textColor = [UIColor colorWithRed:68.0/255.0 green:68.0/255.0 blue:68.0/255.0 alpha:1];
    
     
 //    设置右边箭头
@@ -468,15 +470,16 @@
     UIImageView *logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"ic_logo.png"]];
     logo.frame = CGRectMake(20, 10, 65, 65);
     [view addSubview:logo];
-    UILabel *ssid = [[UILabel alloc]initWithFrame:CGRectMake(logo.maxX+20, 20, 300, 45)];
+    UILabel *ssid = [[UILabel alloc]initWithFrame:CGRectMake(logo.maxX+15, 8, 300, 70)];
     
    
-    ssid.text = _manager.ScanID;
+    ssid.text = [NSString stringWithFormat:@"百度WiFi共享翻译机\n%@",_manager.ScanID];
+    ssid.numberOfLines = 0;
 //    if (!ssid.text) {
 //        ssid.text=SetLange(@"devicedName");
 //    }
     ssid.font = [UIFont systemFontOfSize:Name_Device];
-    ssid.textColor = [UIColor blackColor];
+    ssid.textColor = BlueColor;
     [view addSubview:ssid];
     
     view.backgroundColor = [UIColor whiteColor];
@@ -486,24 +489,25 @@
 
 /*****************************************************************/
 -(void)changePwdUI{
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     //弹窗背景
     _viewBack1 = [[UIView alloc]initWithFrame:CGRectMake(0, XScreenHeight-49-X_bottom, XScreenWidth, 49+X_bottom)];
-    _viewBack1.backgroundColor = [UIColor blackColor];
-    _viewBack1.alpha = 0.3;
+    _viewBack1.backgroundColor = [UIColor colorWithRed:233.0/255.0 green:233.0/255.0 blue:233.0/255.0 alpha:1];
     [[UIApplication sharedApplication].keyWindow addSubview:_viewBack1];
     // [self.view addSubview:_viewBack];
     _viewBack2 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, XScreenWidth, XScreenHeight)];
-    _viewBack2.backgroundColor = [UIColor blackColor];
-    _viewBack2.alpha = 0.3;
+    _viewBack2.backgroundColor = [UIColor colorWithRed:233.0/255.0 green:233.0/255.0 blue:233.0/255.0 alpha:1];
+    _viewBack2.alpha = 0;
     [self.view addSubview:_viewBack2];
     
     //距离左右边margin
-    CGFloat kMagin = 20.0;
+    CGFloat kMagin = 0;
     //宽度
     CGFloat kWidth = XScreenWidth - 2*kMagin;
-    _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 395)];
+    _view = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+X_bang, kWidth, 395)];
     _view.layer.cornerRadius = 5;
-    _view.backgroundColor = [UIColor whiteColor];
+    _view.backgroundColor = [UIColor colorWithRed:233.0/255.0 green:233.0/255.0 blue:233.0/255.0 alpha:1];
+    _view.alpha = 0;
     [self.view addSubview:_view];
     
     //修改热点密码
@@ -563,7 +567,7 @@
         
     }];
     labLine.backgroundColor = [UIColor grayColor];
-    labLine.alpha = 0.2;
+    labLine.alpha = 0.4;
     
     //原密码
     oldText = [UITextField new];
@@ -591,7 +595,7 @@
     btn1.tag = 101;
     [btn1 addTarget:self action:@selector(show:) forControlEvents:UIControlEventTouchUpInside];
     oldText.rightView = btn1;
-    [oldText becomeFirstResponder];
+   // [oldText becomeFirstResponder];
     
     //第二条横线
     UIView *secdLine = [UIView new];
@@ -605,7 +609,7 @@
         
     }];
     secdLine.backgroundColor = [UIColor grayColor];
-    secdLine.alpha = 0.2;
+    secdLine.alpha = 0.4;
     
     //新密码
     newText = [UITextField new];
@@ -647,7 +651,7 @@
         
     }];
     thirdLine.backgroundColor = [UIColor grayColor];
-    thirdLine.alpha = 0.2;
+    thirdLine.alpha = 0.4;
     
     //确定取消按钮
     UIButton *confirmBtn = [UIButton new];
@@ -691,10 +695,32 @@
     suLine.backgroundColor = [UIColor colorWithRed:62.0/255.0 green:110.0/255.0 blue:148.0/255.0 alpha:1];
     suLine.alpha = 1;
     
+    //末尾横线
+    UIView *fourthLine = [UIView new];
+    [_view addSubview:fourthLine];
+    fourthLine.backgroundColor = [UIColor blueColor];
+    [fourthLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_view).with.offset(0);
+        make.right.equalTo(_view).with.offset(0);
+        make.bottom.mas_equalTo(_view);
+        make.height.mas_equalTo(@1);
+        
+    }];
+    fourthLine.backgroundColor = [UIColor grayColor];
+    fourthLine.alpha = 0.4;
+    
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        _viewBack1.alpha = 1;
+        _viewBack2.alpha = 1;
+        _view.alpha = 1;
+    }];
+    
 }
 
 #pragma mark 点击事件，设置密码黑名单apn
 -(void)show:(UIButton*)btn{
+    
     //取消
     if (btn.tag==104) {
         [oldText resignFirstResponder];
@@ -705,7 +731,7 @@
         [_view removeFromSuperview];
         [_viewBack1 removeFromSuperview];
         [_viewBack2 removeFromSuperview];
-       
+       [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     }
     else if (btn.tag==103){
         if ([oldText.text isEqualToString:_manager.password] && newText.text.length>7) {
@@ -713,7 +739,7 @@
              [[NSNotificationCenter defaultCenter] postNotificationName:@"changePwd" object:newText.text userInfo:nil];
         }
         else if(![oldText.text isEqualToString:_manager.password] && newText.text){
-            UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"输入密码错误" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alertOne = [UIAlertController alertControllerWithTitle:@"输入旧密码错误" message:nil preferredStyle:UIAlertControllerStyleAlert];
             [self presentViewController:alertOne animated:YES completion:nil];
             
             UIAlertAction *certain = [UIAlertAction actionWithTitle:setCountry(@"queding") style:UIAlertActionStyleDefault handler:nil];
@@ -759,6 +785,7 @@
     }
     else if (btn.tag==204)//黑名单取消输入
     {
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
         [heimingTextView resignFirstResponder];
         _viewBack1.frame = CGRectMake(0, 0, 0, 0);
         _viewBack2.frame = CGRectMake(0, 0, 0, 0);
@@ -772,6 +799,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"heimingdan" object:heimingTextView.text userInfo:nil];
     }else if (btn.tag==304)//apn取消输入
     {
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
         //修改apn
         [_APN_apn resignFirstResponder];
         [_APN_name resignFirstResponder];
@@ -815,24 +843,26 @@
 
 #pragma mark 设置热点访问黑名单
 -(void)SetBadUrl{
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     //弹窗背景
     _viewBack1 = [[UIView alloc]initWithFrame:CGRectMake(0, XScreenHeight-49-X_bottom, XScreenWidth, 49+X_bottom)];
-    _viewBack1.backgroundColor = [UIColor blackColor];
-    _viewBack1.alpha = 0.3;
+    _viewBack1.backgroundColor = [UIColor colorWithRed:233.0/255.0 green:233.0/255.0 blue:233.0/255.0 alpha:1];
+    _viewBack1.alpha = 1;
     [[UIApplication sharedApplication].keyWindow addSubview:_viewBack1];
     // [self.view addSubview:_viewBack];
     _viewBack2 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, XScreenWidth, XScreenHeight)];
-    _viewBack2.backgroundColor = [UIColor blackColor];
-    _viewBack2.alpha = 0.3;
+    _viewBack2.backgroundColor = [UIColor colorWithRed:233.0/255.0 green:233.0/255.0 blue:233.0/255.0 alpha:1];
+    _viewBack2.alpha = 1;
     [self.view addSubview:_viewBack2];
     
     //距离左右边margin
-    CGFloat kMagin = 20.0;
+    CGFloat kMagin = 0;
     //宽度
     CGFloat kWidth = XScreenWidth - 2*kMagin;
-    _view_wifi = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 380)];
+    _view_wifi = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+X_bang, kWidth, 390)];
     _view_wifi.layer.cornerRadius = 5;
-    _view_wifi.backgroundColor = [UIColor whiteColor];
+    _view_wifi.backgroundColor = [UIColor colorWithRed:233.0/255.0 green:233.0/255.0 blue:233.0/255.0 alpha:1];
+    _view_wifi.alpha = 0;
     [self.view addSubview:_view_wifi];
     
     //修改热点密码
@@ -866,7 +896,7 @@
     UILabel *lab = [UILabel new];
     [_view_wifi addSubview:lab];
     lab.textColor = [UIColor grayColor];
-    lab.text = @"1.网址或ip以英文 , 隔开\n(例:www.iCloud.com,yunpan.360.cn,192.168.1.10);\n2.为空设置设备默认的黑名单";
+    lab.text = @"1.网址或ip以英文 , 隔开\n(例:www.xxx.com,111.111.1.11);\n2.为空设置设备默认的黑名单";
     lab.numberOfLines = 0;
     lab.font = [UIFont systemFontOfSize:15];
     [lab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -909,7 +939,7 @@
         
     }];
     thirdLine.backgroundColor = [UIColor grayColor];
-    thirdLine.alpha = 0.2;
+    thirdLine.alpha = 0.4;
     
     //确定取消按钮
     UIButton *confirmBtn = [UIButton new];
@@ -954,28 +984,51 @@
     suLine.backgroundColor = [UIColor colorWithRed:62.0/255.0 green:110.0/255.0 blue:148.0/255.0 alpha:1];
     suLine.alpha = 1;
     
+    //末尾横线
+    UIView *fourthLine = [UIView new];
+    [_view_wifi addSubview:fourthLine];
+    fourthLine.backgroundColor = [UIColor blueColor];
+    [fourthLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_view_wifi).with.offset(0);
+        make.right.equalTo(_view_wifi).with.offset(0);
+        make.bottom.mas_equalTo(_view_wifi);
+        make.height.mas_equalTo(@1);
+        
+    }];
+    fourthLine.backgroundColor = [UIColor grayColor];
+    fourthLine.alpha = 0.4;
+    
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        _viewBack1.alpha = 1;
+        _viewBack2.alpha = 1;
+        _view_wifi.alpha = 1;
+    }];
+    
 }
 
 #pragma mark 设置apn
 -(void)setApn{
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     //弹窗背景
     _viewBack1 = [[UIView alloc]initWithFrame:CGRectMake(0, XScreenHeight-49-X_bottom, XScreenWidth, 49+X_bottom)];
-    _viewBack1.backgroundColor = [UIColor blackColor];
-    _viewBack1.alpha = 0.3;
+    _viewBack1.backgroundColor = [UIColor colorWithRed:233.0/255.0 green:233.0/255.0 blue:233.0/255.0 alpha:1];
+    _viewBack1.alpha = 1;
     [[UIApplication sharedApplication].keyWindow addSubview:_viewBack1];
    // [self.view addSubview:_viewBack];
     _viewBack2 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, XScreenWidth, XScreenHeight)];
-    _viewBack2.backgroundColor = [UIColor blackColor];
-    _viewBack2.alpha = 0.3;
+    _viewBack2.backgroundColor = [UIColor colorWithRed:233.0/255.0 green:233.0/255.0 blue:233.0/255.0 alpha:1];
+    _viewBack2.alpha = 1;
     [self.view addSubview:_viewBack2];
     
     //距离左右边margin
-    CGFloat kMagin = 20.0;
+    CGFloat kMagin = 0;
     //宽度
     CGFloat kWidth = XScreenWidth - 2*kMagin;
-    _view_APN = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+50+X_bang, kWidth, 410+40+20)];
+    _view_APN = [[UIView alloc]initWithFrame:CGRectMake(kMagin, 20+X_bang, kWidth, 410+40+10)];
     _view_APN.layer.cornerRadius = 5;
-    _view_APN.backgroundColor = [UIColor whiteColor];
+    _view_APN.backgroundColor = [UIColor colorWithRed:233.0/255.0 green:233.0/255.0 blue:233.0/255.0 alpha:1];
+    _view_APN.alpha = 0;
     [self.view addSubview:_view_APN];
     
     //设置APN
@@ -1225,7 +1278,7 @@
         
     }];
     thirdLine.backgroundColor = [UIColor grayColor];
-    thirdLine.alpha = 0.2;
+    thirdLine.alpha = 0.4;
     
     //确定取消按钮
     UIButton *confirmBtn = [UIButton new];
@@ -1268,6 +1321,27 @@
     }];
     suLine.backgroundColor = [UIColor colorWithRed:62.0/255.0 green:110.0/255.0 blue:148.0/255.0 alpha:1];
     suLine.alpha = 1;
+    
+    //末尾横线
+    UIView *fourthLine = [UIView new];
+    [_view_APN addSubview:fourthLine];
+    fourthLine.backgroundColor = [UIColor blueColor];
+    [fourthLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_view_APN).with.offset(0);
+        make.right.equalTo(_view_APN).with.offset(0);
+        make.bottom.mas_equalTo(_view_APN);
+        make.height.mas_equalTo(@1);
+        
+    }];
+    fourthLine.backgroundColor = [UIColor grayColor];
+    fourthLine.alpha = 0.4;
+    
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        _viewBack1.alpha = 1;
+        _viewBack2.alpha = 1;
+        _view_APN.alpha = 1;
+    }];
     
 }
 

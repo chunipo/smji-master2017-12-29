@@ -16,7 +16,7 @@
 -(instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        index = 1;
+        index = 2;
         [self setSubLayout];
     }
     return self;
@@ -24,6 +24,7 @@
 
 -(void)buttonAction:(UIButton *)button
 {
+    
     switch (button.tag) {
         case 1:
             index = 1;
@@ -40,9 +41,41 @@
                 [self.delegate InitiatePaymentWithPayType:index];
             }
             break;
-            
+        case 4:
+        {
+            [UIView animateWithDuration:0.3 animations:^{
+                _datePicker.frame = CGRectMake(0, XScreenHeight-(260*XScreenHeight/960), XScreenWidth, 260*XScreenHeight/960);
+                _LineView.frame = CGRectMake(0, XScreenHeight-(260*XScreenHeight/960)-60, XScreenWidth, 60);
+            }];
+            break;
+        }
+        case 5:
+        {
+            [UIView animateWithDuration:0 animations:^{
+                _datePicker.frame = CGRectMake(0, XScreenHeight, XScreenWidth, 0);
+                _LineView.frame = CGRectMake(0, XScreenHeight, XScreenWidth, 0);
+            }];
+        
+            break;
+        }
+        case 6:
+        {
+            [UIView animateWithDuration:0 animations:^{
+                _datePicker.frame = CGRectMake(0, XScreenHeight, XScreenWidth, 0);
+                _LineView.frame = CGRectMake(0, XScreenHeight, XScreenWidth, 0);
+            }];
+            NSDate *date = _datePicker.date; // 获得时间对象
+            NSDateFormatter *forMatter = [[NSDateFormatter alloc] init];
+            //[forMatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            [forMatter setDateFormat:@"yyyy-MM-dd"];
+            NSString *dateStr = [forMatter stringFromDate:date];
+            _starTimeLabel.text = [NSString stringWithFormat:@"生效时间：%@ ",dateStr];
+            break;
+        }
         default:
             break;
+            
+            
     }
 }
 
@@ -50,33 +83,83 @@
 -(void)setSubLayout
 {
     WS(weakself);
+    
+    
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.offset(10);
+        //make.left.offset(10);
+        make.centerX.mas_equalTo(self);
         make.top.offset(30);
     }];
     
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakself.titleLabel);
+        //make.left.equalTo(weakself.titleLabel);
+        make.centerX.equalTo(self).offset(-20);
         make.top.equalTo(weakself.titleLabel.mas_bottom).offset(17);
     }];
     
     [self.subPriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.priceLabel.mas_right);
-        make.top.equalTo(weakself.priceLabel);
+        //make.centerX.mas_equalTo(self);
+        make.top.equalTo(weakself.titleLabel.mas_bottom).offset(15);
+    }];
+    
+    [self.deviceSSID mas_makeConstraints:^(MASConstraintMaker *make) {//设备ssid
+        //make.left.offset(10);
+        make.centerX.mas_equalTo(self);
+        make.top.equalTo(weakself.priceLabel.mas_bottom).offset(17);
+    }];
+    
+    [self.starTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {//有效时间
+        //make.left.equalTo(weakself.titleLabel);
+        make.centerX.mas_equalTo(self);
+        make.top.equalTo(weakself.deviceSSID.mas_bottom).offset(17);
+    }];
+    
+    [self.clickOpenTimeButton mas_makeConstraints:^(MASConstraintMaker *make) {//打开选择器
+        //make.left.equalTo(@-10);
+        make.centerX.mas_equalTo(self);
+        make.top.equalTo(weakself.starTimeLabel.mas_bottom).offset(10);
+        make.width.mas_equalTo(200);
+    }];
+    
+    [self.datePicker mas_makeConstraints:^(MASConstraintMaker *make) {//选择器
+        make.left.equalTo(0);
+        make.right.equalTo(0);
+        //make.top.equalTo(weakself.titleLabel.mas_bottom).offset(17);
+        make.bottom.equalTo(0);
+        make.height.mas_equalTo(0);
+    }];
+    [self.LineView mas_makeConstraints:^(MASConstraintMaker *make) {//选择器
+        make.left.equalTo(0);
+        make.right.equalTo(0);
+        make.bottom.equalTo(weakself.datePicker.mas_bottom).offset(0);
+        make.height.mas_equalTo(0);
+    }];
+    [self.canselButton mas_makeConstraints:^(MASConstraintMaker *make) {//选择器取消按钮
+        make.left.mas_equalTo(15);
+        //make.right.equalTo(0);
+        make.top.mas_equalTo(12);
+        make.width.mas_equalTo(60);
+    }];
+    [self.okButton mas_makeConstraints:^(MASConstraintMaker *make) {//选择器确定按钮
+        //make.left.mas_equalTo(15);
+        make.right.mas_equalTo(-15);
+        make.top.mas_equalTo(12);
+        make.width.mas_equalTo(60);
     }];
     
     UIImageView *hLinView = [UIImageView horizontalSeparateImageView];
     [self addSubview:hLinView];
     [hLinView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakself.titleLabel);
+        make.left.offset(10);
         make.height.offset(1);
         make.right.offset(-10);
-        make.top.equalTo(weakself.priceLabel.mas_bottom).offset(30);
+        make.top.equalTo(weakself.clickOpenTimeButton.mas_bottom).offset(30);
     }];
     
     [self.alipayImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.offset(20);
-        make.top.equalTo(hLinView.mas_bottom).offset(40);
+        make.top.equalTo(hLinView.mas_bottom).offset(0);
     }];
     [self.alipayLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakself.alipayImage);
@@ -108,11 +191,20 @@
 }
 
 #pragma mark --懒加载
+-(UILabel *)deviceSSID
+{
+    
+    if (!_deviceSSID) {
+        _deviceSSID = [UILabel labelWithText:[NSString stringWithFormat:@"设备SSID：%@",[YXManager share].ScanID]  atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
+        [self addSubview:_deviceSSID];
+    }
+    return _deviceSSID;
+}
 -(UILabel *)titleLabel
 {
     
     if (!_titleLabel) {
-        _titleLabel = [UILabel labelWithText:[NSString stringWithFormat:@"订单名称：%@",[YXManager share].OrderName]  atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
+        _titleLabel = [UILabel labelWithText:[NSString stringWithFormat:@"产品名称：%@",[YXManager share].OrderName]  atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
         [self addSubview:_titleLabel];
     }
     return _titleLabel;
@@ -121,7 +213,7 @@
 -(UILabel *)priceLabel
 {
     if (!_priceLabel) {
-        _priceLabel = [UILabel labelWithText:@"订单价格：" atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
+        _priceLabel = [UILabel labelWithText:@"RMB " atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
         [self addSubview:_priceLabel];
     }
     return _priceLabel;
@@ -130,16 +222,94 @@
 -(UILabel *)subPriceLabel
 {
     if (!_subPriceLabel) {
-        _subPriceLabel = [UILabel labelWithText:@"￥0.01" atColor:Red_Color atTextSize:15 atTextFontForType:Common_Font];
+        _subPriceLabel = [UILabel labelWithText:@"0.01" atColor:Red_Color atTextSize:19 atTextFontForType:Common_Font];
         [self addSubview:_subPriceLabel];
     }
     return _subPriceLabel;
+}
+
+-(UILabel *)starTimeLabel{
+    if (!_starTimeLabel) {
+        NSDate *date = [NSDate date]; // 获得时间对象
+        NSDateFormatter *forMatter = [[NSDateFormatter alloc] init];
+        //[forMatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        [forMatter setDateFormat:@"yyyy-MM-dd"];
+        NSString *dateStr = [forMatter stringFromDate:date];
+        _starTimeLabel = [UILabel labelWithText:[NSString stringWithFormat:@"生效时间：%@ ",dateStr] atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
+        [self addSubview:_starTimeLabel];
+    }
+    return _starTimeLabel;
+}
+
+-(UIButton *)clickOpenTimeButton
+{
+    if (!_clickOpenTimeButton) {
+        _clickOpenTimeButton = [UIButton buttonWithTitle:@"重新选择产品开始时间" atNormalImageName:nil atSelectedImageName:nil atTarget:self atAction:@selector(buttonAction:)];
+        _clickOpenTimeButton.titleLabel.font = [UIFont systemFontOfSize:17];
+        _clickOpenTimeButton.tag = 4;
+        [_clickOpenTimeButton setTitleColor:BlueColor forState:UIControlStateNormal];
+        _clickOpenTimeButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+        [self addSubview:_clickOpenTimeButton];
+    }
+    return _clickOpenTimeButton;
+}
+//选择器上的线
+-(UIView *)LineView{
+    if (!_LineView) {
+        _LineView = [[UIView alloc]init];
+        _LineView.backgroundColor = [UIColor grayColor];
+        [[UIApplication sharedApplication].keyWindow addSubview:_LineView];
+    }
+    return _LineView;
+}
+
+-(UIButton *)canselButton{
+    if (!_canselButton) {
+        _canselButton = [UIButton buttonWithTitle:@"取消" atNormalImageName:nil atSelectedImageName:nil atTarget:self atAction:@selector(buttonAction:)];
+        _canselButton.tag = 5;
+        [_canselButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _canselButton.titleLabel.font = [UIFont systemFontOfSize:18];
+        [_LineView addSubview:_canselButton];
+    }
+    return _canselButton;
+}
+-(UIButton *)okButton{
+    if (!_okButton) {
+        _okButton = [UIButton buttonWithTitle:@"确定" atNormalImageName:nil atSelectedImageName:nil atTarget:self atAction:@selector(buttonAction:)];
+        _okButton.tag = 6;
+        [_okButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _okButton.titleLabel.font = [UIFont systemFontOfSize:18];
+        [_LineView addSubview:_okButton];
+    }
+    return _okButton;
+}
+
+-(UIDatePicker *)datePicker{
+    if (!_datePicker) {
+        _datePicker = [[UIDatePicker alloc]init];
+        _datePicker.backgroundColor = GrayColorself;
+        _datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh"];
+        _datePicker.datePickerMode = UIDatePickerModeDate;
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSDate *currentDate = [NSDate date];
+        NSDateComponents *comps = [[NSDateComponents alloc] init];
+        [comps setYear:7];//设置最大时间为：当前时间推后十年
+        NSDate *maxDate = [calendar dateByAddingComponents:comps toDate:currentDate options:0];
+        [comps setYear:0];//设置最小时间为：当前时间前推十年
+        NSDate *minDate = [calendar dateByAddingComponents:comps toDate:currentDate options:0];
+        [_datePicker setMaximumDate:maxDate];
+        [_datePicker setMinimumDate:minDate];
+        [[UIApplication sharedApplication].keyWindow addSubview:_datePicker];
+    }
+    
+    return _datePicker;
 }
 
 -(UIImageView *)alipayImage
 {
     if (!_alipayImage) {
         _alipayImage = [UIImageView imageViewWithImageName:@"Icon-Paypal"];
+        _alipayImage.alpha = 0;
         [self addSubview:_alipayImage];
     }
     return _alipayImage;
@@ -149,6 +319,7 @@
 {
     if (!_alipayLabel) {
         _alipayLabel = [UILabel labelWithText:@"Paypal支付" atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
+        _alipayLabel.alpha = 0;
         [self addSubview:_alipayLabel];
     }
     return _alipayLabel;
@@ -159,8 +330,9 @@
 {
     if (!_alipayButton) {
         _alipayButton = [UIButton buttonWithTitle:nil atNormalImageName:@"icon_Ticking_gray" atSelectedImageName:@"icon_Ticking" atTarget:self atAction:@selector(buttonAction:)];
-        _alipayButton.selected = YES;
+        //_alipayButton.selected = YES;
         _alipayButton.tag = 1;
+        _alipayButton.alpha = 0;
         [self addSubview:_alipayButton];
     }
     return _alipayButton;
@@ -188,6 +360,7 @@
 {
     if (!_weixinButton) {
         _weixinButton = [UIButton buttonWithTitle:nil atNormalImageName:@"icon_Ticking_gray" atSelectedImageName:@"icon_Ticking" atTarget:self atAction:@selector(buttonAction:)];
+        _weixinButton.selected = YES;
         _weixinButton.tag = 2;
         [self addSubview:_weixinButton];
     }

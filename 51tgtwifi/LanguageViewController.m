@@ -18,8 +18,9 @@
     NSArray         *_arr;
     UITableViewCell *_FirstCell;
     
-    NSInteger       _isWhatLanguage;
-    
+    NSInteger       _isWhatLanguage;//判断选中了什么语言
+    NSInteger       _isNowtLanguage;//判断当前语言
+    UIButton        *btn2;//完成 按钮
     
     UIView          *_TitleView;
     
@@ -36,14 +37,30 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithRed:244.0/255.0 green:244.0/255.0 blue:244.0/255.0 alpha:1];
     _isWhatLanguage = 0;
-    
+    [self islang];
     [self createTableview];
     
     //    标题栏
     [self HeadTitle];
     
 }
-
+#pragma mark 判断当前语言
+-(void)islang{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *str = [userDefaults objectForKey:@"changeLan"];
+    if ([str containsString:@"zh-Hans"]) {
+        _isNowtLanguage = 0;
+    }else if ([str containsString:@"zh-Hant"]){
+        _isNowtLanguage = 1;
+    }else if ([str containsString:@"en"]){
+        _isNowtLanguage = 2;
+    }else if ([str containsString:@"ja"]){
+        _isNowtLanguage = 3;
+    }else{
+        _isNowtLanguage = 0;
+    }
+    _isWhatLanguage = _isNowtLanguage;
+}
 #pragma mark - 显示进度条
 
 -(void)showSchdu{
@@ -72,7 +89,8 @@
     UILabel *TitleText = [UILabel new];
     [_TitleView addSubview:TitleText];
     
-    TitleText.text = @"设置语言";
+    //TitleText.text = @"设置语言";
+    TitleText.text = setCountry(@"shezhiyuyan");
     TitleText.textColor = [UIColor whiteColor];
     
     [TitleText mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -94,19 +112,20 @@
         
         make.centerY.mas_equalTo(_TitleView.mas_centerY).with.offset(X_bang/2.0+10);
         
-         make.size.mas_equalTo(CGSizeMake(80, 80));
+         make.size.mas_equalTo(CGSizeMake(85, 80));
         
         
     }];
     
     btn.tag = 101;
+    btn.titleLabel.font  = [UIFont systemFontOfSize:16];
     btn.titleLabel.textAlignment = NSTextAlignmentLeft;
-    [btn setTitle:@"取消" forState:UIControlStateNormal];
+    [btn setTitle:setCountry(@"quxiao") forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
     
     
 //    设置语言
-    UIButton *btn2 = [UIButton new];
+    btn2 = [UIButton new];
     [_TitleView addSubview:btn2];
     
     [btn2 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -121,7 +140,9 @@
     
     btn2.tag = 102;
     btn2.titleLabel.textAlignment = NSTextAlignmentRight;
-    [btn2 setTitle:@"完成" forState:UIControlStateNormal];
+    [btn2 setTitle:setCountry(@"wancheng") forState:UIControlStateNormal];
+    [btn2 setTitleColor:[UIColor colorWithRed:236.0/255.0  green:236.0/255.0  blue:236.0/255.0  alpha:0.5] forState:UIControlStateDisabled];
+    [btn2 setEnabled:NO];
     [btn2 addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
     
 }
@@ -260,7 +281,7 @@
     }
     
    
-    if (indexPath.row==0) {
+    if (indexPath.row==_isNowtLanguage) {
         cell.accessoryType =UITableViewCellAccessoryCheckmark;
         
         _FirstCell = cell;
@@ -285,43 +306,15 @@
     
 }
 
--(void)haha{
-
-    //    语言切换
-    // 切换语言前
-    NSArray *langArr1 = [[NSUserDefaults standardUserDefaults] valueForKey:@"AppleLanguages"];
-    NSString *language1 = langArr1.firstObject;
-    for (NSString *str  in langArr1) {
-        NSLog(@"模拟器语言=：%@",str);
-    }
-    //    NSLog(@"模拟器语言切换之前：%@",language1);
-    
-    // 切换语言。简体中文  zh-Hans    繁体中文  zh-Hant  英语 en  日文  ja
-    NSArray *lans = @[@"en"];
-    [[NSUserDefaults standardUserDefaults] setObject:lans forKey:@"AppleLanguages"];
-    
-    // 切换语言后
-    NSArray *langArr2 = [[NSUserDefaults standardUserDefaults] valueForKey:@"AppleLanguages"];
-    NSString *language2 = langArr2.firstObject;
-    NSLog(@"模拟器语言切换之后：%@",language2);
-    
-    
-    
-    
-    AppDelegate *appDelegate =
-    (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    appDelegate.window.rootViewController = [[MainNavVc alloc]initWithRootViewController:[[MainTabbarController alloc]init]];
-    
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SetLanguage" object:nil];
-
-}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
+  
 //    把第一行☑️去掉
-    if (indexPath.row!=0) {
+    if (indexPath.row!=_isNowtLanguage) {
         _FirstCell.accessoryType = UITableViewCellAccessoryNone;
+        [btn2 setEnabled:YES];
+    }else{
+       [btn2 setEnabled:NO];
     }
     
     _isWhatLanguage = indexPath.row;

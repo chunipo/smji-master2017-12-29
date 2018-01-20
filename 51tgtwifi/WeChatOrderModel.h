@@ -9,16 +9,23 @@
 #import <Foundation/Foundation.h>
 
 @interface WeChatOrderModel : NSObject
-
-@property (nonatomic,copy)NSString * appid;
-@property (nonatomic,copy)NSString * busId;
-@property (nonatomic,copy)NSString * error;
-@property (nonatomic,copy)NSString * noncestr;
+@property (nonatomic,copy)NSString * nonceStr;
 @property (nonatomic,copy)NSString * package;
-@property (nonatomic,copy)NSString * partnerid;
-@property (nonatomic,copy)NSString * paySign;
+@property (nonatomic,copy)NSString * partnerId;
+@property (nonatomic,copy)NSString * prepayId;
+@property (nonatomic,copy)NSString * sign;
+@property (nonatomic,assign)NSInteger timeStamp;
+
+@property (nonatomic,copy)NSString * out_order_no;//支付成功返回服务器确认
+
+
+@property (nonatomic,copy)NSString * error;
+
+
+
+
 @property (nonatomic,copy)NSString * payType;
-@property (nonatomic,copy)NSString * prepayid;
-@property (nonatomic,copy)NSString * timestamp;
+
+
 
 @end

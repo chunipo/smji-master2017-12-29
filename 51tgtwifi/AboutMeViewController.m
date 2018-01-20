@@ -104,6 +104,8 @@
         make.bottom.equalTo(self.view).with.offset(-10);
         make.height.mas_equalTo(50);
     }];
+    bottom.textColor = [UIColor grayColor];
+    bottom.alpha = 0.6;
     bottom.numberOfLines = 0;
     bottom.textAlignment = NSTextAlignmentCenter;
 }

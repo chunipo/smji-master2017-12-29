@@ -10,9 +10,12 @@
 #import "PayView.h"
 #import "WXApi.h"
 #import "WeChatOrderModel.h"
+#import "YXManager.h"
 
 @interface PayViewController ()<PayViewDelegate,PayPalPaymentDelegate,WXApiDelegate>
-
+{
+    YXManager         *_manager;
+}
 @property (nonatomic, strong)PayView *payView;
 
 /***paypal 支付对象***/
@@ -52,19 +55,6 @@
     BOOL _isReceiveNotification;//是否接收到充值通知
 }
 
-
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WXpayNotification) name:@"WXpayNotification" object:nil];
-    //    标题栏
-    [self HeadTitle];
-    self.view.backgroundColor =[UIColor whiteColor];
-    [self.view addSubview:self.payView];
-    
-}
-
 #pragma mark -- paypal支付
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
@@ -91,6 +81,17 @@
     [PayPalMobile preconnectWithEnvironment:PayPalEnvironmentProduction];
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    _manager = [YXManager share];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(WXpayNotification:) name:@"WXpayNotification" object:nil];
+    //    标题栏
+    [self HeadTitle];
+    self.view.backgroundColor =[UIColor whiteColor];
+    [self.view addSubview:self.payView];
+    
+}
 
 #pragma mark - 创建标题栏
 -(void)HeadTitle{
@@ -99,15 +100,13 @@
     backgroud.image = [UIImage imageNamed:@"ic_bg.jpg"];
     
     [self.view addSubview:backgroud];
-    UIImageView *backgroud2 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 20+X_bang+60, XScreenWidth,XScreenHeight)];
+    UIImageView *backgroud2 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 20+X_bang+44, XScreenWidth,XScreenHeight)];
     
     backgroud2.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:backgroud2];
     
-    
-    
-    UIView *_TitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 20+X_bang, XScreenWidth, 60)];
+    UIView *_TitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 20+X_bang, XScreenWidth, 44)];
     _TitleView.userInteractionEnabled = YES;
     _TitleView.backgroundColor = [UIColor clearColor];
     
@@ -157,70 +156,62 @@
 
 }
 
-#pragma mark - --微信支付成功回调
--(void)WXpayNotification
-{
-    if (_isReceiveNotification==NO) {
-        /*订单支付成功 */
-        /**更新UI*/
-        _isReceiveNotification=YES;
-    }else{
-        _isReceiveNotification=YES;
-    }
-}
-
-
 /***1 支付宝支付   2微信支付*/
 -(void)InitiatePaymentWithPayType:(NSInteger)type
 {
-    
-    //    userId	string	是		1
-    //    accessToken	string	是		394799fbc87b6a8364afa2b09558475a
-    //    busId	string	是	业务ID	1
-    
-    //    type	string	是	支付类型：0-支付宝 1-微信 2-PayPal 3-内购	0
-    //    money	string	是	支付金额	2
-    
 
     if (type==1) {
-//        [mutDic setObject:@"0" forKey:@"type"];
-        
+
         [self payPal];
         
     }else if (type==2){
-        [self weixinPay];
-//        [mutDic setObject:@"1" forKey:@"type"];
+        //[self weixinPay];
+        [self WXrequestSever];
     }
 
 
 }
 
-
--(void)weixinPay
+-(void)WXrequestSever{
+    NSString *url = [NSString stringWithFormat:payTosever,PicHead,_manager.ScanID,_manager.Product_id];
+    NSLog(@"===付款url%@",url);
+    [NetWork sendGetNetWorkWithUrl:url parameters:nil hudView:self.view successBlock:^(id data) {
+        WeChatOrderModel *model = [[WeChatOrderModel alloc]init];
+        [model setValuesForKeysWithDictionary:data[@"data"]];
+        [self weixinPay:model];
+        
+    } failureBlock:^(NSString *error) {
+        NSLog(@"======付款向服务器提交失败=======");
+    }];
+}
+-(void)weixinPay:(WeChatOrderModel *)model
 {
     //测试数据
-    self.noncestr = @"xV04rlEmretLE7QsO4zD3BIWcbQQRyig";
-    self.package = @"Sign=WXPay";
-    self.partnerid = @"1447899502";
-    self.paySign = @"B7D0E78A32C47056B8019FE1D7749437";
-    self.prepayid = @"wx201705101116004d23fa269b0224245096";
-    self.timestamp = @"1494386160";
+//    self.noncestr = @"xV04rlEmretLE7QsO4zD3BIWcbQQRyig";
+//    self.package = @"Sign=WXPay";
+//    self.partnerid = @"1447899502";
+//    self.paySign = @"B7D0E78A32C47056B8019FE1D7749437";
+//    self.prepayid = @"wx201705101116004d23fa269b0224245096";
+//    self.timestamp = @"1494386160";
     //获取当前的时间戳
+    
     if([WXApi isWXAppInstalled]) // 判断 用户是否安装微信
     {
+        //保存订单id，支付成功返回给服务器
+        _manager.out_order_no = model.out_order_no;
         PayReq *request = [[PayReq alloc] init];
         /** 商家向财付通申请的商家id */
-        request.partnerId = self.partnerid;
+        request.partnerId = model.partnerId;
         /** 预支付订单 */
-        request.prepayId= self.prepayid;
+        request.prepayId= model.prepayId;
         /** 商家根据财付通文档填写的数据和签名 */
-        request.package = self.package;
+        request.package = model.package;
         /** 随机串，防重发 */
-        request.nonceStr=self.noncestr ;
+        request.nonceStr= model.nonceStr ;
         /** 时间戳，防重发 */
-        request.timeStamp = self.timestamp.intValue;
+        request.timeStamp = model.timeStamp;
         /** 商家根据微信开放平台文档对数据做的签名 */
-        request.sign = self.paySign;
+        request.sign = model.sign;
         [WXApi sendReq:request];
     }else{
         /**未安装微信*/
@@ -256,102 +247,39 @@
 }
 
 
-//-(void)payPal{
-//    //    配置支付环境
-//    
-//    
-//    /// 真实交易环境-也就是上架之后的环境
-//    extern NSString * _Nonnull const PayPalEnvironmentProduction;
-//    /// 模拟环境-也就是沙盒环境
-//    extern NSString * _Nonnull const PayPalEnvironmentSandbox;
-//    /// 无网络连接环境-具体用处，咳咳，自行摸索
-//    extern NSString * _Nonnull const PayPalEnvironmentNoNetwork;
-//    
-//    
-//    [PayPalMobile preconnectWithEnvironment:PayPalEnvironmentSandbox];
-//    
-//    
-//    
-//    
-//    //是否接受信用卡
-//    _payPalConfig.acceptCreditCards = YES;
-//    
-//    //商家名称
-//    _payPalConfig.merchantName = @"商家号";
-//    
-//    //商家隐私协议网址和用户授权网址-说实话这个没用到
-//    _payPalConfig.merchantPrivacyPolicyURL = [NSURL URLWithString:@"https://www.paypal.com/webapps/mpp/ua/privacy-full"];
-//    _payPalConfig.merchantUserAgreementURL = [NSURL URLWithString:@"https://www.paypal.com/webapps/mpp/ua/useragreement-full"];
-//    
-//    //设置地址选项-在支付页面可选择账户地址信息
-//    typedef NS_ENUM(NSInteger, PayPalShippingAddressOption) {
-//        //不展示地址信息 选这个好像支付不成功
-//        PayPalShippingAddressOptionNone = 0,
-//        //这个没试过，自行查阅
-//        PayPalShippingAddressOptionProvided = 1,
-//        //paypal账号下的地址信息
-//        PayPalShippingAddressOptionPayPal = 2,
-//        //全选
-//        PayPalShippingAddressOptionBoth = 3,
-//    };
-//    
-//    //paypal账号下的地址信息
-//    _payPalConfig.payPalShippingAddressOption = 2;
-//    
-//    //配置语言环境
-//    _payPalConfig.languageOrLocale = [NSLocale preferredLanguages][0];
-//    
-//    
-//    //    配置支付相关信息
-//    
-//    
-//    PayPalPayment *payment = [[PayPalPayment alloc] init];
-//    
-//    //订单总额
-//    payment.amount = [NSDecimalNumber decimalNumberWithString:@"100"];
-//    
-//    //货币类型-RMB是没用的
-//    payment.currencyCode = @"USD";
-//    
-//    //订单描述
-//    payment.shortDescription = @"100M流量";
-//    
-//    
-//    
-////    PayPalPayment *payment = [[PayPalPayment alloc] init];
-////    payment.amount = [[NSDecimalNumber alloc] initWithString:@"99"];//金额
-////    payment.currencyCode = @"USD";//货币类型
-////    payment.shortDescription = @"100M流量";
-//////    payment.intent = PayPalPaymentIntentSale;
-////    //传入订单ID  后台生成
-////    self.paypalOrderId = @"1";
-////    PayPalItem *palltem = [PayPalItem itemWithName:self.paypalOrderId withQuantity:1 withPrice:payment.amount withCurrency:@"USD" withSku:self.paypalOrderId];
-////    NSArray *array = [NSArray arrayWithObjects:palltem, nil];
-////    payment.items = array;
-////    payment.shippingAddress = nil;//收货地址
-////    //检查付款是否可行
-////    if (!payment.processable) {
-////        //不能发起支付
-////    }
-//    //    第四步：提交订单-最重要也是最简单的一步 r
-//    
-//    
-//    //生成paypal控制器，并模态出来(push也行)
-//    //将之前生成的订单信息和paypal配置传进来，并设置订单VC为代理
-//    PayPalPaymentViewController *paymentViewController = [[PayPalPaymentViewController alloc] initWithPayment:payment                                                                                            configuration:self.payPalConfig                                                                                                  delegate:self];
-//    
-//    //模态展示
-//    [self presentViewController:paymentViewController animated:YES completion:nil];
-//    
-//    //    [self.navigationController pushViewController:paymentViewController animated:YES];
-//    
-//    
-//    
-//    
-//}
-
-//监测订单状态
-
+#pragma mark - --微信支付成功回调
+-(void)WXpayNotification:(NSNotification *)noti
+{
+    if ([noti.object isEqualToString:@"1"]) {//
+        NSLog(@"微信支付成功回调");
+        if (_isReceiveNotification==NO) {
+            /*订单支付成功 */
+            NSString *url = [NSString stringWithFormat:returnSeverSuc,PicHead,_manager.out_order_no];
+            [NetWork sendGetNetWorkWithUrl:url parameters:nil hudView:self.view successBlock:^(id data) {
+                NSNumber *pay_status = data[@"data"][@"pay_status"];
+                if ([pay_status integerValue]==1) {
+                    [self setSuc];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }else{
+                    [self setFai];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+                
+            } failureBlock:^(NSString *error) {
+                
+            }];
+            
+            /**更新UI*/
+            _isReceiveNotification=YES;
+        }else{
+            _isReceiveNotification=YES;
+        }
+    }else if([noti.object isEqualToString:@"0"]) {
+        NSLog(@"zhifushibai");
+        [self setFai];
+    }
+    
+}
 
 
 #pragma mark - PayPalPaymentDelegate
@@ -383,29 +311,6 @@
 }
 
 
-//向服务器发送一些东西，让服务器验证本次订单有效性
-//回调的 PayPalPayment 的 confirmation 属性包含此次订单的状态信息包括校验码，服务器可已通过该校验码验证交易真实性。
-//返回数据 - id所对应的就是校验码。
-//{
-//    client =     {
-//        environment = sandbox;
-//        "paypal_sdk_version" = "2.14.2";
-//        platform = iOS;
-//        "product_name" = "PayPal iOS SDK";
-//    };
-//    response =     {
-//        "create_time" = "2016-05-12T03:25:49Z";
-//        id = "PAY-6BG56850AF923584SK4Z7PNQ";
-//        intent = sale;
-//        state = approved;
-//    };
-//    "response_type" = payment;
-//}
-
-
-
-
-
 -(PayView *)payView
 {
     if (!_payView) {
@@ -414,6 +319,90 @@
        
     }
     return _payView;
+}
+
+
+#pragma mark -修改成功/失败弹窗
+-(void)setFai{
+    CGSize contentSize = [self textConstraintSize:@"支付失败"];
+    UIView *_hudView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 160,20 +50 + contentSize.height)];
+    _hudView.layer.cornerRadius = 6.0f;
+    _hudView.backgroundColor = [UIColor grayColor];
+    _hudView.alpha = 1;
+    [[UIApplication sharedApplication].keyWindow addSubview:_hudView];
+    UILabel *activityIndicatorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    activityIndicatorLabel.textAlignment = NSTextAlignmentCenter;
+    [activityIndicatorLabel setLineBreakMode:NSLineBreakByWordWrapping];
+    [activityIndicatorLabel setNumberOfLines:0];
+    [activityIndicatorLabel setFont:[UIFont systemFontOfSize:13]];
+    activityIndicatorLabel.backgroundColor = [UIColor clearColor];
+    activityIndicatorLabel.textColor = [UIColor whiteColor];
+    [_hudView addSubview:activityIndicatorLabel];
+    activityIndicatorLabel.frame = CGRectMake(5.0f,60.0f ,150.0f, contentSize.height);
+    
+    _hudView.center = CGPointMake(XScreenWidth/2, XScreenHeight/2 - 50);
+    
+    activityIndicatorLabel.text = @"支付失败";
+    
+    UIImageView *img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fasle.png"] highlightedImage:nil];
+    img.frame = CGRectMake(55.0f, 10.0f, 50.0f, 50.0f);
+    [_hudView addSubview:img];
+    int64_t delayInSeconds = 1.5;      // 延迟的时间
+    /*
+     *@parameter 1,时间参照，从此刻开始计时
+     *@parameter 2,延时多久，此处为秒级，还有纳秒等。10ull * NSEC_PER_MSEC
+     */
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        // do something
+        _hudView.alpha = 0;
+        [_hudView removeFromSuperview];
+    });
+}
+
+-(void)setSuc{
+    CGSize contentSize = [self textConstraintSize:@"支付成功"];
+    UIView *_hudView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 160,20 +50 + contentSize.height)];
+    _hudView.layer.cornerRadius = 6.0f;
+    _hudView.backgroundColor = [UIColor grayColor];
+    _hudView.alpha = 1;
+    [[UIApplication sharedApplication].keyWindow addSubview:_hudView];
+    UILabel *activityIndicatorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    activityIndicatorLabel.textAlignment = NSTextAlignmentCenter;
+    [activityIndicatorLabel setLineBreakMode:NSLineBreakByWordWrapping];
+    [activityIndicatorLabel setNumberOfLines:0];
+    [activityIndicatorLabel setFont:[UIFont systemFontOfSize:13]];
+    activityIndicatorLabel.backgroundColor = [UIColor clearColor];
+    activityIndicatorLabel.textColor = [UIColor whiteColor];
+    [_hudView addSubview:activityIndicatorLabel];
+    activityIndicatorLabel.frame = CGRectMake(5.0f,60.0f ,150.0f, contentSize.height);
+    
+    _hudView.center = CGPointMake(XScreenWidth/2, XScreenHeight/2 - 50);
+    
+    activityIndicatorLabel.text = @"支付成功";
+    
+    UIImageView *img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"currect.png"] highlightedImage:nil];
+    img.frame = CGRectMake(60.0f, 10.0f, 40.0f, 40.0f);
+    [_hudView addSubview:img];
+    int64_t delayInSeconds = 1.5;      // 延迟的时间
+    /*
+     *@parameter 1,时间参照，从此刻开始计时
+     *@parameter 2,延时多久，此处为秒级，还有纳秒等。10ull * NSEC_PER_MSEC
+     */
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        // do something
+        _hudView.alpha = 0;
+        [_hudView removeFromSuperview];
+    });
+}
+
+- (CGSize)textConstraintSize:(NSString *)text
+{
+    CGSize constraint = CGSizeMake(150, 20000.0f);
+    
+    return [text boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
+    
 }
 
 - (void)didReceiveMemoryWarning {

@@ -59,8 +59,9 @@
             [errorImg removeFromSuperview];
             [lab removeFromSuperview];
             if (_manager.ScanID) {
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:setCountry(@"ningyijingbangdingguoshebei")] preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:setCountry(@"quxiao") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"%@", setCountry(@"ningyijingbangdingguoshebei")] preferredStyle:UIAlertControllerStyleAlert];
+                NSString *str = setCountry(@"quxiao");
+                [alert addAction:[UIAlertAction actionWithTitle:str style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                    
                 }]];
 //                [alert addAction:[UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

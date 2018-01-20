@@ -36,7 +36,7 @@
 "apnDetail" = "Set APN for real card to take effect";
 
 
-"lianjieWifi" = "Connect Wifi";
+"lianjieWifi" = "Connect WiFi";
 "shezhifanyiyuyan" = "Set the translation language";
 "shezhitishiyuyan" = "Set the prompt language";
 "duoyuyan" = "multi-language";
@@ -59,11 +59,14 @@
 "shurumimaweishubugou" = "Enter the hot password is less than 8, whether to connect the hot?";
 "lianjie" = "connection";
 "shezhizhong" = "Set in...";
+//设置语言
+"wancheng" = "carry out";
+"shezhiyuyan" = "language setting";
 
 /* 首页 */
 "appname" = "WiFiTranslator";
 "shebeissid" = "Device SSID:";
-"Wifimima" = "Wifi password:";
+"Wifimima" = "WiFi password:";
 "fanyiyuzhong" = "Translation language:";
 "shengyudianliang" = "remaining battery:";
 "shebeilianjieshu" = "connections:";

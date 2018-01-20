@@ -9,5 +9,5 @@
 #import "WeChatOrderModel.h"
 
 @implementation WeChatOrderModel
-
+-(void)setValue:(id)value forUndefinedKey:(NSString *)key{}
 @end

@@ -457,6 +457,7 @@
                         }else{
 //
                             [[NSNotificationCenter defaultCenter]postNotificationName:@"closeChangePWD_fai" object:nil];
+                            [self.cMgr cancelPeripheralConnection:self.peripheral];
                         }
                         
                     }
@@ -1148,7 +1149,7 @@
     [_cancelBtn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
     _cancelBtn.tag = 101;
     
-    //解除绑定的按钮
+    //绑定的按钮
     _bindBtn = [UIButton new];
     [_scrollView addSubview:_bindBtn];
     //    [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1437,6 +1438,7 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
         //dictGlobal = arr[1];
         PackagInfoModel *modelGlobal = [[PackagInfoModel alloc]init];
         [modelGlobal setValuesForKeysWithDictionary:dictGlobal];
+        _manager.modelGlobal = nil;
         [_manager.modelGlobal setValuesForKeysWithDictionary:dictGlobal];
         //_manager.modelGlobal = nil;
         _manager.isReload = YES;
@@ -1672,6 +1674,9 @@ NSLog(@"===ALPHA%f===scr%f===x%f===y%f",_view.alpha,_scrollView.alpha,_view.fram
 -(void)GetGlobalUI:(PackagInfoModel*)model{
     
     flowInfo.text = [model.product_name stringByRemovingPercentEncoding];
+    if (flowInfo.text.length>13) {
+       // flowInfo.font = [UIFont systemFontOfSize:Name_Device];
+    }
     //使用中的标致
     UILabel *tips = [UILabel new];
     [_view3 addSubview:tips];

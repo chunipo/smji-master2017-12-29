@@ -150,13 +150,13 @@
     view1.backgroundColor = [UIColor clearColor];
     [self.view addSubview:view1];
     
-    UILabel *lab1 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 90, 40)];
-    lab1.text =[NSString stringWithFormat:setCountry(@"redianmingcheng")];
-    lab1.textAlignment = NSTextAlignmentRight;
-    lab1.textColor = [UIColor blackColor];
-    [view1 addSubview:lab1];
+//    UILabel *lab1 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 90, 40)];
+//    lab1.text =[NSString stringWithFormat:setCountry(@"redianmingcheng")];
+//    lab1.textAlignment = NSTextAlignmentRight;
+//    lab1.textColor = [UIColor blackColor];
+//    [view1 addSubview:lab1];
     
-    _wifiName = [[UITextField alloc]initWithFrame:CGRectMake(lab1.maxX, 10, XScreenWidth-lab1.maxX-20, 40)];;
+    _wifiName = [[UITextField alloc]initWithFrame:CGRectMake(20, 11, XScreenWidth-40, 40)];;
     [view1 addSubview:_wifiName];
     
     _wifiName.delegate = self;
@@ -170,25 +170,29 @@
     _wifiName.keyboardType = UIKeyboardTypeNamePhonePad;
     
     _wifiName.rightViewMode = UITextFieldViewModeWhileEditing;
-    UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 25, 12)];
+    UIButton *btn2 = [[UIButton alloc]initWithFrame:CGRectMake(10, 0, 25, 12)];
     //    btn1.backgroundColor =[UIColor redColor];
     [btn2 setImage:[UIImage imageNamed:@"ic_show_password.png"] forState:UIControlStateNormal];
     btn2.tag = 202;
     [btn2 addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
     _wifiPwd.rightView = btn2;
-    
+    //第一条线
+    UIView *line1 = [[UIView alloc]initWithFrame:CGRectMake(_wifiName.x, _wifiName.maxY, _wifiName.width, 1)];
+    line1.backgroundColor = [UIColor grayColor];
+    line1.alpha = 0.2;
+    [view1 addSubview:line1];
     //热点密码
     UIView *view2 = [[UIView alloc]initWithFrame:CGRectMake(0, view1.maxY, XScreenWidth, view1.height)];
-    view2.backgroundColor = [UIColor whiteColor];
+    view2.backgroundColor = [UIColor clearColor];
     [self.view addSubview:view2];
     
-    UILabel *lab2 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 90, 40)];
-    lab2.text =[NSString stringWithFormat:setCountry(@"redianmima")];
-    lab2.textColor = [UIColor blackColor];
-    lab2.textAlignment = NSTextAlignmentRight;
-    [view2 addSubview:lab2];
+//    UILabel *lab2 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 90, 40)];
+//    lab2.text =[NSString stringWithFormat:setCountry(@"redianmima")];
+//    lab2.textColor = [UIColor blackColor];
+//    lab2.textAlignment = NSTextAlignmentRight;
+//    [view2 addSubview:lab2];
     
-    _wifiPwd = [[UITextField alloc]initWithFrame:CGRectMake(lab2.maxX, 10, XScreenWidth-lab2.maxX-20, 40)];;
+    _wifiPwd = [[UITextField alloc]initWithFrame:CGRectMake(20, 11, XScreenWidth-40, 40)];;
     [view2 addSubview:_wifiPwd];
 
     _wifiPwd.delegate = self;
@@ -209,6 +213,11 @@
     [btn1 addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
     _wifiPwd.rightView = btn1;
    // [_wifiPwd becomeFirstResponder];
+    //第二条线
+    UIView *line2 = [[UIView alloc]initWithFrame:CGRectMake(_wifiName.x, _wifiPwd.maxY, _wifiName.width, 1)];
+    line2.backgroundColor = [UIColor grayColor];
+    line2.alpha = 0.2;
+    [view2 addSubview:line2];
     
     //加入热点
     UIButton *joinBtn = [UIButton new];

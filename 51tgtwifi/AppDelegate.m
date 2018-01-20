@@ -16,7 +16,7 @@
 
 
 
-@interface AppDelegate ()
+@interface AppDelegate ()<WXApiDelegate>
 
 @end
 
@@ -55,6 +55,7 @@
 ////        NSArray *lans = @[@"en"];
 ////        [[NSUserDefaults standardUserDefaults] setObject:lans forKey:@"AppleLanguages"];
 //    }
+    //判断地区，后缀来判断
     if ([language1 containsString:@"TW"]) {
         manager.LanguageStr = @"TWD";
     }else if ([language1 containsString:@"CN"]||[language1 containsString:@"zh-Hans"]||[language1 containsString:@"zh-Hant"]){
@@ -71,13 +72,22 @@
 //    paypal支付
     [PayPalMobile initializeWithClientIdsForEnvironments:@{PayPalEnvironmentProduction :PPEnvironmentProduction,PayPalEnvironmentSandbox : PPEnvironmentSandbox}];
     /*******微信注册******/
-    [WXApi registerApp:@"wx7dcabbfab57ab288" ];
+    [WXApi registerApp:WX_appid ];
 
-    //判断是否登陆过设备，有就不用扫描
-  
+    //1.扫描带的是神马狗屁语言 2.判断是否登陆过设备，有就不用扫描
+    NSString *str=@"";
+    if ([language1 containsString:@"en"]){
+        str = [language1 substringToIndex:2];
+    }else if ([language1 containsString:@"ja"]){
+        str = [language1 substringToIndex:2];
+    }else if ([language1 containsString:@"zh-Han"]){
+        str = [language1 substringToIndex:7];
+    }else{
+        str = @"en";
+    }
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:language1 forKey:@"changeLan"];
+    [userDefaults setObject:str forKey:@"changeLan"];
     [userDefaults synchronize];
     NSString *deviceStr = @"";
     if (![userDefaults objectForKey:@"Device"]) {
@@ -143,6 +153,13 @@
     NSLog(@"模拟器语言第一个=##%@##",language1);
 
 }
+
+//9.0后的方法
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options{
+    //这里判断是否发起的请求为微信支付，如果是的话，用WXApi的方法调起微信客户端的支付页面（://pay 之前的那串字符串就是你的APPID，）
+    return  [WXApi handleOpenURL:url delegate:self];
+}
+
 //程序要实现和微信终端交互代理
 
 -(void) onResp:(BaseResp*)resp
@@ -152,10 +169,11 @@
         switch(response.errCode){
             case WXSuccess:
                 //服务器端查询支付通知或查询API返回的结果再提示成功
-                [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"WXpayNotification" object:nil userInfo:nil]];
+                [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"WXpayNotification" object:@"1" userInfo:nil]];
                 break;
             default:
                 //支付失败
+                [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"WXpayNotification" object:@"0" userInfo:nil]];
                 NSLog(@"支付失败，retcode=%d",resp.errCode);
                 break;
         }
