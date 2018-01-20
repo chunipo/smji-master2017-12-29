@@ -188,10 +188,10 @@
     
     btn.tag = 102;
     btn.titleLabel.textAlignment = NSTextAlignmentLeft;
-    [btn setTitle:@"立刻购买" forState:UIControlStateNormal];
+    [btn setTitle:setCountry(@"likegoumai") forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    btn.backgroundColor = [UIColor orangeColor];
+    btn.backgroundColor = BlueColor;
 //    btn.layer.cornerRadius = 10;
     
     
@@ -208,7 +208,7 @@
         
     }];
     
-    view.backgroundColor = [UIColor blackColor];
+    view.backgroundColor = [UIColor colorWithRed:69.0/255.0 green:62.0/255.0 blue:60.0/255.0 alpha:1];
     
     UILabel *_typeLab = [[UILabel alloc]init];
     [view addSubview:_typeLab];

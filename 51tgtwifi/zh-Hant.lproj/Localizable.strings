@@ -5,10 +5,11 @@
   Created by TGT on 2017/10/24.
   Copyright © 2017年 weiyuxiang. All rights reserved.
 */
-//商城标题
+/*商城标题*/
 "title" = "流量商城";
-
-
+//购买界面
+"tijiaodingdan" = "提交訂單中";
+"likegoumai" = "立刻購買";
 //tabbar按钮
 "shouye" = "首頁";
 "shangcheng" = "商城";

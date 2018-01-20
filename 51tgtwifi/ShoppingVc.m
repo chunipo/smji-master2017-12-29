@@ -184,10 +184,7 @@
     _tableView.rowHeight = 225;
     _tableView.tableFooterView = [[UIView alloc]init];
     [self.view addSubview:_tableView];
-    _tableView.alpha = 0;
-    [UIView animateWithDuration:0.3 animations:^{
-        _tableView.alpha = 1;
-    }];
+    
     
 
 }
@@ -228,6 +225,7 @@
     vc.type = @"RMB";
     vc.price = [NSString stringWithFormat:@"%@",[NSNumber numberWithInteger:cell.model.price]];
     _manager.Product_id = [NSString stringWithFormat:@"%@",[NSNumber numberWithInteger:cell.model.ProductId]];
+    _manager.OrderPrice = [NSString stringWithFormat:@"%@",[NSNumber numberWithInt:cell.model.price]];
     [self.navigationController pushViewController:vc animated:YES];
 
     

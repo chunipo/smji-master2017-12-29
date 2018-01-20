@@ -86,40 +86,64 @@
     
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        //make.left.offset(10);
-        make.centerX.mas_equalTo(self);
+        make.left.offset(10);
+        //make.centerX.mas_equalTo(self);
         make.top.offset(30);
+    }];
+    UIImageView *hLinView2 = [UIImageView horizontalSeparateImageView];
+    [self addSubview:hLinView2];
+    [hLinView2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.offset(10);
+        make.height.offset(1);
+        make.right.offset(-10);
+        make.top.equalTo(weakself.titleLabel.mas_bottom).offset(4);
     }];
     
     [self.priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        //make.left.equalTo(weakself.titleLabel);
-        make.centerX.equalTo(self).offset(-20);
+        make.left.equalTo(weakself.titleLabel);
+        //make.centerX.equalTo(self).offset(-20);
         make.top.equalTo(weakself.titleLabel.mas_bottom).offset(17);
     }];
     
     [self.subPriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakself.priceLabel.mas_right);
         //make.centerX.mas_equalTo(self);
-        make.top.equalTo(weakself.titleLabel.mas_bottom).offset(15);
+        make.top.equalTo(weakself.titleLabel.mas_bottom).offset(17);
+    }];
+    UIImageView *hLinView3 = [UIImageView horizontalSeparateImageView];
+    [self addSubview:hLinView3];
+    [hLinView3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.offset(10);
+        make.height.offset(1);
+        make.right.offset(-10);
+        make.top.equalTo(weakself.priceLabel.mas_bottom).offset(4);
     }];
     
     [self.deviceSSID mas_makeConstraints:^(MASConstraintMaker *make) {//设备ssid
-        //make.left.offset(10);
-        make.centerX.mas_equalTo(self);
+        make.left.offset(10);
+        //make.centerX.mas_equalTo(self);
         make.top.equalTo(weakself.priceLabel.mas_bottom).offset(17);
+    }];
+    UIImageView *hLinView4 = [UIImageView horizontalSeparateImageView];
+    [self addSubview:hLinView4];
+    [hLinView4 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.offset(10);
+        make.height.offset(1);
+        make.right.offset(-10);
+        make.top.equalTo(weakself.deviceSSID.mas_bottom).offset(4);
     }];
     
     [self.starTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {//有效时间
-        //make.left.equalTo(weakself.titleLabel);
-        make.centerX.mas_equalTo(self);
-        make.top.equalTo(weakself.deviceSSID.mas_bottom).offset(17);
+        make.left.equalTo(weakself.titleLabel);
+        //make.centerX.mas_equalTo(self);
+        make.top.equalTo(weakself.deviceSSID.mas_bottom).offset(30);
     }];
     
     [self.clickOpenTimeButton mas_makeConstraints:^(MASConstraintMaker *make) {//打开选择器
-        //make.left.equalTo(@-10);
-        make.centerX.mas_equalTo(self);
-        make.top.equalTo(weakself.starTimeLabel.mas_bottom).offset(10);
-        make.width.mas_equalTo(200);
+        make.right.equalTo(self).offset(-10);
+        //make.centerX.mas_equalTo(self);
+        make.top.equalTo(weakself.deviceSSID.mas_bottom).offset(22);
+        make.width.mas_equalTo(100);
     }];
     
     [self.datePicker mas_makeConstraints:^(MASConstraintMaker *make) {//选择器
@@ -151,11 +175,12 @@
     UIImageView *hLinView = [UIImageView horizontalSeparateImageView];
     [self addSubview:hLinView];
     [hLinView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.offset(10);
-        make.height.offset(1);
-        make.right.offset(-10);
-        make.top.equalTo(weakself.clickOpenTimeButton.mas_bottom).offset(30);
+        make.left.offset(0);
+        make.height.offset(8);
+        make.right.offset(0);
+        make.top.equalTo(weakself.clickOpenTimeButton.mas_bottom).offset(10);
     }];
+    
     
     [self.alipayImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.offset(20);
@@ -182,11 +207,28 @@
         make.right.offset(-20);
         make.centerY.equalTo(weakself.weixinImage);
     }];
+    UIImageView *weixinLineTop = [UIImageView horizontalSeparateImageView];
+    [self addSubview:weixinLineTop];
+    [weixinLineTop mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.offset(0);
+        make.height.offset(1);
+        make.right.offset(0);
+        make.bottom.equalTo(weakself.weixinImage.mas_top).offset(-15);
+    }];
+    UIImageView *weixinLineBottom = [UIImageView horizontalSeparateImageView];
+    [self addSubview:weixinLineBottom];
+    [weixinLineBottom mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.offset(0);
+        make.height.offset(1);
+        make.right.offset(0);
+        make.top.equalTo(weakself.weixinImage.mas_bottom).offset(15);
+    }];
 
     [self.payButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.offset(-40);
         make.left.offset(55/2);
         make.right.offset(-55/2);
+        make.height.mas_equalTo(50);
     }];
 }
 
@@ -195,7 +237,7 @@
 {
     
     if (!_deviceSSID) {
-        _deviceSSID = [UILabel labelWithText:[NSString stringWithFormat:@"设备SSID：%@",[YXManager share].ScanID]  atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
+        _deviceSSID = [UILabel labelWithText:[NSString stringWithFormat:@"%@  %@",setCountry(@"shebeissid"),[YXManager share].ScanID]  atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
         [self addSubview:_deviceSSID];
     }
     return _deviceSSID;
@@ -204,7 +246,7 @@
 {
     
     if (!_titleLabel) {
-        _titleLabel = [UILabel labelWithText:[NSString stringWithFormat:@"产品名称：%@",[YXManager share].OrderName]  atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
+        _titleLabel = [UILabel labelWithText:[NSString stringWithFormat:@"%@：%@",setCountry(@"changpinmincheng"),[YXManager share].OrderName]  atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
         [self addSubview:_titleLabel];
     }
     return _titleLabel;
@@ -213,7 +255,7 @@
 -(UILabel *)priceLabel
 {
     if (!_priceLabel) {
-        _priceLabel = [UILabel labelWithText:@"RMB " atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
+        _priceLabel = [UILabel labelWithText:[NSString stringWithFormat:@"%@： RMB ",setCountry(@"chanpinjiage")] atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
         [self addSubview:_priceLabel];
     }
     return _priceLabel;
@@ -222,7 +264,7 @@
 -(UILabel *)subPriceLabel
 {
     if (!_subPriceLabel) {
-        _subPriceLabel = [UILabel labelWithText:@"0.01" atColor:Red_Color atTextSize:19 atTextFontForType:Common_Font];
+        _subPriceLabel = [UILabel labelWithText:[YXManager share].OrderPrice atColor:Red_Color atTextSize:15 atTextFontForType:Common_Font];
         [self addSubview:_subPriceLabel];
     }
     return _subPriceLabel;
@@ -235,7 +277,7 @@
         //[forMatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         [forMatter setDateFormat:@"yyyy-MM-dd"];
         NSString *dateStr = [forMatter stringFromDate:date];
-        _starTimeLabel = [UILabel labelWithText:[NSString stringWithFormat:@"生效时间：%@ ",dateStr] atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
+        _starTimeLabel = [UILabel labelWithText:[NSString stringWithFormat:@"%@：%@ ",setCountry(@"shengxiaoshijian"),dateStr] atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
         [self addSubview:_starTimeLabel];
     }
     return _starTimeLabel;
@@ -244,11 +286,14 @@
 -(UIButton *)clickOpenTimeButton
 {
     if (!_clickOpenTimeButton) {
-        _clickOpenTimeButton = [UIButton buttonWithTitle:@"重新选择产品开始时间" atNormalImageName:nil atSelectedImageName:nil atTarget:self atAction:@selector(buttonAction:)];
+        _clickOpenTimeButton = [UIButton buttonWithTitle:@"修改日期" atNormalImageName:nil atSelectedImageName:nil atTarget:self atAction:@selector(buttonAction:)];
         _clickOpenTimeButton.titleLabel.font = [UIFont systemFontOfSize:17];
         _clickOpenTimeButton.tag = 4;
-        [_clickOpenTimeButton setTitleColor:BlueColor forState:UIControlStateNormal];
-        _clickOpenTimeButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+        _clickOpenTimeButton.layer.borderWidth = 1;
+        _clickOpenTimeButton.layer.borderColor =[UIColor colorWithRed:252.0/255.0 green:87.0/255.0 blue:89.0/255.0 alpha:1].CGColor;
+        _clickOpenTimeButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        [_clickOpenTimeButton setTitleColor: [UIColor colorWithRed:252.0/255.0 green:87.0/255.0 blue:89.0/255.0 alpha:1] forState:UIControlStateNormal];
+        _clickOpenTimeButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_clickOpenTimeButton];
     }
     return _clickOpenTimeButton;
@@ -288,7 +333,7 @@
     if (!_datePicker) {
         _datePicker = [[UIDatePicker alloc]init];
         _datePicker.backgroundColor = GrayColorself;
-        _datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh"];
+        //_datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh"];
         _datePicker.datePickerMode = UIDatePickerModeDate;
         NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
         NSDate *currentDate = [NSDate date];

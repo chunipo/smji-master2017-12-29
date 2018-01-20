@@ -15,6 +15,7 @@
 @interface PayViewController ()<PayViewDelegate,PayPalPaymentDelegate,WXApiDelegate>
 {
     YXManager         *_manager;
+    MBProgressHUD     *hud;
 }
 @property (nonatomic, strong)PayView *payView;
 
@@ -71,6 +72,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     // Start out working with the test environment! When you are ready, switch to PayPalEnvironmentProduction.
     /// 真实交易环境-也就是上架之后的环境
     //extern NSString * _Nonnull const PayPalEnvironmentProduction;
@@ -115,7 +117,7 @@
     UILabel *TitleText = [UILabel new];
     [_TitleView addSubview:TitleText];
     
-    TitleText.text = @"支付订单";
+    TitleText.text = setCountry(@"tijiaodindan");
     TitleText.textColor = [UIColor whiteColor];
     
     [TitleText mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -133,18 +135,19 @@
     [_TitleView addSubview:btn];
     
     [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_TitleView).offset(0);
+        make.left.equalTo(_TitleView).offset(10);
         
         make.centerY.equalTo(TitleText);
         
-        make.size.mas_equalTo(CGSizeMake(80, 80));
+        make.size.mas_equalTo(CGSizeMake(35, 30));
         
         
     }];
     
     btn.tag = 101;
     btn.titleLabel.textAlignment = NSTextAlignmentLeft;
-    [btn setTitle:@"取消" forState:UIControlStateNormal];
+    //    [btn setTitle:@"返回" forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"ic_arrow_back_white.png"] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
 
 }
@@ -159,7 +162,7 @@
 /***1 支付宝支付   2微信支付*/
 -(void)InitiatePaymentWithPayType:(NSInteger)type
 {
-
+    [self showSchdu];
     if (type==1) {
 
         [self payPal];
@@ -194,7 +197,7 @@
 //    self.prepayid = @"wx201705101116004d23fa269b0224245096";
 //    self.timestamp = @"1494386160";
     //获取当前的时间戳
-    
+    [self hideSchdu];
     if([WXApi isWXAppInstalled]) // 判断 用户是否安装微信
     {
         //保存订单id，支付成功返回给服务器
@@ -403,6 +406,24 @@
     
     return [text boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
     
+}
+
+
+#pragma mark - 显示进度条
+
+-(void)showSchdu{
+    hud =   [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    // hud.mode = MBProgressHUDModeIndeterminate;
+    //    NSString *str = @"设置中";
+    NSString *str = setCountry(@"tijiaodingdan");
+    hud.label.text = NSLocalizedString(str, @"HUD loading title");
+    hud.color = [UIColor grayColor];
+    [hud showAnimated:YES];
+}
+
+-(void)hideSchdu{
+    [hud hideAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

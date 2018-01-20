@@ -30,7 +30,9 @@
 
 @property (nonatomic, strong)NSString *OrderName;//订单名称
 @property (nonatomic, strong)NSString *Product_id;//订单id
+@property (nonatomic, strong)NSString *OrderPrice;//订单价格
 @property (nonatomic, strong)NSString *out_order_no;//支付成返回给服务器
+
 
 @property (strong, nonatomic)NSString *str;
 
