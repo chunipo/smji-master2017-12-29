@@ -358,7 +358,7 @@
     NSString *str = setCountry(@"shezhizhong");
     hud.label.text = NSLocalizedString(str, @"HUD loading title");
     
-    hud.color = [UIColor grayColor];
+    hud.color = GrayColorself;
     
     [hud showAnimated:YES];
 }

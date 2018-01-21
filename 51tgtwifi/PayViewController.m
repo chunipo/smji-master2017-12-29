@@ -123,7 +123,7 @@
     [TitleText mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.center.equalTo(_TitleView);
-        make.size.mas_equalTo(CGSizeMake(100, 100));
+        make.size.mas_equalTo(CGSizeMake(200, 100));
     }];
     
     TitleText.textAlignment = NSTextAlignmentCenter;
@@ -176,7 +176,7 @@
 }
 
 -(void)WXrequestSever{
-    NSString *url = [NSString stringWithFormat:payTosever,PicHead,_manager.ScanID,_manager.Product_id];
+    NSString *url = [NSString stringWithFormat:payTosever,PicHead,_manager.ScanID,_manager.Product_id,_manager.TimeStr];
     NSLog(@"===付款url%@",url);
     [NetWork sendGetNetWorkWithUrl:url parameters:nil hudView:self.view successBlock:^(id data) {
         WeChatOrderModel *model = [[WeChatOrderModel alloc]init];
@@ -418,7 +418,7 @@
     //    NSString *str = @"设置中";
     NSString *str = setCountry(@"tijiaodingdan");
     hud.label.text = NSLocalizedString(str, @"HUD loading title");
-    hud.color = [UIColor grayColor];
+    hud.color = GrayColorself;
     [hud showAnimated:YES];
 }
 

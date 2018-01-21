@@ -439,7 +439,7 @@ dispatch_async(dispatch_get_main_queue(), ^{
     
     hud.mode = MBProgressHUDModeIndeterminate;
     
-    hud.color = [UIColor grayColor];
+    hud.color = GrayColorself;
     
     [hud showAnimated:YES];
 }

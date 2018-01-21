@@ -42,11 +42,11 @@
 //#define DoorOpen @"http://mall.51tgt.com/FyjApp/GetFlowProducts?ssid=%@&type=RMB"
 
 #define PicHead  @"http://as2.51tgt.com"//测试
-//#define PicHead  @"http://mall.51tgt.com"
+//#define PicHead  @"http://mall.51tgt.com"//正式
 #define url(a) [PicHead stringByAppendingString:a]
 
 //第一次支付
-#define payTosever @"%@/FyjApp/WxPurchaseProduct?ssid=%@&product_id=%@"
+#define payTosever @"%@/FyjApp/WxPurchaseProduct?ssid=%@&product_id=%@&start_date=%@"
 //支付成功回调给服务器
 #define returnSeverSuc @"%@/FyjApp/QueryWxOrder?out_order_no=%@"
 

@@ -69,6 +69,7 @@
             //[forMatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             [forMatter setDateFormat:@"yyyy-MM-dd"];
             NSString *dateStr = [forMatter stringFromDate:date];
+            [YXManager share].TimeStr = dateStr;
             _starTimeLabel.text = [NSString stringWithFormat:@"生效时间：%@ ",dateStr];
             break;
         }
@@ -255,7 +256,15 @@
 -(UILabel *)priceLabel
 {
     if (!_priceLabel) {
-        _priceLabel = [UILabel labelWithText:[NSString stringWithFormat:@"%@： RMB ",setCountry(@"chanpinjiage")] atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
+        NSString *MoneyType;
+        if ([[YXManager share].TrueLanguageStr containsString:@"zh-H"]) {
+            MoneyType = @"￥";
+        }else if([[YXManager share].TrueLanguageStr containsString:@"ja"]){
+            MoneyType = @"JPY";
+        }else{
+            MoneyType = @"$";
+        }
+        _priceLabel = [UILabel labelWithText:[NSString stringWithFormat:@"%@： %@ ",setCountry(@"chanpinjiage"),MoneyType] atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
         [self addSubview:_priceLabel];
     }
     return _priceLabel;
@@ -277,6 +286,7 @@
         //[forMatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         [forMatter setDateFormat:@"yyyy-MM-dd"];
         NSString *dateStr = [forMatter stringFromDate:date];
+        [YXManager share].TimeStr = dateStr;
         _starTimeLabel = [UILabel labelWithText:[NSString stringWithFormat:@"%@：%@ ",setCountry(@"shengxiaoshijian"),dateStr] atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
         [self addSubview:_starTimeLabel];
     }
@@ -417,7 +427,9 @@
     if (!_payButton) {
         _payButton = [UIButton buttonWithTitle:@"去支付" atTitleSize:18 atTitleColor:White_Color atTarget:self atAction:@selector(buttonAction:)];
         _payButton.tag = 3;
-        [_payButton setBackgroundImage:UIImageName(@"button_bg_red") forState:UIControlStateNormal];
+        //[_payButton setBackgroundImage:UIImageName(@"button_bg_red") forState:UIControlStateNormal];
+        _payButton.backgroundColor = BlueColor;
+        _payButton.layer.cornerRadius = 15;
         [self addSubview:_payButton];
     }
     return _payButton;

@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "MainTabbarController.h"
 #import "MainNavVc.h"
+#import "YXManager.h"
 
 @interface LanguageViewController ()<UITableViewDelegate,UITableViewDataSource,MBProgressHUDDelegate>
 
@@ -25,6 +26,7 @@
     UIView          *_TitleView;
     
     MBProgressHUD   *hud;
+    YXManager       *_manager;
     
 }
 
@@ -35,6 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _manager = [YXManager share];
     self.view.backgroundColor = [UIColor colorWithRed:244.0/255.0 green:244.0/255.0 blue:244.0/255.0 alpha:1];
     _isWhatLanguage = 0;
     [self islang];
@@ -68,7 +71,7 @@
     
     hud.mode = MBProgressHUDModeIndeterminate;
     
-    hud.color = [UIColor grayColor];
+    hud.color = GrayColorself;
     
     [hud showAnimated:YES];
 }
@@ -203,6 +206,7 @@
         NSLog(@"===strmut%@",deviceStr);
       
             strMut =lans.firstObject;
+            _manager.TrueLanguageStr = strMut;
             [userDefaults removeObjectForKey:@"changeLan"];
             [[NSUserDefaults standardUserDefaults]synchronize];
             [[NSUserDefaults standardUserDefaults ]setObject:strMut forKey:@"changeLan"];

@@ -85,7 +85,7 @@
     }else{
         str = @"en";
     }
-    
+    manager.TrueLanguageStr = str;
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:str forKey:@"changeLan"];
     [userDefaults synchronize];

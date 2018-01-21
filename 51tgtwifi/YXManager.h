@@ -25,12 +25,14 @@
 @property (strong, nonatomic)NSString *WIFIpwd;//外设热点密码
 @property (strong, nonatomic)NSString *WIFIname;//外设热点密码
 
-@property (strong, nonatomic)NSString *LanguageStr;//国家语言
+@property (strong, nonatomic)NSString *LanguageStr;//地区
+@property (strong, nonatomic)NSString *TrueLanguageStr;//设置的app语言
 @property (strong, nonatomic)NSString *ScanID;//扫描二维码得到的
 
 @property (nonatomic, strong)NSString *OrderName;//订单名称
 @property (nonatomic, strong)NSString *Product_id;//订单id
 @property (nonatomic, strong)NSString *OrderPrice;//订单价格
+@property (nonatomic, strong)NSString *TimeStr;//订单开始时间（时间戳）
 @property (nonatomic, strong)NSString *out_order_no;//支付成返回给服务器
 
 

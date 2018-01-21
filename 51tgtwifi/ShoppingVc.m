@@ -101,10 +101,18 @@
 
     [self showSchdu];
     NSString *str ;
+    NSString *MoneyType;
+    if ([_manager.TrueLanguageStr containsString:@"zh-H"]) {
+        MoneyType = @"RMB";
+    }else if([_manager.TrueLanguageStr containsString:@"ja"]){
+        MoneyType = @"JPY";
+    }else{
+        MoneyType = @"USD";
+    }
     if (isBeta) {
         str = [NSString stringWithFormat:DoorOpen,PicHead,@"TGT23170126536",@"RMB"];
     }else{
-        str = [NSString stringWithFormat:DoorOpen,PicHead,_manager.ScanID,_manager.LanguageStr];
+        str = [NSString stringWithFormat:DoorOpen,PicHead,_manager.ScanID,MoneyType];
     }
     
     [NetWork sendGetNetWorkWithUrl:str parameters:nil hudView:self.view successBlock:^(id data) {
@@ -221,8 +229,8 @@
     
     vc.DetailUrl =  ((ProductMo *)_arr[indexPath.row]).url;
     vc.DetailTitle =  ((ProductMo *)_arr[indexPath.row]).title;
-    //vc.type =  ((ProductMo *)_arr[indexPath.row]).price_type;
-    vc.type = @"RMB";
+    vc.type =  ((ProductMo *)_arr[indexPath.row]).price_type;
+    //vc.type = @"RMB";
     vc.price = [NSString stringWithFormat:@"%@",[NSNumber numberWithInteger:cell.model.price]];
     _manager.Product_id = [NSString stringWithFormat:@"%@",[NSNumber numberWithInteger:cell.model.ProductId]];
     _manager.OrderPrice = [NSString stringWithFormat:@"%@",[NSNumber numberWithInt:cell.model.price]];
