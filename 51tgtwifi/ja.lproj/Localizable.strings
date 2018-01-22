@@ -14,7 +14,9 @@
 "changpinmincheng" = "製品名";
 "chanpinjiage" = "製品価格";
 "shengxiaoshijian" = "有効時間";
-
+"quzhifu" = "支払う";
+"weixinzhifu" = "WeChat Pay";
+"xiugairiqi" = "変更";
 //tabbar按钮
 "shouye" = "ホーム";
 "shangcheng" = "モール";

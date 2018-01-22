@@ -53,17 +53,13 @@
     _manager = [YXManager share];
     // 初始化数组
     _arr = [NSMutableArray arrayWithCapacity:0];
-    
     // 背景图片
     [self setBackgroudImage];
-    
-    // 创建tableview
+    // 创建标题
     [self HeadTitle];
-    
-    // 网络请求测试
+    // 网络请求
     [self httpRequest];
-    
-    //加载旋转视图
+  
     
 
 
@@ -97,8 +93,6 @@
 
 #pragma mark -网络请求数据
 -(void)httpRequest{
-
-
     [self showSchdu];
     NSString *str ;
     NSString *MoneyType;
@@ -129,8 +123,10 @@
                 [_arr addObject:ProModel];
             }
             
-            
+        if (!_tableView) {
             [self createTableView];
+        }
+        
             
         } failureBlock:^(NSString *error) {
             [self hideSchdu];
@@ -189,7 +185,8 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     
-    _tableView.rowHeight = 225;
+    //_tableView.rowHeight = 225;
+    _tableView.rowHeight = 420*XScreenWidth/603+60;
     _tableView.tableFooterView = [[UIView alloc]init];
     [self.view addSubview:_tableView];
     

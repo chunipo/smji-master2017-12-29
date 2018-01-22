@@ -14,6 +14,8 @@
 /**支付  1支付宝  2 微信*/
 -(void)InitiatePaymentWithPayType:(NSInteger )type;
 
+/*点击展示订单全称的代理噢*/
+-(void)ShowOrderName:(NSString*)OrderName andProduct:(NSString *)dingdanming;
 @end
 
 @interface PayView : UIView

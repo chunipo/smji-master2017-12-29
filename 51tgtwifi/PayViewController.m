@@ -55,6 +55,23 @@
 {
     BOOL _isReceiveNotification;//是否接收到充值通知
 }
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    // 禁用返回手势
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    // 开启返回手势
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    }
+}
 
 #pragma mark -- paypal支付
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
@@ -185,6 +202,8 @@
         
     } failureBlock:^(NSString *error) {
         NSLog(@"======付款向服务器提交失败=======");
+        [self hideSchdu];
+        //[self setFai];
     }];
 }
 -(void)weixinPay:(WeChatOrderModel *)model
@@ -324,6 +343,15 @@
     return _payView;
 }
 
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#pragma mark 手势点击展示订单全称的代理
+-(void)ShowOrderName:(NSString *)OrderName andProduct:(NSString *)dingdanming{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:dingdanming message:OrderName preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:setCountry(@"haode") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }]];
+    [self presentViewController:alert animated:true completion:nil];
+}
 
 #pragma mark -修改成功/失败弹窗
 -(void)setFai{

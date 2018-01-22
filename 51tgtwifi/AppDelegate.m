@@ -77,9 +77,9 @@
     //1.扫描带的是神马狗屁语言 2.判断是否登陆过设备，有就不用扫描
     NSString *str=@"";
     if ([language1 containsString:@"en"]){
-        str = [language1 substringToIndex:2];
+        str = @"en";
     }else if ([language1 containsString:@"ja"]){
-        str = [language1 substringToIndex:2];
+        str = @"ja";
     }else if ([language1 containsString:@"zh-Han"]){
         str = [language1 substringToIndex:7];
     }else{

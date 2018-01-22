@@ -58,7 +58,7 @@
 //    [self.view addSubview:navView];
 //    [navView initWithTitleName:@"扫描二维码"];
     //相册
-    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(XScreenWidth-80, 30+X_bang, 80, 40)];
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(XScreenWidth-90, 30+X_bang, 90, 40)];
     [btn setTitle:setCountry(@"xiangce") forState:UIControlStateNormal];
     [btn setShowsTouchWhenHighlighted:YES];
     // [btn setTintColor:UIControlStateNormal];

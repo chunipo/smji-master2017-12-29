@@ -27,5 +27,9 @@ typedef void(^FailureBlock)(NSString *error);
 
 -(BOOL)hideSchedule;
 
+/*自定义文字高度*/
++(CGFloat)setAttributesHeightText:(NSString *)text andFont:(UIFont*)font andMargin:(CGFloat)kMargin;
+
+
 
 @end

@@ -15,6 +15,9 @@
 "chanpinjiage" = "产品价格";
 "shengxiaoshijian" = "生效时间";
 
+"quzhifu" = "去支付";
+"weixinzhifu" = "微信支付";
+"xiugairiqi" = "修改日期";
 //tabbar按钮
 "shouye" = "首页";
 "shangcheng" = "商城";

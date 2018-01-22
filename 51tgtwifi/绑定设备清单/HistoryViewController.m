@@ -135,8 +135,8 @@
     //     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor =[UIColor colorWithRed:244.0/255.0 green:244.0/255.0 blue:244.0/255.0 alpha:1];
     
-    cell.textLabel.text =[NSString stringWithFormat:@"共享WiFi翻译机    %@",_arr[indexPath.row]];
-    cell.textLabel.font = [UIFont systemFontOfSize:17];
+    cell.textLabel.text =[NSString stringWithFormat:@"百度共享WiFi翻译机    %@",_arr[indexPath.row]];
+    cell.textLabel.font = [UIFont systemFontOfSize:16];
     cell.imageView.image = [UIImage imageNamed:@"historyImg.png"];
     
     
@@ -152,7 +152,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     NSString *str = [cell.textLabel.text stringByReplacingOccurrencesOfString:@"共享WiFi翻译机    " withString:@""];
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:setCountry(@"shifouchongxinlianjieshebei")] preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"%@", setCountry(@"shifouchongxinlianjieshebei")] preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:setCountry(@"quxiao") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }]];

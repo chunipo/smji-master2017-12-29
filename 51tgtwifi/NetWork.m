@@ -177,6 +177,12 @@
 
 }
 
++(CGFloat)setAttributesHeightText:(NSString *)text andFont:(UIFont*)font andMargin:(CGFloat)kMargin{
+    
+    CGRect tmpRect = [text boundingRectWithSize:CGSizeMake(XScreenWidth-2*kMargin, 1000) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName, nil] context:nil];
+    
+    return ceilf(tmpRect.size.height);
+}
 
 //-(void)changgeColor{
 //    [UIColor colorWithRed:arc4random()%11*0.1 green:arc4random()%11*0.1  blue:arc4random()%11*0.1  alpha:0.8];

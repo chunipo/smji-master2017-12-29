@@ -306,7 +306,7 @@
     
     
      _arr = @[@[str2,str3,str4],@[str8,str10,str11,str7],@[str12]];
-     _arrImg = @[@[@"ic_setting_modify_password.png",@"ic_setting_apn.png",@"ic_connect_wifi.png"],@[@"ic_setting_blacklist.png",@"ic_setting_blacklist.png",@"ic_setting_blacklist.png",@"ic_setting_blacklist.png"],@[@"ic_setting_tip_language.png"]];
+     _arrImg = @[@[@"ic_setting_modify_password.png",@"ic_setting_apn.png",@"ic_connect_wifi.png"],@[@"heimingdan.png",@"banbenhao.png",@"ic_setting_blacklist.png",@"duoyuyan.png"],@[@"ic_setting_tip_language.png"]];
     _tableView.tableHeaderView =[self headView] ;
 
 }

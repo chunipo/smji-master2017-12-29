@@ -90,7 +90,7 @@
     
     
     
-    _imageView.frame = CGRectMake(0, 0, XScreenWidth, 170);
+    _imageView.frame = CGRectMake(0, 0, XScreenWidth, 421*XScreenWidth/600);
     
     _title.frame = CGRectMake(10,_imageView.maxY, XScreenWidth/2, 50);
     _title.numberOfLines = 0;

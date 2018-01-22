@@ -12,6 +12,7 @@
 @implementation PayView
 {
     NSInteger index;
+    CGFloat    _height;
 }
 -(instancetype)initWithFrame:(CGRect)frame
 {
@@ -248,6 +249,9 @@
     
     if (!_titleLabel) {
         _titleLabel = [UILabel labelWithText:[NSString stringWithFormat:@"%@：%@",setCountry(@"changpinmincheng"),[YXManager share].OrderName]  atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
+        _titleLabel.numberOfLines = 0;
+        _titleLabel.userInteractionEnabled = YES;
+        [_titleLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTap:)]];
         [self addSubview:_titleLabel];
     }
     return _titleLabel;
@@ -296,7 +300,7 @@
 -(UIButton *)clickOpenTimeButton
 {
     if (!_clickOpenTimeButton) {
-        _clickOpenTimeButton = [UIButton buttonWithTitle:@"修改日期" atNormalImageName:nil atSelectedImageName:nil atTarget:self atAction:@selector(buttonAction:)];
+        _clickOpenTimeButton = [UIButton buttonWithTitle:setCountry(@"xiugairiqi") atNormalImageName:nil atSelectedImageName:nil atTarget:self atAction:@selector(buttonAction:)];
         _clickOpenTimeButton.titleLabel.font = [UIFont systemFontOfSize:17];
         _clickOpenTimeButton.tag = 4;
         _clickOpenTimeButton.layer.borderWidth = 1;
@@ -405,7 +409,7 @@
 -(UILabel *)weixinLabel
 {
     if (!_weixinLabel) {
-        _weixinLabel = [UILabel labelWithText:@"微信支付" atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
+        _weixinLabel = [UILabel labelWithText:setCountry(@"weixinzhifu") atColor:Black_Color atTextSize:15 atTextFontForType:Common_Font];
         [self addSubview:_weixinLabel];
     }
     return _weixinLabel;
@@ -425,7 +429,7 @@
 -(UIButton *)payButton
 {
     if (!_payButton) {
-        _payButton = [UIButton buttonWithTitle:@"去支付" atTitleSize:18 atTitleColor:White_Color atTarget:self atAction:@selector(buttonAction:)];
+        _payButton = [UIButton buttonWithTitle:setCountry(@"quzhifu") atTitleSize:18 atTitleColor:White_Color atTarget:self atAction:@selector(buttonAction:)];
         _payButton.tag = 3;
         //[_payButton setBackgroundImage:UIImageName(@"button_bg_red") forState:UIControlStateNormal];
         _payButton.backgroundColor = BlueColor;
@@ -435,7 +439,13 @@
     return _payButton;
 }
 
-
+#pragma mark 手势点击展示产品名称全称
+-(void)labelTap:(UIGestureRecognizer *)labTap{
+    UILabel *lab =(UILabel *) labTap.view;
+    if ([self.delegate respondsToSelector:@selector(ShowOrderName: andProduct:)]) {
+        [self.delegate ShowOrderName:lab.text andProduct:setCountry(@"changpinmincheng")];
+    }
+}
 
 
 @end
