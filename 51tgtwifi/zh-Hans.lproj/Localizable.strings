@@ -70,7 +70,7 @@
 "shururedianmima" = "输入热点密码";
 "jiaru" = "加  入";
 "duankai" = "断  开";
-"lianjietishi" = "连接提示:\n1.确保已开启热点\n2.确保热点密码正确\n";
+"lianjietishi" = "连接提示:\n1.设备自身在热点模式下无法连接外界的WiFi\n2.确保已开启热点\n3.确保热点密码正确\n";
 "shurumimaweishubugou" = "输入的热点密码小于8位，是否要连接该热点？";
 "lianjie" = "连接";
 "shezhizhong" = "设置中...";

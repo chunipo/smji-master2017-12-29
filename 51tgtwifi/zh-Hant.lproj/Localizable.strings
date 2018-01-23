@@ -64,7 +64,7 @@
 "shururedianmima" = "輸入熱點密碼";
 "jiaru" = "加 入";
 "duankai" = "斷 開";
-"lianjietishi" = "連接提示:\n1.確保已開啟熱點\n2.確保熱點密碼正確\n";
+"lianjietishi" = "連接提示:\n1.設備自身在熱點模式下無法連接外界的WiFi\n2.確保已開啟熱點\n3.確保熱點密碼正確\n";
 "shurumimaweishubugou" = "輸入的熱點密碼小於8位，是否要連接該熱點？";
 "lianjie" = "連接";
 "shezhizhong" = "設置中...";

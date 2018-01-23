@@ -27,23 +27,15 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
- 
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _manager = [YXManager share];
-
-    
     [self HeadTitle];
-
     [self webview];
-    
     [self showSchdu];
-    
-
 }
 
 #pragma mark - 显示进度条
@@ -54,14 +46,9 @@
 
 -(void)hideSchdu{
     [_loadView hideLoadingView];
-    
 }
 
 -(void)webview{
-  
-
-    
-    
     UIWebView *webV = [[UIWebView alloc]initWithFrame:CGRectMake(0, 20+44+X_bang, XScreenWidth, XScreenHeight-44-20-X_bang-49-X_bottom)];
     NSURLRequest *request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:url(_DetailUrl)]];
     
@@ -76,10 +63,6 @@
 //    禁止拖拽
     webV.scrollView.bounces = YES;
     webV.scrollView.alwaysBounceHorizontal = NO;
-   
-    
-    
-
 }
 
 

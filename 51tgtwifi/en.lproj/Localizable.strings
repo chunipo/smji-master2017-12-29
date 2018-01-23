@@ -63,7 +63,7 @@
 "shururedianmingcheng" = "Enter the hotspot name";
 "jiaru" = "Join";
 "duankai" = "Disconnect";
-"lianjietishi" = "Connection Tip: \n1. Make sure the hotspot is turned on \n2. Make sure the hotspot password is correct \n";
+"lianjietishi" = "Connection Tip: \n1.The device itself in hot mode can not connect to the outside WiFi\n2. Make sure the hotspot is turned on \n3. Make sure the hotspot password is correct \n";
 "shurumimaweishubugou" = "Enter the hot password is less than 8, whether to connect the hot?";
 "lianjie" = "connection";
 "shezhizhong" = "Set in...";
