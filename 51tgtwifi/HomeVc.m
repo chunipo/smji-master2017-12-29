@@ -539,6 +539,7 @@
     [self setBackgroudImage];
     [self addScrView];
     [self showDeviceInfo];
+    
     //判断是否扫描是为了防止创建两个中心设备
     if (_manager.isScan&&_manager.isBind) {
         CBUUID *uuid = [CBUUID UUIDWithString:@"FFF0"];
@@ -587,8 +588,7 @@
 }
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
-   
-//
+
 }
 
 -(void)viewDidDisappear:(BOOL)animated{

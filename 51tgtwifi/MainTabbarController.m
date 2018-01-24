@@ -54,8 +54,8 @@
     [super viewWillAppear:animated];
     
     _arr2 = [NSMutableArray array];
-    
     [self createUI];
+    
 
 }
 

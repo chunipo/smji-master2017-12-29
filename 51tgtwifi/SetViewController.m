@@ -103,8 +103,6 @@
             //获取键盘上端Y坐标
             CGFloat keyboardY = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y;
             //获取输入框下端相对于window的Y坐标
-            CGRect rect = [_view_wifi convertRect:_view_wifi.bounds toView:[[[UIApplication sharedApplication] delegate] window]];
-            CGPoint tmp = rect.origin;
             CGFloat inputBoxY = _view_wifi.maxY;
             //计算二者差值
             CGFloat ty = keyboardY - inputBoxY;
@@ -135,8 +133,6 @@
             //获取键盘上端Y坐标
             CGFloat keyboardY = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y;
             //获取输入框下端相对于window的Y坐标
-            CGRect rect = [_view_APN convertRect:_view_APN.bounds toView:[[[UIApplication sharedApplication] delegate] window]];
-            CGPoint tmp = rect.origin;
             CGFloat inputBoxY = _view_APN.maxY;
             //计算二者差值
             CGFloat ty = keyboardY - inputBoxY;

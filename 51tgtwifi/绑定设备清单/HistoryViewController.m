@@ -150,7 +150,7 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     //   点击闪一闪
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    NSString *str = [cell.textLabel.text stringByReplacingOccurrencesOfString:@"共享WiFi翻译机    " withString:@""];
+    NSString *str = [cell.textLabel.text stringByReplacingOccurrencesOfString:@"百度共享WiFi翻译机    " withString:@""];
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"%@", setCountry(@"shifouchongxinlianjieshebei")] preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:setCountry(@"quxiao") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
